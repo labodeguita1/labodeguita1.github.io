@@ -188,6 +188,15 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
+        <!-- Barra de búsqueda -->
+        <div style="margin-top: 1rem; text-align: center;">
+            <input 
+                type="text" 
+                id="barra-busqueda" 
+                placeholder="Buscar producto..." 
+                style="padding: 0.5rem; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;"
+            >
+        </div>
     </header>
 
     <section class="hero">
@@ -211,7 +220,7 @@
             <button class="btn agregar-al-carrito" data-id="2" data-nombre="Jabón" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
-        <div class="producto" data-id="3" data-disponible="false">
+        <div class="producto" data-id="3" data-disponible="true">
             <img src="detergente.jpg" alt="Detergente">
             <h3>Detergente</h3>
             <p>Precio: $7.00</p>
@@ -274,8 +283,7 @@
     
             localStorage.setItem('carrito', JSON.stringify(carrito));
     
-            // Crear una nueva instancia de Audio y reproducir el sonido inmediatamente
-            const sonidoAgregar = new Audio('sonido.mp3'); // Ruta al archivo de sonido
+            const sonidoAgregar = new Audio('sonido.mp3');
             sonidoAgregar.play();
     
             actualizarContadorCarrito();
@@ -298,16 +306,35 @@
             }
         });
     
-        // Actualizar el contador del carrito cada segundo
         setInterval(() => {
-            carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Obtener el carrito actualizado
+            carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             actualizarContadorCarrito();
         }, 1000);
     
-        // Inicializar el contador al cargar la página
         actualizarContadorCarrito();
-    </script>
     
+       // Función para quitar tildes de un texto
+function quitarTildes(texto) {
+    return texto
+        .normalize('NFD') // Normaliza el texto para separar las tildes de las letras
+        .replace(/[\u0300-\u036f]/g, '') // Elimina los caracteres diacríticos (tildes)
+        .toLowerCase(); // Convierte el texto a minúsculas
+}
+
+// Barra de búsqueda
+const barraBusqueda = document.getElementById('barra-busqueda');
+const productos = document.querySelectorAll('.producto');
+
+barraBusqueda.addEventListener('input', (event) => {
+    const filtro = quitarTildes(event.target.value); // Normaliza el texto ingresado
+
+    productos.forEach(producto => {
+        const nombreProducto = quitarTildes(producto.querySelector('h3').textContent); // Normaliza el texto del producto
+        producto.style.display = nombreProducto.includes(filtro) ? '' : 'none'; // Muestra u oculta el producto
+    });
+});
+
+    </script>
     
 </body>
 </html>
