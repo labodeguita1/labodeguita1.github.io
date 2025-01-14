@@ -60,20 +60,18 @@
             background-color: #388e3c;
         }
         .productos {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-@media (max-width: 600px) {
-    .productos {
-        grid-template-columns: repeat(2, 1fr); /* Mostrar 2 productos por fila en móviles */
-    }
-}
-       
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .productos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         .producto {
             background: white;
             padding: 15px;
@@ -139,10 +137,10 @@
             font-weight: bold;
         }
         .etiqueta-disponibilidad.disponible {
-            color: #4CAF50; /* Verde */
+            color: #4CAF50;
         }
         .etiqueta-disponibilidad.agotado {
-            color: #ff0000; /* Rojo */
+            color: #ff0000;
         }
         #boton-flotante {
             position: fixed;
@@ -239,6 +237,7 @@
 
     <script>
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const sonidoAgregar = new Audio('sonido.mp3');  // Ruta al archivo de sonido
 
         function actualizarContadorCarrito() {
             const contador = document.getElementById('contador-carrito');
@@ -276,6 +275,9 @@
 
             localStorage.setItem('carrito', JSON.stringify(carrito));
             actualizarContadorCarrito();
+
+            // Reproducir el sonido cuando se agrega al carrito
+            sonidoAgregar.play();
         }
 
         document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
@@ -289,11 +291,9 @@
             if (disponible) {
                 etiquetaDisponibilidad.textContent = 'Disponible';
                 etiquetaDisponibilidad.classList.add('disponible');
-                etiquetaDisponibilidad.classList.remove('agotado');
             } else {
                 etiquetaDisponibilidad.textContent = 'Agotado';
                 etiquetaDisponibilidad.classList.add('agotado');
-                etiquetaDisponibilidad.classList.remove('disponible');
             }
         });
 
