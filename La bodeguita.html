@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Bodeguita Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: #e8f5e9;
+        }
+        .hero h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+        }
+        .hero .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .hero .btn:hover {
+            background-color: #388e3c;
+        }
+        .productos {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .productos {
+        grid-template-columns: repeat(2, 1fr); /* Mostrar 2 productos por fila en móviles */
+    }
+}
+       
+        .producto {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .producto img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .producto h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .producto p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        .producto .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .producto .btn:hover {
+            background-color: #388e3c;
+        }
+        .producto .btn[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .notificacion-agotado {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ff0000;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-weight: bold;
+            text-align: center;
+        }
+        .footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 20px;
+        }
+        .etiqueta-disponibilidad {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .etiqueta-disponibilidad.disponible {
+            color: #4CAF50; /* Verde */
+        }
+        .etiqueta-disponibilidad.agotado {
+            color: #ff0000; /* Rojo */
+        }
+        #boton-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        #boton-flotante img {
+            width: 40px;
+            height: 40px;
+        }
+        #boton-flotante span {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>La Bodeguita Online</h1>
+        <nav>
+            <ul>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="carrito.html">Carrito</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Bienvenidos a La Bodeguita Online</h1>
+        <p>Encuentra los mejores productos de aseo y comida en un solo lugar.</p>
+        <button class="btn">Explorar Productos</button>
+    </section>
+
+    <section id="productos" class="productos">
+        <div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Shampoo">
+            <h3>Shampoo</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Shampoo" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div>
+        <div class="producto" data-id="2" data-disponible="true">
+            <img src="jabon.jpg" alt="Jabón">
+            <h3>Jabón</h3>
+            <p>Precio: $3.00</p>
+            <button class="btn agregar-al-carrito" data-id="2" data-nombre="Jabón" data-precio="3.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
+        <div class="producto" data-id="3" data-disponible="false">
+            <img src="detergente.jpg" alt="Detergente">
+            <h3>Detergente</h3>
+            <p>Precio: $7.00</p>
+            <button class="btn agregar-al-carrito" data-id="3" data-nombre="Detergente" data-precio="7.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
+    </section>
+
+    <div class="notificacion-agotado" id="notificacion-agotado">
+        Producto agotado
+    </div>
+
+    <footer>
+        <p>&copy; 2025 La Bodeguita Online. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="boton-flotante">
+        <a href="carrito.html">
+            <img src="carrito-icono.png" alt="Carrito">
+            <span id="contador-carrito">0</span>
+        </a>
+    </div>
+
+    <script>
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        function actualizarContadorCarrito() {
+            const contador = document.getElementById('contador-carrito');
+            const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
+            contador.textContent = totalProductos;
+        }
+
+        function mostrarNotificacionAgotado() {
+            const notificacion = document.getElementById('notificacion-agotado');
+            notificacion.style.display = 'block';
+            setTimeout(() => {
+                notificacion.style.display = 'none';
+            }, 2000);
+        }
+
+        function agregarAlCarrito(event) {
+            const boton = event.target;
+            const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
+
+            if (!disponible) {
+                mostrarNotificacionAgotado();
+                return;
+            }
+
+            const id = boton.getAttribute('data-id');
+            const nombre = boton.getAttribute('data-nombre');
+            const precio = parseFloat(boton.getAttribute('data-precio'));
+
+            let productoEnCarrito = carrito.find(producto => producto.id === id);
+            if (productoEnCarrito) {
+                productoEnCarrito.cantidad++;
+            } else {
+                carrito.push({ id, nombre, precio, cantidad: 1 });
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarContadorCarrito();
+        }
+
+        document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
+            boton.addEventListener('click', agregarAlCarrito);
+        });
+
+        document.querySelectorAll('.producto').forEach(producto => {
+            const disponible = producto.getAttribute('data-disponible') === 'true';
+            const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
+            
+            if (disponible) {
+                etiquetaDisponibilidad.textContent = 'Disponible';
+                etiquetaDisponibilidad.classList.add('disponible');
+                etiquetaDisponibilidad.classList.remove('agotado');
+            } else {
+                etiquetaDisponibilidad.textContent = 'Agotado';
+                etiquetaDisponibilidad.classList.add('agotado');
+                etiquetaDisponibilidad.classList.remove('disponible');
+            }
+        });
+
+        actualizarContadorCarrito();
+    </script>
+</body>
+</html>
