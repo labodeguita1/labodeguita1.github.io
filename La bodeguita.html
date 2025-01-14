@@ -176,6 +176,74 @@
             justify-content: center;
             border-radius: 50%;
         }
+
+
+        .mensaje-bienvenida {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%) translateY(50px); /* Inicialmente movido hacia abajo */
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: mostrarMensaje 5s forwards; /* Animación de aparición y desaparición */
+}
+
+/* Animación para hacer aparecer el mensaje */
+@keyframes mostrarMensaje {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(50px); /* Inicia movido hacia abajo */
+    }
+    40% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0); /* Se mueve hacia su posición original */
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50px); /* Se mueve hacia arriba y se desvanece */
+    }
+}
+
+
+
+        #barra-busqueda {
+    padding: 0.8rem;
+    width: 80%;
+    max-width: 400px;
+    border: 2px solid #4CAF50; /* Borde de color verde */
+    border-radius: 50px; /* Bordes redondeados */
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease; /* Efecto suave para los cambios */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    outline: none; /* Elimina el contorno por defecto */
+}
+
+#barra-busqueda:focus {
+    border-color: #388e3c; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 10px rgba(56, 142, 60, 0.5); /* Resalta el campo con sombra verde */
+}
+
+#barra-busqueda::placeholder {
+    color: #888; /* Color de texto del placeholder */
+    font-style: italic;
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -199,11 +267,11 @@
         </div>
     </header>
 
-    <section class="hero">
-        <h1>Bienvenidos a La Bodeguita Online</h1>
-        <p>Encuentra los mejores productos de aseo y comida en un solo lugar.</p>
-        <button class="btn">Explorar Productos</button>
-    </section>
+    <!-- Mensaje de bienvenida -->
+<div id="mensaje-bienvenida" class="mensaje-bienvenida">
+    <h2>¡Bienvenido a La Bodeguita Online!</h2>
+</div>
+
 
     <section id="productos" class="productos">
         <div class="producto" data-id="1" data-disponible="false">
@@ -333,6 +401,15 @@ barraBusqueda.addEventListener('input', (event) => {
         producto.style.display = nombreProducto.includes(filtro) ? '' : 'none'; // Muestra u oculta el producto
     });
 });
+
+
+window.onload = function() {
+    const mensajeBienvenida = document.getElementById('mensaje-bienvenida');
+    setTimeout(() => {
+        mensajeBienvenida.style.display = 'none'; // Oculta el mensaje después de 5 segundos
+    }, 5000);
+};
+
 
     </script>
     
