@@ -237,7 +237,7 @@
 
     <script>
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        const sonidoAgregar = new Audio('sonido.mp3');  // Ruta al archivo de sonido
+        const sonidoAgregar = new Audio('sonidos/sonido-agregar.mp3');  // Ruta al archivo de sonido
 
         function actualizarContadorCarrito() {
             const contador = document.getElementById('contador-carrito');
@@ -274,9 +274,8 @@
             }
 
             localStorage.setItem('carrito', JSON.stringify(carrito));
-            actualizarContadorCarrito();
-
-            // Reproducir el sonido cuando se agrega al carrito
+            
+            // Reproducir el sonido cuando se agrega al carrito de inmediato
             sonidoAgregar.play();
         }
 
@@ -296,6 +295,9 @@
                 etiquetaDisponibilidad.classList.add('agotado');
             }
         });
+
+        // Actualizar el contador cada segundo
+        setInterval(actualizarContadorCarrito, 1000);
 
         actualizarContadorCarrito();
     </script>
