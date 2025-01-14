@@ -237,14 +237,13 @@
 
     <script>
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        const sonidoAgregar = new Audio('sonido.mp3');  // Ruta al archivo de sonido
-
+    
         function actualizarContadorCarrito() {
             const contador = document.getElementById('contador-carrito');
             const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
             contador.textContent = totalProductos;
         }
-
+    
         function mostrarNotificacionAgotado() {
             const notificacion = document.getElementById('notificacion-agotado');
             notificacion.style.display = 'block';
@@ -252,38 +251,40 @@
                 notificacion.style.display = 'none';
             }, 2000);
         }
-
+    
         function agregarAlCarrito(event) {
             const boton = event.target;
             const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
-
+    
             if (!disponible) {
                 mostrarNotificacionAgotado();
                 return;
             }
-
+    
             const id = boton.getAttribute('data-id');
             const nombre = boton.getAttribute('data-nombre');
             const precio = parseFloat(boton.getAttribute('data-precio'));
-
+    
             let productoEnCarrito = carrito.find(producto => producto.id === id);
             if (productoEnCarrito) {
                 productoEnCarrito.cantidad++;
             } else {
                 carrito.push({ id, nombre, precio, cantidad: 1 });
             }
-
+    
             localStorage.setItem('carrito', JSON.stringify(carrito));
-            actualizarContadorCarrito();
-
-            // Reproducir el sonido cuando se agrega al carrito
+    
+            // Crear una nueva instancia de Audio y reproducir el sonido inmediatamente
+            const sonidoAgregar = new Audio('sonido.mp3'); // Ruta al archivo de sonido
             sonidoAgregar.play();
+    
+            actualizarContadorCarrito();
         }
-
+    
         document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
             boton.addEventListener('click', agregarAlCarrito);
         });
-
+    
         document.querySelectorAll('.producto').forEach(producto => {
             const disponible = producto.getAttribute('data-disponible') === 'true';
             const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
@@ -296,8 +297,17 @@
                 etiquetaDisponibilidad.classList.add('agotado');
             }
         });
-
+    
+        // Actualizar el contador del carrito cada segundo
+        setInterval(() => {
+            carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Obtener el carrito actualizado
+            actualizarContadorCarrito();
+        }, 1000);
+    
+        // Inicializar el contador al cargar la página
         actualizarContadorCarrito();
     </script>
+    
+    
 </body>
 </html>
