@@ -10,14 +10,14 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #ffffff;
             color: #333;
         }
         header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
+            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
+            color: white; /* Color blanco para el texto */
+            padding: 1.5rem; /* Espaciado en el encabezado */
+            text-align: center; /* Centra el texto en el encabezado */
         }
         nav ul {
             list-style: none;
@@ -48,7 +48,7 @@
             font-size: 1.2rem;
         }
         .hero .btn {
-            background-color: #4CAF50;
+            background-color: #FF66B2;
             color: white;
             padding: 0.5rem 1rem;
             border: none;
@@ -57,7 +57,7 @@
             font-weight: bold;
         }
         .hero .btn:hover {
-            background-color: #388e3c;
+            background-color: #FF66B2;
         }
         .productos {
             max-width: 1200px;
@@ -94,7 +94,7 @@
             margin: 10px 0;
         }
         .producto .btn {
-            background-color: #4CAF50;
+            background-color: #FF66B2;
             color: white;
             padding: 0.5rem 1rem;
             border: none;
@@ -103,7 +103,7 @@
             font-weight: bold;
         }
         .producto .btn:hover {
-            background-color: #388e3c;
+            background-color: #FF66B2;
         }
         .producto .btn[disabled] {
             background-color: #ccc;
@@ -146,9 +146,9 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #4CAF50;
+            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
             color: white;
-            border-radius: 50%;
+            border-radius: 25%;
             width: 60px;
             height: 60px;
             display: flex;
@@ -183,7 +183,7 @@
     top: 20%;
     left: 50%;
     transform: translateX(-50%) translateY(50px); /* Inicialmente movido hacia abajo */
-    background-color: #4CAF50;
+    background-color: #000000;
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -242,7 +242,27 @@
 }
 
 
-
+.sobre-nosotros {
+        background-color: #f4f4f4; /* Fondo gris claro para la sección */
+        padding: 40px 20px; /* Padding de 40px en la parte superior e inferior, 20px a los lados */
+        text-align: center; /* Centra el contenido dentro de la sección */
+    }
+    .sobre-nosotros h2 {
+        font-size: 2rem; /* Tamaño del título */
+        color: #333; /* Color gris oscuro para el texto */
+        margin-bottom: 20px; /* Espacio debajo del título */
+    }
+    .sobre-nosotros p {
+        font-size: 1.2rem; /* Tamaño del texto de la descripción */
+        color: #666; /* Color gris claro para el texto */
+        line-height: 1.5; /* Espacio entre líneas de texto */
+        margin-bottom: 30px; /* Espacio debajo del párrafo */
+    }
+    .sobre-nosotros .logo {
+        max-width: 200px; /* Limita el tamaño máximo del logo */
+        margin-top: 20px; /* Espacio encima del logo */
+        border-radius: 10px; /* Redondea las esquinas del logo */
+    }
 
     </style>
 </head>
@@ -267,11 +287,17 @@
         </div>
     </header>
 
+
+    
     <!-- Mensaje de bienvenida -->
 <div id="mensaje-bienvenida" class="mensaje-bienvenida">
     <h2>¡Bienvenido a La Bodeguita Online!</h2>
 </div>
-
+<section class="sobre-nosotros"> <!-- Sección Sobre Nosotros -->
+    <h2>Sobre Nosotros</h2> <!-- Título de la sección -->
+    <p>En La Bodeguita Online, nos dedicamos a ofrecer los mejores productos de aseo y comida, garantizando calidad y precios justos para nuestros clientes. Trabajamos con los mejores proveedores para asegurar tu satisfacción.</p> <!-- Descripción de la tienda -->
+    <img src="logo.jpeg" alt="Logo de La Bodeguita Online" class="logo"> <!-- Logo personal de la tienda -->
+</section>
 
     <section id="productos" class="productos">
         <div class="producto" data-id="1" data-disponible="false">
@@ -307,7 +333,7 @@
 
     <div id="boton-flotante">
         <a href="carrito.html">
-            <img src="carrito-icono.png" alt="Carrito">
+            <img src="icono-carrito.png" alt="Carrito">
             <span id="contador-carrito">0</span>
         </a>
     </div>
