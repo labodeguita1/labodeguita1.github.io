@@ -355,6 +355,54 @@
       background-color: rgba(255, 255, 255, 1);
     }
 
+
+
+    .floating-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 0.8rem 1rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow-x: hidden; /* Elimina el desplazamiento horizontal */
+    white-space: nowrap;
+    box-sizing: border-box; /* Asegura que padding no se sume al width */
+}
+.floating-bar::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento */
+}
+
+.floating-bar a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: background 0.3s, color 0.3s;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+
+.floating-bar a.active {
+            background: linear-gradient(to right, #FF66B2, #FF99CC); /* Degradado para el enlace activo */
+            color: white; /* Texto blanco para contraste */
+        }
+
+        .floating-bar a:hover {
+            background: #FF99CC; /* Fondo rosado en hover */
+            color: white; /* Contraste de texto */
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -384,7 +432,14 @@
         </div>
     </header>
 
-
+    <div class="floating-bar" id="floatingBar">
+        <a href="#carnes" class="active">Carnes</a>
+        <a href="#chuches">Chuches</a>
+        <a href="#enlatados">Enlatados</a>
+        <a href="#dulces">Dulces</a>
+        <a href="#granos">Granos</a>
+        <a href="#bebidas">Bebidas</a>
+    </div>
     
     <!-- Mensaje de bienvenida -->
 <div id="mensaje-bienvenida" class="mensaje-bienvenida">
@@ -426,8 +481,9 @@
 
 
   <h2>Productos</h2>
+  <div class="section" id="carnes">
+    <h2>Carnes</h2>
     <section id="productos" class="productos">
-        
         <div class="producto" data-id="1" data-disponible="false">
             <img src="shampoo.jpg" alt="Surtido Mixto">
             <h3>Surtido Mixto</h3>
@@ -489,6 +545,119 @@
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
     </section>
+
+
+    
+    <div class="section" id="chuches">
+      <h2>Chuches</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="1" data-disponible="false">
+              <img src="shampoo.jpg" alt="Surtido Mixto">
+              <h3>Surtido Mixto</h3>
+              <p>Precio: $5.00</p>
+              <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad agotado">Agotado</span>
+          </div>
+  
+          <div class="producto" data-id="1" data-disponible="false">
+              <img src="shampoo.jpg" alt="Surtido Mixto">
+              <h3>Surtido Mixto</h3>
+              <p>Precio: $5.00</p>
+              <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad agotado">Agotado</span>
+          </div>
+
+        </section>
+
+
+        <div class="section" id="enlatados">
+            <h2>Enlatados</h2>
+            <section id="productos" class="productos">
+                <div class="producto" data-id="1" data-disponible="false">
+                    <img src="shampoo.jpg" alt="Surtido Mixto">
+                    <h3>Surtido Mixto</h3>
+                    <p>Precio: $5.00</p>
+                    <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                    <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                </div>
+        
+                <div class="producto" data-id="1" data-disponible="false">
+                    <img src="shampoo.jpg" alt="Surtido Mixto">
+                    <h3>Surtido Mixto</h3>
+                    <p>Precio: $5.00</p>
+                    <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                    <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                </div>
+      
+              </section>
+
+
+              <div class="section" id="dulces">
+                <h2>Dulces</h2>
+                <section id="productos" class="productos">
+                    <div class="producto" data-id="1" data-disponible="false">
+                        <img src="shampoo.jpg" alt="Surtido Mixto">
+                        <h3>Surtido Mixto</h3>
+                        <p>Precio: $5.00</p>
+                        <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                        <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                    </div>
+            
+                    <div class="producto" data-id="1" data-disponible="false">
+                        <img src="shampoo.jpg" alt="Surtido Mixto">
+                        <h3>Surtido Mixto</h3>
+                        <p>Precio: $5.00</p>
+                        <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                        <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                    </div>
+          
+                  </section>
+    
+
+                  <div class="section" id="granos">
+                    <h2>Granos</h2>
+                    <section id="productos" class="productos">
+                        <div class="producto" data-id="1" data-disponible="false">
+                            <img src="shampoo.jpg" alt="Surtido Mixto">
+                            <h3>Surtido Mixto</h3>
+                            <p>Precio: $5.00</p>
+                            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                        </div>
+                
+                        <div class="producto" data-id="1" data-disponible="false">
+                            <img src="shampoo.jpg" alt="Surtido Mixto">
+                            <h3>Surtido Mixto</h3>
+                            <p>Precio: $5.00</p>
+                            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                        </div>
+              
+                      </section>
+        
+
+                      <div class="section" id="bebidas">
+                        <h2>Bebidas</h2>
+                        <section id="productos" class="productos">
+                            <div class="producto" data-id="1" data-disponible="false">
+                                <img src="shampoo.jpg" alt="Surtido Mixto">
+                                <h3>Surtido Mixto</h3>
+                                <p>Precio: $5.00</p>
+                                <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                            </div>
+                    
+                            <div class="producto" data-id="1" data-disponible="false">
+                                <img src="shampoo.jpg" alt="Surtido Mixto">
+                                <h3>Surtido Mixto</h3>
+                                <p>Precio: $5.00</p>
+                                <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
+                            </div>
+                  
+                          </section>
+
+
 
     <div class="notificacion-agotado" id="notificacion-agotado">
         Producto agotado
@@ -687,7 +856,43 @@ window.onload = function() {
       updateSlidePosition();
     }, 5000);
   </script>
+<script>
+    const sections = document.querySelectorAll('.section'); // Selecciona todas las secciones por su clase
+    const navLinks = document.querySelectorAll('.floating-bar a'); // Selecciona todos los enlaces dentro de la barra flotante
 
+    // Detectar la sección activa
+    window.addEventListener('scroll', () => {
+        let current = ""; // Variable para almacenar la sección actual
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop; // Obtiene la posición superior de la sección
+            const sectionHeight = section.clientHeight; // Obtiene la altura de la sección
+            if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                current = section.getAttribute('id'); // Asigna el ID de la sección activa
+            }
+        });
+
+        // Actualizar las clases de los enlaces
+        navLinks.forEach(link => {
+            link.classList.remove('active'); // Remueve la clase activa de todos los enlaces
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active'); // Agrega la clase activa al enlace correspondiente
+
+                // Desplazamiento lateral automático
+                const floatingBar = document.getElementById('floatingBar'); // Selecciona la barra flotante
+                const linkRect = link.getBoundingClientRect(); // Obtiene la posición del enlace
+                const barRect = floatingBar.getBoundingClientRect(); // Obtiene la posición de la barra
+
+                if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
+                    link.scrollIntoView({ behavior: 'smooth', inline: 'center' }); // Asegura que el enlace activo esté visible
+                }
+            }
+        });
+    });
+
+
+    
+</script>
     
 </body>
 </html>
