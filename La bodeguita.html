@@ -178,6 +178,15 @@
         }
 
 
+   .img1{
+    text-align: right;
+   position: absolute;
+    top: 40px;
+    left: 50spx;
+    right: 25xp;
+    bottom: 0px;
+
+}
         .mensaje-bienvenida {
     position: fixed;
     top: 20%;
@@ -264,6 +273,88 @@
         border-radius: 10px; /* Redondea las esquinas del logo */
     }
 
+
+    .carousel-container {
+  width: 100%; /* Establece el ancho del carrusel al 80% del contenedor principal */
+  margin: 0 auto; /* Centra el carrusel horizontalmente */
+  overflow: hidden;
+  position: relative;
+}
+
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 50vh; /* Ajusta la altura según tus necesidades */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .carousel-button.prev {
+      left: 10px;
+    }
+
+    .carousel-button.next {
+      right: 10px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-indicators button {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .carousel-indicators button.active {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
     </style>
 </head>
 <body>
@@ -276,6 +367,12 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
+<div class="img1">
+
+
+    <img src="image.png" alt="" width="10%">
+</div>
+        
         <!-- Barra de búsqueda -->
         <div style="margin-top: 1rem; text-align: center;">
             <input 
@@ -293,22 +390,92 @@
 <div id="mensaje-bienvenida" class="mensaje-bienvenida">
     <h2>¡Bienvenido a La Bodeguita Muñoz!</h2>
 </div>
-<section class="sobre-nosotros"> <!-- Sección Sobre Nosotros -->
-    <h2>Sobre Nosotros</h2> <!-- Título de la sección -->
-    <p>En La Bodeguita Online, nos dedicamos a ofrecer los mejores productos de aseo y comida, garantizando calidad y precios justos para nuestros clientes. Trabajamos con los mejores proveedores para asegurar tu satisfacción.</p> <!-- Descripción de la tienda -->
-    <img src="logo.jpeg" alt="Logo de La Bodeguita Online" class="logo"> <!-- Logo personal de la tienda -->
-</section>
 
+
+<div class="carousel-container">
+    <div class="carousel-track">
+      <div class="carousel-slide">
+        <img src="atun.jpg" alt="Producto 1">
+        <div class="product-info">
+          <h2>Producto 1</h2>
+          <p>Descripción breve del producto 1.</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="obejo.webp" alt="Producto 2">
+        <div class="product-info">
+          <h2>Pernil de obejo </h2>
+          <p>2.50 USD x LB .</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="camaron.jpg" alt="Producto 3">
+        <div class="product-info">
+          <h2>Producto 3</h2>
+          <p>Descripción breve del producto 3.</p>
+        </div>
+      </div>
+      <!-- Añade más productos según sea necesario -->
+    </div>
+    <button class="carousel-button prev">&#8249;</button>
+    <button class="carousel-button next">&#8250;</button>
+    <div class="carousel-indicators"></div>
+  </div>
+
+
+
+
+  <h2>Productos</h2>
     <section id="productos" class="productos">
+        
         <div class="producto" data-id="1" data-disponible="false">
-            <img src="shampoo.jpg" alt="Shampoo">
-            <h3>Shampoo</h3>
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
             <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Shampoo" data-precio="5.00">Agregar al carrito</button>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
+
+        <div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div><div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div><div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div><div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div><div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div><div class="producto" data-id="1" data-disponible="false">
+            <img src="shampoo.jpg" alt="Surtido Mixto">
+            <h3>Surtido Mixto</h3>
+            <p>Precio: $5.00</p>
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+        </div>
+
         <div class="producto" data-id="2" data-disponible="true">
-            <img src="jabon.jpg" alt="Jabón">
+            <img src="camaron.jpg" alt="Jabón">
             <h3>Jabón</h3>
             <p>Precio: $3.00</p>
             <button class="btn agregar-al-carrito" data-id="2" data-nombre="Jabón" data-precio="3.00">Agregar al carrito</button>
@@ -356,32 +523,66 @@
         }
     
         function agregarAlCarrito(event) {
-            const boton = event.target;
-            const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
-    
-            if (!disponible) {
-                mostrarNotificacionAgotado();
-                return;
-            }
-    
-            const id = boton.getAttribute('data-id');
-            const nombre = boton.getAttribute('data-nombre');
-            const precio = parseFloat(boton.getAttribute('data-precio'));
-    
-            let productoEnCarrito = carrito.find(producto => producto.id === id);
-            if (productoEnCarrito) {
-                productoEnCarrito.cantidad++;
-            } else {
-                carrito.push({ id, nombre, precio, cantidad: 1 });
-            }
-    
-            localStorage.setItem('carrito', JSON.stringify(carrito));
-    
-            const sonidoAgregar = new Audio('sonido.mp3');
-            sonidoAgregar.play();
-    
-            actualizarContadorCarrito();
-        }
+    const boton = event.target;
+    const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
+
+    if (!disponible) {
+        mostrarNotificacionAgotado();
+        return;
+    }
+
+    const id = boton.getAttribute('data-id');
+    const nombre = boton.getAttribute('data-nombre');
+    const precio = parseFloat(boton.getAttribute('data-precio'));
+    const imagen = boton.closest('.producto').querySelector('img').src; // Captura la URL de la imagen
+
+    let productoEnCarrito = carrito.find(producto => producto.id === id);
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+    } else {
+        carrito.push({ id, nombre, precio, cantidad: 1, imagen }); // Agrega la imagen al carrito
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    const sonidoAgregar = new Audio('sonido.mp3');
+    sonidoAgregar.play();
+
+    actualizarContadorCarrito();
+}
+
+
+
+// Mostrar los productos del carrito en la página
+function mostrarCarrito() {
+    const carritoDiv = document.getElementById('carrito'); // Asegúrate de tener un contenedor con este ID en el HTML
+    carritoDiv.innerHTML = ''; // Limpiar el carrito antes de mostrar los nuevos productos
+
+    carrito.forEach(producto => {
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('producto-en-carrito');
+
+        // Crear la estructura para cada producto en el carrito
+        productoDiv.innerHTML = `
+            <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-producto-carrito">
+            <h3>${producto.nombre}</h3>
+            <p>Precio: $${producto.precio}</p>
+            <p>Cantidad: ${producto.cantidad}</p>
+            <p>Total: $${(producto.precio * producto.cantidad).toFixed(2)}</p>
+        `;
+
+        carritoDiv.appendChild(productoDiv);
+    });
+}
+
+// Llamar a la función para mostrar el carrito cuando se cargue la página
+window.onload = function() {
+    carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    mostrarCarrito(); // Mostrar el carrito
+    actualizarContadorCarrito(); // Actualizar el contador del carrito
+};
+
+
     
         document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
             boton.addEventListener('click', agregarAlCarrito);
@@ -438,6 +639,55 @@ window.onload = function() {
 
 
     </script>
+
+
+<script>
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-button.next');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+
+    let currentIndex = 0;
+
+    slides.forEach((_, index) => {
+      const indicator = document.createElement('button');
+      if (index === 0) indicator.classList.add('active');
+      indicatorsContainer.appendChild(indicator);
+    });
+
+    const indicators = Array.from(indicatorsContainer.children);
+
+    const updateSlidePosition = () => {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      indicators.forEach((btn, i) => {
+        btn.classList.toggle('active', i === currentIndex);
+      });
+    };
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlidePosition();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateSlidePosition();
+    });
+
+    indicators.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        currentIndex = i;
+        updateSlidePosition();
+      });
+    });
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlidePosition();
+    }, 5000);
+  </script>
+
     
 </body>
 </html>
