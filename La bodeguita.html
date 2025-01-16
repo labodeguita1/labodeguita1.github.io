@@ -137,7 +137,7 @@
             font-weight: bold;
         }
         .etiqueta-disponibilidad.disponible {
-            color: #4CAF50;
+            color: #1bd121;
         }
         .etiqueta-disponibilidad.agotado {
             color: #ff0000;
@@ -443,7 +443,15 @@
 }
 
 
-
+footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
+            color: #333;
+            margin-top: 20px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        }
 
     </style>
 </head>
@@ -534,13 +542,13 @@
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
 
-        <div class="producto" data-id="3" data-disponible="true">
+        <div class="producto" data-id="3" data-disponible="false">
             <img src="shampoo.jpg" alt="Surtido Mixto">
             <h3>Surtido Mixto</h3>
             <p>Precio: $5.00</p>
             <button class="btn agregar-al-carrito" data-id="3" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="4" data-disponible="true">
+        </div><div class="producto" data-id="4" data-disponible="false">
             <img src="shampoo.jpg" alt="Surtido Mixto">
             <h3>Surtido Mixto</h3>
             <p>Precio: $5.00</p>
@@ -587,9 +595,9 @@
               <span class="etiqueta-disponibilidad agotado">Agotado</span>
           </div>
   
-          <div class="producto" data-id="2" data-disponible="false">
+          <div class="producto" data-id="2" data-disponible="true">
               <img src="shampoo.jpg" alt="Surtido Mixto">
-              <h3>Surtido Mixto</h3>
+              <h3>Detergente</h3>
               <p>Precio: $5.00</p>
               <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
               <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -690,7 +698,7 @@
                                 <span class="etiqueta-disponibilidad agotado">Agotado</span>
                             </div>
                     
-                            <div class="producto" data-id="2" data-disponible="false">
+                            <div class="producto" data-id="2" data-disponible="true">
                                 <img src="shampoo.jpg" alt="Surtido Mixto">
                                 <h3>Surtido Mixto</h3>
                                 <p>Precio: $5.00</p>
@@ -718,275 +726,176 @@
     </div>
 
     <script>
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-        function actualizarContadorCarrito() {
-            const contador = document.getElementById('contador-carrito');
-            const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
-            contador.textContent = totalProductos;
+        document.addEventListener('DOMContentLoaded', () => {
+    // Inicialización del carrito desde localStorage
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    // Actualizar contador del carrito
+    function actualizarContadorCarrito() {
+        const contador = document.getElementById('contador-carrito');
+        const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
+        contador.textContent = totalProductos;
+    }
+
+    // Mostrar notificación de producto agotado
+    function mostrarNotificacionAgotado() {
+        const notificacion = document.getElementById('notificacion-agotado');
+        notificacion.style.display = 'block';
+        setTimeout(() => {
+            notificacion.style.display = 'none';
+        }, 2000);
+    }
+
+    // Agregar productos al carrito
+    function agregarAlCarrito(event) {
+        const boton = event.target;
+        const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
+
+        if (!disponible) {
+            mostrarNotificacionAgotado();
+            return;
         }
-    
-        function mostrarNotificacionAgotado() {
-            const notificacion = document.getElementById('notificacion-agotado');
-            notificacion.style.display = 'block';
-            setTimeout(() => {
-                notificacion.style.display = 'none';
-            }, 2000);
+
+        const id = boton.getAttribute('data-id');
+        const nombre = boton.getAttribute('data-nombre');
+        const precio = parseFloat(boton.getAttribute('data-precio'));
+        const imagen = boton.closest('.producto').querySelector('img').src;
+
+        let productoEnCarrito = carrito.find(producto => producto.id === id);
+        if (productoEnCarrito) {
+            productoEnCarrito.cantidad++;
+        } else {
+            carrito.push({ id, nombre, precio, cantidad: 1, imagen });
         }
-    
-        function agregarAlCarrito(event) {
-    const boton = event.target;
-    const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
 
-    if (!disponible) {
-        mostrarNotificacionAgotado();
-        return;
-    }
-
-    const id = boton.getAttribute('data-id');
-    const nombre = boton.getAttribute('data-nombre');
-    const precio = parseFloat(boton.getAttribute('data-precio'));
-    const imagen = boton.closest('.producto').querySelector('img').src; // Captura la URL de la imagen
-
-    let productoEnCarrito = carrito.find(producto => producto.id === id);
-    if (productoEnCarrito) {
-        productoEnCarrito.cantidad++;
-    } else {
-        carrito.push({ id, nombre, precio, cantidad: 1, imagen }); // Agrega la imagen al carrito
-    }
-
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-
-    const sonidoAgregar = new Audio('sonido.mp3');
-    sonidoAgregar.play();
-
-    actualizarContadorCarrito();
-}
-
-
-
-// Mostrar los productos del carrito en la página
-function mostrarCarrito() {
-    const carritoDiv = document.getElementById('carrito'); // Asegúrate de tener un contenedor con este ID en el HTML
-    carritoDiv.innerHTML = ''; // Limpiar el carrito antes de mostrar los nuevos productos
-
-    carrito.forEach(producto => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto-en-carrito');
-
-        // Crear la estructura para cada producto en el carrito
-        productoDiv.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-producto-carrito">
-            <h3>${producto.nombre}</h3>
-            <p>Precio: $${producto.precio}</p>
-            <p>Cantidad: ${producto.cantidad}</p>
-            <p>Total: $${(producto.precio * producto.cantidad).toFixed(2)}</p>
-        `;
-
-        carritoDiv.appendChild(productoDiv);
-    });
-}
-
-// Llamar a la función para mostrar el carrito cuando se cargue la página
-window.onload = function() {
-    carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    mostrarCarrito(); // Mostrar el carrito
-    actualizarContadorCarrito(); // Actualizar el contador del carrito
-};
-
-
-    
-        document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
-            boton.addEventListener('click', agregarAlCarrito);
-        });
-    
-        document.querySelectorAll('.producto').forEach(producto => {
-    const disponible = producto.getAttribute('data-disponible') === 'true';
-    const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
-    
-    if (disponible) {
-        etiquetaDisponibilidad.textContent = 'Disponible';
-        etiquetaDisponibilidad.classList.add('disponible');
-        etiquetaDisponibilidad.classList.remove('agotado'); // Remover clase 'agotado'
-    } else {
-        etiquetaDisponibilidad.textContent = 'Agotado';
-        etiquetaDisponibilidad.classList.add('agotado');
-        etiquetaDisponibilidad.classList.remove('disponible'); // Remover clase 'disponible'
-    }
-});
-
-    
-        setInterval(() => {
-            carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-            actualizarContadorCarrito();
-        }, 1000);
-    
+        localStorage.setItem('carrito', JSON.stringify(carrito));
         actualizarContadorCarrito();
-    
-       // Función para quitar tildes de un texto
-function quitarTildes(texto) {
-    return texto
-        .normalize('NFD') // Normaliza el texto para separar las tildes de las letras
-        .replace(/[\u0300-\u036f]/g, '') // Elimina los caracteres diacríticos (tildes)
-        .toLowerCase(); // Convierte el texto a minúsculas
-}
+    }
 
-// Barra de búsqueda
-const barraBusqueda = document.getElementById('barra-busqueda');
-const productos = document.querySelectorAll('.producto');
+    // Mostrar los productos del carrito
+    function mostrarCarrito() {
+        const carritoDiv = document.getElementById('carrito');
+        if (!carritoDiv) return; // Si no hay contenedor del carrito, salimos
+        carritoDiv.innerHTML = '';
 
-barraBusqueda.addEventListener('input', (event) => {
-    const filtro = quitarTildes(event.target.value); // Normaliza el texto ingresado
+        carrito.forEach(producto => {
+            const productoDiv = document.createElement('div');
+            productoDiv.classList.add('producto-en-carrito');
+            productoDiv.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-producto-carrito">
+                <h3>${producto.nombre}</h3>
+                <p>Precio: $${producto.precio}</p>
+                <p>Cantidad: ${producto.cantidad}</p>
+                <p>Total: $${(producto.precio * producto.cantidad).toFixed(2)}</p>
+            `;
+            carritoDiv.appendChild(productoDiv);
+        });
+    }
 
-    productos.forEach(producto => {
-        const nombreProducto = quitarTildes(producto.querySelector('h3').textContent); // Normaliza el texto del producto
-        producto.style.display = nombreProducto.includes(filtro) ? '' : 'none'; // Muestra u oculta el producto
+    // Función para quitar tildes
+    function quitarTildes(texto) {
+        return texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
+    // Barra de búsqueda optimizada con debounce
+    const barraBusqueda = document.getElementById('barra-busqueda');
+    const productos = document.querySelectorAll('.producto');
+    let debounceTimeout;
+
+    barraBusqueda.addEventListener('input', (event) => {
+        clearTimeout(debounceTimeout);
+
+        debounceTimeout = setTimeout(() => {
+            const filtro = quitarTildes(event.target.value);
+
+            productos.forEach(producto => {
+                const nombreProducto = quitarTildes(producto.querySelector('h3').textContent);
+                producto.style.display = nombreProducto.includes(filtro) ? '' : 'none';
+            });
+        }, 300); // Espera 300 ms antes de aplicar el filtro
     });
-});
 
+    // Mostrar la disponibilidad de los productos
+    document.querySelectorAll('.producto').forEach(producto => {
+        const disponible = producto.getAttribute('data-disponible') === 'true';
+        const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
 
-window.onload = function() {
+        if (disponible) {
+            etiquetaDisponibilidad.textContent = 'Disponible';
+            etiquetaDisponibilidad.classList.add('disponible');
+            etiquetaDisponibilidad.classList.remove('agotado');
+        } else {
+            etiquetaDisponibilidad.textContent = 'Agotado';
+            etiquetaDisponibilidad.classList.add('agotado');
+            etiquetaDisponibilidad.classList.remove('disponible');
+        }
+    });
+
+    // Evento para agregar al carrito
+    document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
+        boton.addEventListener('click', agregarAlCarrito);
+    });
+
+    // Mensaje de bienvenida
     const mensajeBienvenida = document.getElementById('mensaje-bienvenida');
-    setTimeout(() => {
-        mensajeBienvenida.style.display = 'none'; // Oculta el mensaje después de 5 segundos
-    }, 5000);
-};
+    if (mensajeBienvenida) {
+        setTimeout(() => {
+            mensajeBienvenida.style.display = 'none';
+        }, 5000);
+    }
 
-
-    </script>
-
-
-<script>
+    // Carousel
     const track = document.querySelector('.carousel-track');
     const slides = Array.from(track.children);
     const nextButton = document.querySelector('.carousel-button.next');
     const prevButton = document.querySelector('.carousel-button.prev');
     const indicatorsContainer = document.querySelector('.carousel-indicators');
-
     let currentIndex = 0;
 
     slides.forEach((_, index) => {
-      const indicator = document.createElement('button');
-      if (index === 0) indicator.classList.add('active');
-      indicatorsContainer.appendChild(indicator);
+        const indicator = document.createElement('button');
+        if (index === 0) indicator.classList.add('active');
+        indicatorsContainer.appendChild(indicator);
     });
 
     const indicators = Array.from(indicatorsContainer.children);
 
     const updateSlidePosition = () => {
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      indicators.forEach((btn, i) => {
-        btn.classList.toggle('active', i === currentIndex);
-      });
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        indicators.forEach((btn, i) => {
+            btn.classList.toggle('active', i === currentIndex);
+        });
     };
 
     nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlidePosition();
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlidePosition();
     });
 
     prevButton.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateSlidePosition();
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlidePosition();
     });
 
     indicators.forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        currentIndex = i;
-        updateSlidePosition();
-      });
+        btn.addEventListener('click', () => {
+            currentIndex = i;
+            updateSlidePosition();
+        });
     });
 
     setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlidePosition();
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlidePosition();
     }, 5000);
-  </script>
-<script>
-    const sections = document.querySelectorAll('.section'); // Selecciona todas las secciones por su clase
-    const navLinks = document.querySelectorAll('.floating-bar a'); // Selecciona todos los enlaces dentro de la barra flotante
 
-    // Detectar la sección activa
-    window.addEventListener('scroll', () => {
-        let current = ""; // Variable para almacenar la sección actual
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop; // Obtiene la posición superior de la sección
-            const sectionHeight = section.clientHeight; // Obtiene la altura de la sección
-            if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                current = section.getAttribute('id'); // Asigna el ID de la sección activa
-            }
-        });
-
-        // Actualizar las clases de los enlaces
-        navLinks.forEach(link => {
-            link.classList.remove('active'); // Remueve la clase activa de todos los enlaces
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active'); // Agrega la clase activa al enlace correspondiente
-
-                // Desplazamiento lateral automático
-                const floatingBar = document.getElementById('floatingBar'); // Selecciona la barra flotante
-                const linkRect = link.getBoundingClientRect(); // Obtiene la posición del enlace
-                const barRect = floatingBar.getBoundingClientRect(); // Obtiene la posición de la barra
-
-                if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
-                    link.scrollIntoView({ behavior: 'smooth', inline: 'center' }); // Asegura que el enlace activo esté visible
-                }
-            }
-        });
-    });
-
-    
-    document.addEventListener("DOMContentLoaded", function() {
-    const floatingBar = document.querySelector(".floating-bar");
-    let isMouseDown = false;
-    let startX, scrollLeft;
-
-    // Al hacer clic en la barra, comenzamos el deslizamiento
-    floatingBar.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        startX = e.pageX - floatingBar.offsetLeft;
-        scrollLeft = floatingBar.scrollLeft;
-        floatingBar.classList.add('grabbing');  // Cambiar el cursor cuando está siendo arrastrado
-    });
-
-    // Detener el deslizamiento
-    floatingBar.addEventListener('mouseleave', () => {
-        isMouseDown = false;
-        floatingBar.classList.remove('grabbing');
-    });
-
-    // Cuando el ratón se levanta, detener el desplazamiento
-    floatingBar.addEventListener('mouseup', () => {
-        isMouseDown = false;
-        floatingBar.classList.remove('grabbing');
-    });
-
-    // Mover la barra cuando el ratón se mueve y está presionado
-    floatingBar.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return; // Si no se está presionando, no hacer nada
-        const x = e.pageX - floatingBar.offsetLeft;
-        const walk = (x - startX) * 2; // Ajusta la velocidad del deslizamiento
-        floatingBar.scrollLeft = scrollLeft - walk;
-    });
-
-    // Opcional: Botones para desplazamiento manual
-    const scrollLeftBtn = document.querySelector(".scroll-left");
-    const scrollRightBtn = document.querySelector(".scroll-right");
-
-    if (scrollLeftBtn) {
-        scrollLeftBtn.addEventListener("click", () => {
-            floatingBar.scrollLeft -= 150; // Ajusta el valor para controlar la distancia
-        });
-    }
-
-    if (scrollRightBtn) {
-        scrollRightBtn.addEventListener("click", () => {
-            floatingBar.scrollLeft += 150; // Ajusta el valor para controlar la distancia
-        });
-    }
+    // Inicializar carrito y contador
+    mostrarCarrito();
+    actualizarContadorCarrito();
 });
-
 
 </script>
     
