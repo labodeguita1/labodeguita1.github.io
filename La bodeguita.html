@@ -464,14 +464,14 @@
 </div>
         
         <!-- Barra de búsqueda -->
-        <div style="margin-top: 1rem; text-align: center;">
-            <input 
-                type="text" 
-                id="barra-busqueda" 
-                placeholder="Buscar producto..." 
-                style="padding: 0.5rem; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;"
-            >
-        </div>
+<div style="margin-top: 1rem; text-align: center;">
+    <input 
+        type="text" 
+        id="barra-busqueda" 
+        placeholder="Buscar producto..." 
+        style="padding: 0.5rem; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;">
+</div>
+
     </header>
 
     <div class="floating-bar" id="floatingBar">
@@ -990,6 +990,19 @@ window.onload = function() {
 
 
 
+document.getElementById('barra-busqueda').addEventListener('input', function() {
+    const busqueda = this.value.toLowerCase();
+    const productos = document.querySelectorAll('.producto');
+    
+    productos.forEach(producto => {
+        const nombreProducto = producto.querySelector('h3').textContent.toLowerCase();
+        if (nombreProducto.includes(busqueda)) {
+            producto.style.display = 'block'; // Mostrar el producto
+        } else {
+            producto.style.display = 'none'; // Ocultar el producto
+        }
+    });
+});
 
 </script>
     
