@@ -939,7 +939,7 @@ window.onload = function() {
     const navLinks = document.querySelectorAll('.floating-bar a'); // Selecciona todos los enlaces dentro de la barra flotante
     let lastScrolledSection = ""; // Variable para almacenar la última sección desplazada
 
-    // Detectar la sección activa
+    // Detectar la sección activa al hacer scroll
     window.addEventListener('scroll', () => {
         let current = ""; // Variable para almacenar la sección activa
 
@@ -974,7 +974,24 @@ window.onload = function() {
             lastScrolledSection = current;
         }
     });
+
+    // Desplazar a la sección al hacer clic en un enlace de la barra flotante
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+            // Obtener la ID de la sección a la que se desea ir
+            const targetId = link.getAttribute('href').substring(1); // Elimina el '#' del href
+
+            // Buscar la sección correspondiente
+            const targetSection = document.getElementById(targetId);
+
+            // Desplazar suavemente hasta la sección correspondiente
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
 </script>
+
 
     
 </body>
