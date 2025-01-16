@@ -801,17 +801,20 @@ window.onload = function() {
         });
     
         document.querySelectorAll('.producto').forEach(producto => {
-            const disponible = producto.getAttribute('data-disponible') === 'true';
-            const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
-            
-            if (disponible) {
-                etiquetaDisponibilidad.textContent = 'Disponible';
-                etiquetaDisponibilidad.classList.add('disponible');
-            } else {
-                etiquetaDisponibilidad.textContent = 'Agotado';
-                etiquetaDisponibilidad.classList.add('agotado');
-            }
-        });
+    const disponible = producto.getAttribute('data-disponible') === 'true';
+    const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
+    
+    if (disponible) {
+        etiquetaDisponibilidad.textContent = 'Disponible';
+        etiquetaDisponibilidad.classList.add('disponible');
+        etiquetaDisponibilidad.classList.remove('agotado'); // Remover clase 'agotado'
+    } else {
+        etiquetaDisponibilidad.textContent = 'Agotado';
+        etiquetaDisponibilidad.classList.add('agotado');
+        etiquetaDisponibilidad.classList.remove('disponible'); // Remover clase 'disponible'
+    }
+});
+
     
         setInterval(() => {
             carrito = JSON.parse(localStorage.getItem('carrito')) || [];
