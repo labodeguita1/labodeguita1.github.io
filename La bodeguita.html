@@ -859,10 +859,11 @@ window.onload = function() {
 <script>
     const sections = document.querySelectorAll('.section'); // Selecciona todas las secciones por su clase
     const navLinks = document.querySelectorAll('.floating-bar a'); // Selecciona todos los enlaces dentro de la barra flotante
+    let lastScrolledSection = ""; // Variable para almacenar la última sección desplazada
 
     // Detectar la sección activa
     window.addEventListener('scroll', () => {
-        let current = ""; // Variable para almacenar la sección actual
+        let current = ""; // Variable para almacenar la sección activa
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop; // Obtiene la posición superior de la sección
@@ -872,27 +873,31 @@ window.onload = function() {
             }
         });
 
-        // Actualizar las clases de los enlaces
-        navLinks.forEach(link => {
-            link.classList.remove('active'); // Remueve la clase activa de todos los enlaces
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active'); // Agrega la clase activa al enlace correspondiente
+        // Solo actualiza la clase si la sección cambia
+        if (current !== lastScrolledSection) {
+            navLinks.forEach(link => {
+                link.classList.remove('active'); // Remueve la clase activa de todos los enlaces
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active'); // Agrega la clase activa al enlace correspondiente
 
-                // Desplazamiento lateral automático
-                const floatingBar = document.getElementById('floatingBar'); // Selecciona la barra flotante
-                const linkRect = link.getBoundingClientRect(); // Obtiene la posición del enlace
-                const barRect = floatingBar.getBoundingClientRect(); // Obtiene la posición de la barra
+                    // Desplazamiento lateral solo si es necesario
+                    const floatingBar = document.getElementById('floatingBar'); // Selecciona la barra flotante
+                    const linkRect = link.getBoundingClientRect(); // Obtiene la posición del enlace
+                    const barRect = floatingBar.getBoundingClientRect(); // Obtiene la posición de la barra
 
-                if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
-                    link.scrollIntoView({ behavior: 'smooth', inline: 'center' }); // Asegura que el enlace activo esté visible
+                    // Desplazar solo si el enlace no está completamente visible
+                    if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
+                        link.scrollIntoView({ behavior: 'smooth', inline: 'center' }); // Desplaza al enlace activo
+                    }
                 }
-            }
-        });
+            });
+
+            // Actualizar la última sección desplazada
+            lastScrolledSection = current;
+        }
     });
-
-
-    
 </script>
+
     
 </body>
 </html>
