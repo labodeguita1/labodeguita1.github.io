@@ -18,6 +18,8 @@
             color: white; /* Color blanco para el texto */
             padding: 1.5rem; /* Espaciado en el encabezado */
             text-align: center; /* Centra el texto en el encabezado */
+            top: 50px;
+            position: relative;
         }
         nav ul {
             list-style: none;
@@ -367,9 +369,10 @@
 
 /* Estilo de la barra flotante */
 .floating-bar {
-    position: sticky;
+    position: fixed;  /* Cambiado de sticky a fixed */
     top: 0;
     left: 0;
+    width: 100%;
     display: flex;
     gap: 15px;
     align-items: center;
@@ -378,11 +381,18 @@
     padding: 1rem;
     border-radius: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1000;  /* Asegúrate de que sea suficientemente alto */
     overflow-x: auto;
     white-space: nowrap;
     cursor: grab;
-    transition: transform 0.3s ease;
+    
+}
+
+.section {
+    height: 100vh; /* Esto es solo para que puedas ver el efecto */
+    padding: 20px;
+    background-color: rgb(252, 248, 248);
+    margin: 20px 0;
 }
 
 /* Estilo de los enlaces dentro de la barra */
@@ -441,11 +451,22 @@
 .scroll-left:hover, .scroll-right:hover {
     color: #FF99CC;
 }
-
-
-
-
-    </style>
+footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
+            color: #333;
+            margin-top: 20px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .footer-content {
+            max-width: 900px; 
+            margin: 0 auto; 
+            font-size: 1rem; 
+            padding: 5px; 
+        }
+ </style>
 </head>
 <body>
     <header>
@@ -463,14 +484,21 @@
     <img src="image.png" alt="" width="10%">
 </div>
         
-        <!-- Barra de búsqueda -->
+<!-- Barra de búsqueda con un botón -->
 <div style="margin-top: 1rem; text-align: center;">
     <input 
         type="text" 
         id="barra-busqueda" 
         placeholder="Buscar producto..." 
         style="padding: 0.5rem; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;">
+    <button id="boton-buscar" style="padding: 0.5rem; background-color: #FF66B2; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Buscar</button>
 </div>
+
+<!-- Mensaje de "sin resultados" -->
+<p id="mensaje-no-encontrado" style="display: none; color: #FF0000; text-align: center; font-weight: bold; margin-top: 10px;">
+    No se encontraron productos.
+</p>
+
 
     </header>
 
@@ -520,187 +548,102 @@
   </div>
 
 
+  h2>Productos</h2>
 
-
-  <h2>Productos</h2>
+  <!-- Sección Carnes -->
   <div class="section" id="carnes">
-    <h2>Carnes</h2>
-    <section id="productos" class="productos">
-        <div class="producto" data-id="1" data-disponible="false">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
+      <h2>Carnes</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="1" data-disponible="true">
+              <img src="obejo.webp" alt="Pernilovejo">
+              <h3>Pernil de ovejo</h3>
+              <p>Precio: $3.00</p>
+              <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernilovejo" data-precio="5.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad disponible">Disponible</span>
+          </div>
 
-        <div class="producto" data-id="3" data-disponible="true">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="3" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="4" data-disponible="true">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="4" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="5" data-disponible="false">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="5" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="6" data-disponible="false">
-            <img src="shampoo.jpg" alt="Champoo">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="6" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="7" data-disponible="false">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="7" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div><div class="producto" data-id="8" data-disponible="false">
-            <img src="shampoo.jpg" alt="Surtido Mixto">
-            <h3>Surtido Mixto</h3>
-            <p>Precio: $5.00</p>
-            <button class="btn agregar-al-carrito" data-id="8" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-
-    </section>
+          <div class="producto" data-id="2" data-disponible="true">
+          <img src="obejo.webp" alt="Pernilcerdo">
+          <h3>Pernil de Cerdo</h3>
+          <p>Precio: $3.00</p>
+          <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernilcerdo" data-precio="5.00">Agregar al carrito</button>
+          <span class="etiqueta-disponibilidad disponible">Disponible</span>
+      </div>
 
 
-    
-    <div class="section" id="chuches">
+
+      </section>
+  </div>
+  
+  <!-- Sección Chuches -->
+  <div class="section" id="chuches">
       <h2>Chuches</h2>
       <section id="productos" class="productos">
-          <div class="producto" data-id="1" data-disponible="false">
-              <img src="shampoo.jpg" alt="Surtido Mixto">
-              <h3>Surtido Mixto</h3>
-              <p>Precio: $5.00</p>
-              <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-              <span class="etiqueta-disponibilidad agotado">Agotado</span>
-          </div>
-  
           <div class="producto" data-id="2" data-disponible="false">
-              <img src="shampoo.jpg" alt="Surtido Mixto">
+              <img src="surtido.jpg" alt="Surtido Mixto">
               <h3>Surtido Mixto</h3>
-              <p>Precio: $5.00</p>
+              <p>Precio: $3.00</p>
               <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
               <span class="etiqueta-disponibilidad agotado">Agotado</span>
           </div>
-
-        </section>
-
-
-        <div class="section" id="enlatados">
-            <h2>Enlatados</h2>
-            <section id="productos" class="productos">
-                <div class="producto" data-id="1" data-disponible="false">
-                    <img src="shampoo.jpg" alt="Surtido Mixto">
-                    <h3>Surtido Mixto</h3>
-                    <p>Precio: $5.00</p>
-                    <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                    <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                </div>
-        
-                <div class="producto" data-id="2" data-disponible="false">
-                    <img src="shampoo.jpg" alt="Surtido Mixto">
-                    <h3>Surtido Mixto</h3>
-                    <p>Precio: $5.00</p>
-                    <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                    <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                </div>
-      
-              </section>
-
-
-              <div class="section" id="dulces">
-                <h2>Dulces</h2>
-                <section id="productos" class="productos">
-                    <div class="producto" data-id="1" data-disponible="false">
-                        <img src="shampoo.jpg" alt="Surtido Mixto">
-                        <h3>Surtido Mixto</h3>
-                        <p>Precio: $5.00</p>
-                        <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                        <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                    </div>
-            
-                    <div class="producto" data-id="2" data-disponible="false">
-                        <img src="shampoo.jpg" alt="Surtido Mixto">
-                        <h3>Surtido Mixto</h3>
-                        <p>Precio: $5.00</p>
-                        <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                        <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                    </div>
-          
-                  </section>
-    
-
-                  <div class="section" id="granos">
-                    <h2>Granos</h2>
-                    <section id="productos" class="productos">
-                        <div class="producto" data-id="1" data-disponible="true">
-                            <img src="obejo.webp" alt="Surtido Mixto">
-                            <h3>Surtido Mixto</h3>
-                            <p>Precio: $5.00</p>
-                            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                        </div>
-                
-                        <div class="producto" data-id="2" data-disponible="false">
-                            <img src="shampoo.jpg" alt="Surtido Mixto">
-                            <h3>Surtido Mixto</h3>
-                            <p>Precio: $5.00</p>
-                            <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                        </div>
-              
-                      </section>
-        
-
-                      <div class="section" id="bebidas">
-                        <h2>Bebidas</h2>
-                        <section id="productos" class="productos">
-                            <div class="producto" data-id="1" data-disponible="false">
-                                <img src="shampoo.jpg" alt="Surtido Mixto">
-                                <h3>Surtido Mixto</h3>
-                                <p>Precio: $5.00</p>
-                                <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                            </div>
-                    
-                            <div class="producto" data-id="2" data-disponible="false">
-                                <img src="shampoo.jpg" alt="Surtido Mixto">
-                                <h3>Surtido Mixto</h3>
-                                <p>Precio: $5.00</p>
-                                <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                            </div>
-                            <div class="producto" data-id="1" data-disponible="false">
-                                <img src="shampoo.jpg" alt="Surtido Mixto">
-                                <h3>Surtido Mixto</h3>
-                                <p>Precio: $5.00</p>
-                                <button class="btn agregar-al-carrito" data-id="1" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                            </div>
-                    
-                            <div class="producto" data-id="2" data-disponible="false">
-                                <img src="shampoo.jpg" alt="Surtido Mixto">
-                                <h3>Surtido Mixto</h3>
-                                <p>Precio: $5.00</p>
-                                <button class="btn agregar-al-carrito" data-id="2" data-nombre="Surtido Mixto" data-precio="5.00">Agregar al carrito</button>
-                                <span class="etiqueta-disponibilidad agotado">Agotado</span>
-                            </div>
-                  
-                          </section>
-
-
+      </section>
+  </div>
+  
+  <!-- Sección Enlatados -->
+  <div class="section" id="enlatados">
+      <h2>Enlatados</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="3" data-disponible="true">
+              <img src="shampoo.jpg" alt="Shampoo">
+              <h3>Shampoo</h3>
+              <p>Precio: $5.00</p>
+              <button class="btn agregar-al-carrito" data-id="3" data-nombre="Shampoo" data-precio="5.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad disponible">Disponible</span>
+          </div>
+      </section>
+  </div>
+  
+  <!-- Sección Dulces -->
+  <div class="section" id="dulces">
+      <h2>Dulces</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="4" data-disponible="false">
+              <img src="chocolate.jpg" alt="Chocolate">
+              <h3>Chocolate</h3>
+              <p>Precio: $2.00</p>
+              <button class="btn agregar-al-carrito" data-id="4" data-nombre="Chocolate" data-precio="2.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad agotado">Agotado</span>
+          </div>
+      </section>
+  </div>
+  
+  <!-- Sección Granos -->
+  <div class="section" id="granos">
+      <h2>Granos</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="5" data-disponible="true">
+              <img src="frijoles.jpg" alt="Frijoles">
+              <h3>Frijoles</h3>
+              <p>Precio: $1.50</p>
+              <button class="btn agregar-al-carrito" data-id="5" data-nombre="Frijoles" data-precio="1.50">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad disponible">Disponible</span>
+          </div>
+      </section>
+  </div>
+  
+  <!-- Sección Bebidas -->
+  <div class="section" id="bebidas">
+      <h2>Bebidas</h2>
+      <section id="productos" class="productos">
+          <div class="producto" data-id="6" data-disponible="false">
+              <img src="agua.jpg" alt="Agua">
+              <h3>Agua</h3>
+              <p>Precio: $1.00</p>
+              <button class="btn agregar-al-carrito" data-id="6" data-nombre="Agua" data-precio="1.00">Agregar al carrito</button>
+              <span class="etiqueta-disponibilidad agotado">Agotado</span>
+          </div>
+      </section>
+  </div>
 
     <div class="notificacion-agotado" id="notificacion-agotado">
         Producto agotado
@@ -832,17 +775,38 @@ function quitarTildes(texto) {
 }
 
 // Barra de búsqueda
+// Seleccionar elementos
 const barraBusqueda = document.getElementById('barra-busqueda');
+const botonBuscar = document.getElementById('boton-buscar');
 const productos = document.querySelectorAll('.producto');
+const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado');
 
-barraBusqueda.addEventListener('input', (event) => {
-    const filtro = quitarTildes(event.target.value); // Normaliza el texto ingresado
+// Función para buscar productos
+function buscarProductos() {
+    const busqueda = barraBusqueda.value.toLowerCase().trim();
+    let encontrados = 0;
 
     productos.forEach(producto => {
-        const nombreProducto = quitarTildes(producto.querySelector('h3').textContent); // Normaliza el texto del producto
-        producto.style.display = nombreProducto.includes(filtro) ? '' : 'none'; // Muestra u oculta el producto
+        const nombreProducto = producto.querySelector('h3').textContent.toLowerCase();
+        if (nombreProducto.includes(busqueda)) {
+            producto.style.display = 'block'; // Mostrar el producto
+            encontrados++;
+        } else {
+            producto.style.display = 'none'; // Ocultar el producto
+        }
     });
-});
+
+    // Mostrar o ocultar el mensaje de "sin resultados"
+    if (encontrados === 0) {
+        mensajeNoEncontrado.style.display = 'block';
+    } else {
+        mensajeNoEncontrado.style.display = 'none';
+    }
+}
+
+// Escuchar eventos en la barra y el botón
+barraBusqueda.addEventListener('input', buscarProductos);
+botonBuscar.addEventListener('click', buscarProductos);
 
 
 window.onload = function() {
