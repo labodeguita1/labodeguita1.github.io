@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - Raiky Pizza</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+
     <style>
         body {
     font-family: 'Poppins', sans-serif;
@@ -21,6 +24,104 @@ header {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Estilo general para la página del carrito */
+#carrito-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+}
+
+/* Estilo para cada producto */
+.producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #ff69b4; /* Borde rosado */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Efecto de hover para los productos */
+.producto:hover {
+    transform: scale(1.03); /* Escalado suave */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen del producto */
+.producto img {
+    max-width: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+/* Contenedor de detalles del producto */
+.producto div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Nombre del producto */
+.producto h3 {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Precio del producto */
+.producto p {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 16px;
+    color: #ff69b4; /* Color rosado para el precio */
+}
+
+/* Botones de agregar y eliminar */
+.producto .boton {
+    background-color: #ff69b4; /* Fondo rosado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para los botones */
+.producto .boton:hover {
+    background-color: #ff1493; /* Rosado más oscuro al pasar el cursor */
+}
+
+/* Total de productos y precio */
+#total-precio {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    color: #333;
+    background-color: #ffebf1; /* Fondo claro con un toque rosado */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Contador de productos */
+#contador-productos {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
 
 .container {
     width: 90%;
@@ -88,29 +189,147 @@ select:focus {
     border-color: #3498db;
 }
 
-/* Estilo del modal (modificado) */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
-    overflow: auto;
-    padding-top: 60px;
+
+
+/* Estilo para el <select> */
+    #pedidoModal select {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Comic Sans con respaldo */
+    font-size: 18px; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    color: #333; /* Color del texto */
+    background-color: #f7f7f7; /* Fondo claro */
+    border: 2px solid #ff69b4; /* Borde rosado */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px;
+    transition: all 0.3s ease; /* Animación suave */
 }
 
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Estilo específico para las opciones */
+#pedidoModal option {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 18px; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    color: #444; /* Color del texto */
+    background-color: #fff; /* Fondo claro */
+    padding: 5px; /* Espaciado interno */
 }
+
+/* Opciones al pasar el cursor */
+#pedidoModal option:hover {
+    background-color: #ff69b4; /* Fondo rosado al hacer hover */
+    color: #fff; /* Texto blanco al hacer hover */
+}
+
+
+
+#pedidoModal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 500px;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    /* Fondo oscuro detrás del modal */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    /* Cabecera del modal */
+    #pedidoModal h2 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Contenido del modal */
+    #pedidoModal p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Campos de entrada del formulario */
+    #pedidoModal input[type="text"],
+    #pedidoModal input[type="time"],
+    #pedidoModal select {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+    }
+
+    /* Botones del modal */
+    #pedidoModal .boton {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #pedidoModal .boton:hover {
+        background: linear-gradient(135deg, #2575fc, #6a11cb);
+    }
+
+    /* Mensajes de error */
+    .error-msg {
+        display: none;
+        background: rgba(255, 0, 0, 0.8);
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Botón cerrar */
+    #closeModal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    #closeModal:hover {
+        transform: scale(1.2);
+    }
 
 .close {
     color: #aaa;
@@ -149,6 +368,12 @@ select:focus {
     width: 100%;
     transition: background-color 0.3s ease;
 }
+
+
+
+
+
+
 
 #confirmar-pedido:hover {
     background-color: #e0a800;
@@ -276,7 +501,7 @@ footer {
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" required>
         
-        <label for="nombre-receptor">Nombre y Apellido del Receptor:</label>
+        <label for="nombre-receptor">Nombre y apellido de la persona que recibe:</label>
         <input type="text" id="nombre-receptor" required> <!-- Nuevo campo -->
 
         <label for="direccion">Dirección:</label>
@@ -289,10 +514,12 @@ footer {
         <label for="servicioDomicilio">Servicio a Domicilio:</label>
         <select id="servicioDomicilio">
             <option value="ninguno">Selecciona un lugar</option>
-            <option value="Manzanillo">Lugar 1 (Gratis)</option>
-            <option value="lugar2">Lugar 2 (+$10)</option>
-            <option value="lugar3">Lugar 3 (+$10)</option>
-            <option value="lugar4">Lugar 4 (+$10)</option>
+            <option value="Manzanillo">Manzanillo (Gratis)</option>
+            <option value="Yara">Yara (+$10)</option>
+            <option value="Masó">Masó (+$10)</option>
+            <option value="Bayamo">Bayamo (+$10)</option>
+            <option value="Veguita">Veguita (+$10)</option>
+            <option value="Campechuela">Campechuela (+$10)</option>
         </select>
         <div id="estadoServicio" class="status-text">No seleccionado</div> <!-- Estado del servicio -->
 
@@ -424,29 +651,35 @@ footer {
 
     // Precio por servicio a domicilio dependiendo del lugar seleccionado
     let precioServicio = 0;
-    let lugarSeleccionado = "Lugar 1"; // Valor predeterminado en caso de que se seleccione "Lugar 1"
+let lugarSeleccionado = "Manzanillo"; // Valor predeterminado si es gratis
 
-    if (servicioDomicilio === "lugar2") {
-        precioServicio = 10;
-        lugarSeleccionado = "Lugar 2";
-    } else if (servicioDomicilio === "lugar3") {
-        precioServicio = 10;
-        lugarSeleccionado = "Lugar 3";
-    } else if (servicioDomicilio === "lugar4") {
-        precioServicio = 10;
-        lugarSeleccionado = "Lugar 4";
-    }
+if (servicioDomicilio === "Yara") {
+    precioServicio = 10;
+    lugarSeleccionado = "Yara";
+} else if (servicioDomicilio === "Masó") {
+    precioServicio = 10;
+    lugarSeleccionado = "Masó";
+} else if (servicioDomicilio === "Bayamo") {
+    precioServicio = 10;
+    lugarSeleccionado = "Bayamo";
+} else if (servicioDomicilio === "Veguita") {
+    precioServicio = 10;
+    lugarSeleccionado = "Veguita";
+} else if (servicioDomicilio === "Campechuela") {
+    precioServicio = 10;
+    lugarSeleccionado = "Campechuela";
+}
+
 
     total += precioServicio;  // Sumar el precio del servicio
 
     const servicioTexto = precioServicio > 0 ? `+ $10 (${lugarSeleccionado})` : "Gratis";
-    
-    // Cambié el orden para que el total sea lo último
-    const mensaje = `Orden realizada por ${nombre} (Receptor: ${nombreReceptor}):\n` +
-        carrito.map(item => `${item.nombre} (Cantidad: ${item.cantidad}) - Precio: $${(item.precio * item.cantidad).toFixed(2)}`).join('\n') +
-        `\nDirección: ${direccion}\nHora: ${hora}` +
-        `\nServicio a Domicilio: ${lugarSeleccionado} ${servicioTexto}` +
-        `\nTotal: $${total.toFixed(2)}`; // El total es lo último
+const mensaje = `Orden realizada por ${nombre} (Persona que recibe: ${nombreReceptor}):\n` +
+    carrito.map(item => `${item.nombre} (Cantidad: ${item.cantidad}) - Precio: $${(item.precio * item.cantidad).toFixed(2)}`).join('\n') +
+    `\nDirección: ${direccion}\nHora: ${hora}` +
+    `\nServicio a domicilio a  ${lugarSeleccionado} ${servicioTexto}` +
+    `\nTotal: $${total.toFixed(2)}`;
+
 
     const telefono = '5352461307';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
