@@ -102,14 +102,19 @@
             margin: 10px 0;
         }
         .producto .btn {
-            background-color: #FF66B2;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    background-color: #FF66B2;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 150px; /* Ancho máximo */
+    height: 40px; /* Altura fija para los botones */
+    margin-top: auto; /* Empuja el botón hacia abajo */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
         .producto .btn:hover {
             background-color: #FF66B2;
         }
@@ -143,6 +148,7 @@
             display: block;
             margin-top: 10px;
             font-weight: bold;
+            bottom: 70px; /* Asegura que siempre esté a la misma altura */
         }
         .etiqueta-disponibilidad.disponible {
             color: #4CAF50;
