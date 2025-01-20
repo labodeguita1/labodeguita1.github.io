@@ -468,6 +468,15 @@ footer {
             margin: 0 auto; 
             font-size: 1rem; 
             padding: 5px; 
+
+
+            /* Estilos para el botón deshabilitado */
+.boton:disabled {
+    background-color: #ccc; /* Color gris para el fondo */
+    color: #666; /* Color gris claro para el texto */
+    cursor: not-allowed; /* Cambiar el cursor para mostrar que está deshabilitado */
+}
+
         }
     </style>
 </head>
@@ -693,6 +702,33 @@ function confirmarPedido() {
 
     window.addEventListener('load', mostrarCarrito);
     setInterval(mostrarCarrito, 3000);
+
+
+    // Función para verificar si la tienda está abierta
+function estaTiendaAbierta() {
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+    return horaActual >= 8 && horaActual < 18; // 8 AM a 6 PM
+}
+
+// Función para habilitar o deshabilitar el botón de realizar pedido
+function actualizarEstadoBoton() {
+    const botonRealizarPedido = document.getElementById('realizar-pedido');
+    if (estaTiendaAbierta()) {
+        botonRealizarPedido.disabled = false; // Habilitar el botón
+    } else {
+        botonRealizarPedido.disabled = true; // Deshabilitar el botón
+    }
+}
+
+// Llamar a la función para actualizar el estado del botón cuando la página carga
+window.addEventListener('load', () => {
+    actualizarEstadoBoton(); // Actualizar el estado del botón al cargar la página
+});
+
+// Llamar a la función cada minuto para comprobar si el horario ha cambiado
+setInterval(actualizarEstadoBoton, 60000); // Actualiza el estado del botón cada minuto
+
 </script>
 </body>
 </html>
