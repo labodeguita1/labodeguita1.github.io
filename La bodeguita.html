@@ -485,6 +485,9 @@ footer {
 <body>
     <header>
         <h1>La Bodeguita Muñoz</h1>
+        <div id="estado-tienda" style="position: absolute; top: 10px; left: 10px; padding: 10px; border-radius: 5px; font-weight: bold;">
+            <!-- Aquí se mostrará si está abierto o cerrado -->
+        </div>
         <nav>
             <ul>
                 <li><a href="#productos">Productos</a></li>
@@ -1148,7 +1151,7 @@ footer {
     </footer>
 
     <div id="boton-flotante">
-       <a href="carrito.html">
+        <a href="carrito .html">
             <img src="icono-carrito.png" alt="Carrito">
             <span id="contador-carrito">0</span>
         </a>
@@ -1549,7 +1552,61 @@ document.getElementById('barra-busqueda').addEventListener('input', function() {
     });
 });
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const estadoTienda = document.getElementById("estado-tienda");
+    const botonesCarrito = document.querySelectorAll(".agregar-al-carrito");
+
+    function verificarHorario() {
+        const ahora = new Date();
+        const dia = ahora.getDay(); // Día de la semana (0 = Domingo, 1 = Lunes, ..., 6 = Sábado)
+        const hora = ahora.getHours(); // Hora actual (formato 24 horas)
+
+        // Verificar si está dentro del horario (lunes a sábado de 9:00 a 18:00)
+        const tiendaAbierta = (dia >= 1 && dia <= 6) && (hora >= 9 && hora < 18);
+
+        if (tiendaAbierta) {
+            estadoTienda.textContent = "Abierto";
+            estadoTienda.style.backgroundColor = "green";
+            estadoTienda.style.color = "white";
+            botonesCarrito.forEach(boton => boton.disabled = false);
+        } else {
+            estadoTienda.textContent = "Cerrado";
+            estadoTienda.style.backgroundColor = "red";
+            estadoTienda.style.color = "white";
+            botonesCarrito.forEach(boton => {
+                boton.disabled = true;
+                boton.style.cursor = "not-allowed";
+            });
+
+            // Mostrar mensaje emergente si está cerrado
+            const mensajeCerrado = document.createElement("div");
+            mensajeCerrado.textContent = "La tienda está cerrada. Nuestro horario es de lunes a sábado de 9:00 a.m. a 6:00 p.m.";
+            mensajeCerrado.style.position = "fixed";
+            mensajeCerrado.style.top = "50%";
+            mensajeCerrado.style.left = "50%";
+            mensajeCerrado.style.transform = "translate(-50%, -50%)";
+            mensajeCerrado.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            mensajeCerrado.style.color = "white";
+            mensajeCerrado.style.padding = "20px";
+            mensajeCerrado.style.borderRadius = "10px";
+            mensajeCerrado.style.textAlign = "center";
+            mensajeCerrado.style.zIndex = "1000";
+            document.body.appendChild(mensajeCerrado);
+
+            setTimeout(() => mensajeCerrado.remove(), 5000);
+        }
+    }
+
+    // Ejecutar la función al cargar la página y cada minuto
+    verificarHorario();
+    setInterval(verificarHorario, 60000);
+});
+
 </script>
+
+
     
 </body>
 </html>
