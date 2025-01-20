@@ -656,23 +656,23 @@ footer {
 
     // Precio por servicio a domicilio dependiendo del lugar seleccionado
     let precioServicio = 0;
-    let lugarSeleccionado = "Manzanillo"; // Valor predeterminado si es gratis
+    let textoEntrega = "Gratis"; // Por defecto para Manzanillo
 
     if (servicioDomicilio === "Yara") {
         precioServicio = 10;
-        lugarSeleccionado = "Yara";
+        textoEntrega = "10 USD";
     } else if (servicioDomicilio === "Masó") {
         precioServicio = 10;
-        lugarSeleccionado = "Masó";
+        textoEntrega = "10 USD";
     } else if (servicioDomicilio === "Bayamo") {
         precioServicio = 10;
-        lugarSeleccionado = "Bayamo";
+        textoEntrega = "10 USD";
     } else if (servicioDomicilio === "Veguita") {
         precioServicio = 10;
-        lugarSeleccionado = "Veguita";
+        textoEntrega = "10 USD";
     } else if (servicioDomicilio === "Campechuela") {
         precioServicio = 10;
-        lugarSeleccionado = "Campechuela";
+        textoEntrega = "10 USD";
     }
 
     total += precioServicio;
@@ -683,14 +683,14 @@ footer {
         `Productos:\n` +
         carrito.map(item => `${item.cantidad} - ${item.nombre} : ${item.precio.toFixed(2)} USD`).join('\n') +
         `\n-\n` +
-        `Entrega: ${precioServicio.toFixed(2)} USD\n` +
+        `Entrega: ${textoEntrega}\n` +
         `……………………………………\n` +
         `TOTAL: ${total.toFixed(2)} USD\n` +
         `-\n` +
         `Cliente: ${nombreReceptor}\n` +
         `Teléfono: ${telefonoReceptor}\n` +
         `Entregar en: ${direccion}.\n` +
-        `Zona: ${lugarSeleccionado}`;
+        `Zona: ${servicioDomicilio}`;
 
     const telefono = '5352461307';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
