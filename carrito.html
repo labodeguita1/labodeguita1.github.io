@@ -626,12 +626,13 @@ function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
     const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
-    const telefonoReceptor = document.getElementById('telefono-receptor').value; // Nuevo campo
+    const telefonoReceptor = document.getElementById('telefono-receptor').value; 
     const servicioDomicilio = document.getElementById('servicioDomicilio').value;
 
     // Ocultar mensajes de error previos
     document.getElementById('error-msg').style.display = "none";
 
+    // Validación de campos
     if (!nombre || !nombreReceptor || !direccion || !telefonoReceptor || servicioDomicilio === "ninguno") {
         document.getElementById('error-msg').style.display = "block";
         return;
@@ -639,23 +640,13 @@ function confirmarPedido() {
 
     let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 
-    // Precio por servicio a domicilio dependiendo del lugar seleccionado
+    // Determinar el costo de envío según el lugar seleccionado
     let precioServicio = 0;
-    let textoEntrega = "Gratis"; // Por defecto para Manzanillo
+    let textoEntrega = "Gratis";
 
-    if (servicioDomicilio === "Yara") {
-        precioServicio = 10;
-        textoEntrega = "10 USD";
-    } else if (servicioDomicilio === "Masó") {
-        precioServicio = 10;
-        textoEntrega = "10 USD";
-    } else if (servicioDomicilio === "Bayamo") {
-        precioServicio = 10;
-        textoEntrega = "10 USD";
-    } else if (servicioDomicilio === "Veguita") {
-        precioServicio = 10;
-        textoEntrega = "10 USD";
-    } else if (servicioDomicilio === "Campechuela") {
+    if (servicioDomicilio === "Yara" || servicioDomicilio === "Masó" || 
+        servicioDomicilio === "Bayamo" || servicioDomicilio === "Veguita" || 
+        servicioDomicilio === "Campechuela") {
         precioServicio = 10;
         textoEntrega = "10 USD";
     }
@@ -679,10 +670,13 @@ function confirmarPedido() {
 
     const telefono = '5352461307';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
+
+    // Abrir WhatsApp
     window.open(url);
 
-    cerrarModal();
+    // Vaciar el carrito y actualizar la vista
     vaciarCarrito();
+    cerrarModal();
 }
 
 
