@@ -504,6 +504,10 @@ footer {
         <label for="nombre-receptor">Nombre y apellido de la persona que recibe:</label>
         <input type="text" id="nombre-receptor" required> <!-- Nuevo campo -->
 
+        <label for="telefono-receptor">Teléfono de la persona que recibe:</label>
+<input type="text" id="telefono-receptor" required>
+
+
         <label for="direccion">Dirección:</label>
         <input type="text" id="direccion" required>
         
@@ -621,8 +625,9 @@ footer {
 
     function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
-    const nombreReceptor = document.getElementById('nombre-receptor').value;  // Nombre y apellido receptor
+    const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
+    const telefonoReceptor = document.getElementById('telefono-receptor').value; // Nuevo campo
     const hora = document.getElementById('hora').value;
     const servicioDomicilio = document.getElementById('servicioDomicilio').value;
 
@@ -636,12 +641,12 @@ footer {
     horaSeleccionada.setHours(h);
     horaSeleccionada.setMinutes(m);
 
-    if (!nombre || !nombreReceptor || !direccion || !hora || servicioDomicilio === "ninguno") {  // Verificación de si no se seleccionó un lugar
+    if (!nombre || !nombreReceptor || !direccion || !telefonoReceptor || !hora || servicioDomicilio === "ninguno") {
         document.getElementById('error-msg').style.display = "block";
         return;
     }
 
-    const diferenciaHoras = (horaSeleccionada - ahora) / 1000 / 60 / 60; 
+    const diferenciaHoras = (horaSeleccionada - ahora) / 1000 / 60 / 60;
     if (diferenciaHoras < 1) {
         document.getElementById('error-hora-msg').style.display = "block";
         return;
@@ -651,35 +656,41 @@ footer {
 
     // Precio por servicio a domicilio dependiendo del lugar seleccionado
     let precioServicio = 0;
-let lugarSeleccionado = "Manzanillo"; // Valor predeterminado si es gratis
+    let lugarSeleccionado = "Manzanillo"; // Valor predeterminado si es gratis
 
-if (servicioDomicilio === "Yara") {
-    precioServicio = 10;
-    lugarSeleccionado = "Yara";
-} else if (servicioDomicilio === "Masó") {
-    precioServicio = 10;
-    lugarSeleccionado = "Masó";
-} else if (servicioDomicilio === "Bayamo") {
-    precioServicio = 10;
-    lugarSeleccionado = "Bayamo";
-} else if (servicioDomicilio === "Veguita") {
-    precioServicio = 10;
-    lugarSeleccionado = "Veguita";
-} else if (servicioDomicilio === "Campechuela") {
-    precioServicio = 10;
-    lugarSeleccionado = "Campechuela";
-}
+    if (servicioDomicilio === "Yara") {
+        precioServicio = 10;
+        lugarSeleccionado = "Yara";
+    } else if (servicioDomicilio === "Masó") {
+        precioServicio = 10;
+        lugarSeleccionado = "Masó";
+    } else if (servicioDomicilio === "Bayamo") {
+        precioServicio = 10;
+        lugarSeleccionado = "Bayamo";
+    } else if (servicioDomicilio === "Veguita") {
+        precioServicio = 10;
+        lugarSeleccionado = "Veguita";
+    } else if (servicioDomicilio === "Campechuela") {
+        precioServicio = 10;
+        lugarSeleccionado = "Campechuela";
+    }
 
+    total += precioServicio;
 
-    total += precioServicio;  // Sumar el precio del servicio
-
-    const servicioTexto = precioServicio > 0 ? `+ $10 (${lugarSeleccionado})` : "Gratis";
-const mensaje = `Orden realizada por ${nombre} (Persona que recibe: ${nombreReceptor}):\n` +
-    carrito.map(item => `${item.nombre} (Cantidad: ${item.cantidad}) - Precio: $${(item.precio * item.cantidad).toFixed(2)}`).join('\n') +
-    `\nDirección: ${direccion}\nHora: ${hora}` +
-    `\nServicio a domicilio a  ${lugarSeleccionado} ${servicioTexto}` +
-    `\nTotal: $${total.toFixed(2)}`;
-
+    // Formatear el mensaje
+    const mensaje = `*La Bodeguita Muñoz*\n` +
+        `- Orden realizada por: ${nombre}\n` +
+        `Productos:\n` +
+        carrito.map(item => `${item.cantidad} - ${item.nombre} : ${item.precio.toFixed(2)} USD`).join('\n') +
+        `\n-\n` +
+        `Entrega: ${precioServicio.toFixed(2)} USD\n` +
+        `……………………………………\n` +
+        `TOTAL: ${total.toFixed(2)} USD\n` +
+        `-\n` +
+        `Cliente: ${nombreReceptor}\n` +
+        `Teléfono: ${telefonoReceptor}\n` +
+        `Entregar en: ${direccion}.\n` +
+        `Zona: ${lugarSeleccionado}`;
 
     const telefono = '5352461307';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
