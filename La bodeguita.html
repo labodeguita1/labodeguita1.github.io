@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Bodeguita Online</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
     <style>
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -88,10 +91,18 @@
             text-align: center;
         }
         .producto img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
+    max-width: 100%; /* Asegura que las imágenes no excedan su contenedor */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+/* Animación al pasar el cursor */
+.producto img:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Intensifica la sombra */
+}
         .producto h3 {
             margin: 0;
             font-size: 1.2rem;
@@ -480,6 +491,28 @@ footer {
     
 }
 
+
+.selector-peso {
+    border: 2px solid #FF66B2; /* Borde rosado */
+    border-radius: 10px; /* Bordes redondeados */
+    font-family: 'Comic Sans MS', cursive; /* Fuente Comic Sans */
+    font-weight: bold; /* Letras en negrita */
+    padding: 5px 10px; /* Espaciado interno */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #333333; /* Color del texto */
+    transition: all 0.3s ease; /* Efecto suave en hover */
+    cursor: pointer; /* Cursor estilo puntero */
+}
+
+/* Estilo al pasar el cursor por encima */
+.selector-peso:hover {
+    border-color: #FF99CC; /* Cambiar a un tono más claro de rosado */
+    background-color: #FFEBF5; /* Fondo ligeramente rosado */
+    transform: scale(1.05); /* Aumentar un poco el tamaño */
+}
+
+
+
  </style>
 </head>
 <body>
@@ -573,29 +606,62 @@ footer {
   <div class="section" id="carnes">
       <h2>Carnes</h2>
       <section id="productos" class="productos">
-          <div class="producto" data-id="1" data-disponible="true">
-              <img src="obejo.webp" alt="Pernilovejo">
-              <h3>Pernil de ovejo<h3>
-              <p>Precio: $2.50 USD x LB</p>
-              <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernil de ovejo" data-precio="2.50">Agregar al carrito</button>
-              <span class="etiqueta-disponibilidad disponible">Disponible</span>
-          </div>
+        <div class="producto" data-id="1" data-disponible="true" data-precio="2.50">
+            <img src="obejo.webp" alt="Pernil de ovejo">
+            <h3>Pernil de ovejo</h3>
+            <p>Precio por libra: $2.50 USD</p>
+            
+            <!-- Selector de peso -->
+            <label for="peso-1">Selecionar Peso:</label>
+            <select id="peso-1" class="selector-peso" data-id="1">
+                <option value="7">7 libras</option>
+              
+              
+            </select>
+            
+            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernil de ovejo" data-precio="2.50">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
+        
 
-          <div class="producto" data-id="2" data-disponible="true">
-          <img src="pernil1.jpg" alt="Pernilcerdo">
-          <h3>Pernil de Cerdo<h3>
-          <p>Precio: $3.50 USD x LB</p>
-          <button class="btn agregar-al-carrito" data-id="2" data-nombre="Pernil de Cerdo" data-precio="3.50">Agregar al carrito</button>
-          <span class="etiqueta-disponibilidad disponible">Disponible</span>
-      </div>
+        <div class="producto" data-id="2" data-disponible="true" data-precio="3.50">
+            <img src="pernil1.jpg" alt="Pernil de cerdo">
+            <h3>Pernil de cerdo</h3>
+            <p>Precio por libra: $3.50 USD</p>
+            
+            <!-- Selector de peso -->
+            <label for="peso-2">Peso:</label>
+            <select id="peso-2" class="selector-peso" data-id="2">
+                <option value="17">17 libras</option>
+                <option value="18">18 libras</option>
+              
+            </select>
+            
+            <!-- Botón de agregar -->
+            <button class="btn agregar-al-carrito" data-id="2" data-nombre="Pernil de cerdo" data-precio="3.50">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
+        
       
-      <div class="producto" data-id="3" data-disponible="true">
-        <img src="importado.jpg" alt="Lomocerdo">
-        <h3>Lomo de Cerdo importado<h3>
-        <p>Precio: $4.00 USD x LB</p>
-        <button class="btn agregar-al-carrito" data-id="3" data-nombre="Lomo de Cerdo importado" data-precio="4.00">Agregar al carrito</button>
-        <span class="etiqueta-disponibilidad disponible">Disponible</span>
-    </div>
+        <div class="producto" data-id="3" data-disponible="true" data-precio="4.00">
+            <img src="lomo.jpg" alt="Lomo de Cerdo">
+            <h3>Lomo de Cerdo </h3>
+            <p>Precio por libra: $4.00 USD</p>
+            
+            <!-- Selector de peso -->
+            <label for="peso-3">Peso:</label>
+            <select id="peso-3" class="selector-peso" data-id="3">
+                <option value="7">7 libras</option>
+                <option value="8">8 libras</option>
+                <option value="9">9 libras</option>
+                <option value="12">12 libras</option>
+              
+            </select>
+            
+            <!-- Botón de agregar -->
+            <button class="btn agregar-al-carrito" data-id="3" data-nombre="Lomo de Cerdo" data-precio="4.00">Agregar al carrito</button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
     <div class="producto" data-id="4" data-disponible="true">
         <img src="picadillo.jpg" alt="Picadillo">
         <h3>Picadillo de Pollo<h3>
@@ -1151,7 +1217,7 @@ footer {
     </footer>
 
     <div id="boton-flotante">
-        <a href="carrito.html">
+        <a href="carrito .html">
             <img src="icono-carrito.png" alt="Carrito">
             <span id="contador-carrito">0</span>
         </a>
@@ -1260,10 +1326,10 @@ footer {
                 notificacion.style.display = 'none';
             }, 2000);
         }
-    
         function agregarAlCarrito(event) {
     const boton = event.target;
-    const disponible = boton.closest('.producto').getAttribute('data-disponible') === 'true';
+    const producto = boton.closest('.producto');
+    const disponible = producto.getAttribute('data-disponible') === 'true';
 
     if (!disponible) {
         mostrarNotificacionAgotado();
@@ -1272,47 +1338,60 @@ footer {
 
     const id = boton.getAttribute('data-id');
     const nombre = boton.getAttribute('data-nombre');
-    const precio = parseFloat(boton.getAttribute('data-precio'));
-    const imagen = boton.closest('.producto').querySelector('img').src; // Captura la URL de la imagen
+    const precioUnitario = parseFloat(boton.getAttribute('data-precio'));
 
-    let productoEnCarrito = carrito.find(producto => producto.id === id);
+    // Verificar si el producto tiene un selector de peso
+    const selectorPeso = producto.querySelector('.selector-peso');
+    let pesoSeleccionado = null;
+
+    if (selectorPeso) {
+        pesoSeleccionado = parseFloat(selectorPeso.value);
+
+        // Validar si el peso seleccionado es válido
+        if (isNaN(pesoSeleccionado) || pesoSeleccionado <= 0) {
+            alert('Por favor, selecciona un peso válido antes de agregar al carrito.');
+            return;
+        }
+    }
+
+    // Calcular el precio total basado en el peso seleccionado (si aplica)
+    const precioTotal = pesoSeleccionado ? pesoSeleccionado * precioUnitario : precioUnitario;
+
+    const imagen = producto.querySelector('img').src;
+
+    // Verificar si ya existe un producto similar en el carrito
+    let productoEnCarrito = carrito.find(
+        (p) => p.id === id && (p.peso === pesoSeleccionado || !selectorPeso)
+    );
+
     if (productoEnCarrito) {
         productoEnCarrito.cantidad++;
     } else {
-        carrito.push({ id, nombre, precio, cantidad: 1, imagen }); // Agrega la imagen al carrito
+        carrito.push({
+            id,
+            nombre,
+            precio: precioTotal,
+            peso: selectorPeso ? pesoSeleccionado : null, // Solo añadimos peso si existe
+            cantidad: 1,
+            imagen,
+        });
     }
 
+    // Guardar en el localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
+    // Sonido de confirmación
     const sonidoAgregar = new Audio('sonido.mp3');
     sonidoAgregar.play();
 
+    // Actualizar el contador del carrito
     actualizarContadorCarrito();
 }
 
 
 
-// Mostrar los productos del carrito en la página
-function mostrarCarrito() {
-    const carritoDiv = document.getElementById('carrito'); // Asegúrate de tener un contenedor con este ID en el HTML
-    carritoDiv.innerHTML = ''; // Limpiar el carrito antes de mostrar los nuevos productos
 
-    carrito.forEach(producto => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto-en-carrito');
 
-        // Crear la estructura para cada producto en el carrito
-        productoDiv.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-producto-carrito">
-            <h3>${producto.nombre}</h3>
-            <p>Precio: $${producto.precio}</p>
-            <p>Cantidad: ${producto.cantidad}</p>
-            <p>Total: $${(producto.precio * producto.cantidad).toFixed(2)}</p>
-        `;
-
-        carritoDiv.appendChild(productoDiv);
-    });
-}
 
 // Llamar a la función para mostrar el carrito cuando se cargue la página
 window.onload = function() {
