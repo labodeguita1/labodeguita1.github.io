@@ -551,38 +551,40 @@ footer {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
     function mostrarCarrito() {
-        const carritoItems = document.getElementById('carrito-items');
-        const totalPrecio = document.getElementById('total-precio');
-        const contadorProductos = document.getElementById('contador-productos');
-        carritoItems.innerHTML = '';
-        let total = 0;
-        let cantidadTotal = 0;
+    const carritoItems = document.getElementById('carrito-items');
+    const totalPrecio = document.getElementById('total-precio');
+    const contadorProductos = document.getElementById('contador-productos');
+    carritoItems.innerHTML = '';
+    let total = 0;
+    let cantidadTotal = 0;
 
-        carrito.forEach((item, index) => {
-            const productoDiv = document.createElement('div');
-            productoDiv.classList.add('producto');
+    carrito.forEach((item, index) => {
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('producto');
 
-            productoDiv.innerHTML = `
-                <img src="${item.imagen}" alt="${item.nombre}">
+        productoDiv.innerHTML = `
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <div>
+                <h3>${item.nombre}</h3>
+                ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} <!-- Mostrar peso si existe -->
+                <p>Precio: $${item.precio.toFixed(2)}</p>
+                <p>Cantidad: ${item.cantidad}</p>
                 <div>
-                    <h3>${item.nombre}</h3>
-                    <p>Precio: $${item.precio.toFixed(2)}</p>
-                    <p>Cantidad: ${item.cantidad}</p>
-                    <div>
-                        <button class="boton agregar" onclick="agregarProducto(${index})">Agregar</button>
-                        <button class="boton eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
-                    </div>
+                    <button class="boton agregar" onclick="agregarProducto(${index})">Agregar</button>
+                    <button class="boton eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
                 </div>
-            `;
-            carritoItems.appendChild(productoDiv);
+            </div>
+        `;
+        carritoItems.appendChild(productoDiv);
 
-            total += item.precio * item.cantidad; 
-            cantidadTotal += item.cantidad;
-        });
+        total += item.precio * item.cantidad; 
+        cantidadTotal += item.cantidad;
+    });
 
-        totalPrecio.innerText = `Total: $${total.toFixed(2)}`;
-        contadorProductos.innerText = `Total de Productos: ${cantidadTotal}`;
-    }
+    totalPrecio.innerText = `Total: $${total.toFixed(2)}`;
+    contadorProductos.innerText = `Total de Productos: ${cantidadTotal}`;
+}
+
 
     function agregarProducto(index) {
         carrito[index].cantidad++;
@@ -632,8 +634,7 @@ footer {
             estadoServicioText.textContent = selectedOption;
         }
     });
-
-function confirmarPedido() {
+    function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
     const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
@@ -668,7 +669,10 @@ function confirmarPedido() {
     const mensaje = `*La Bodeguita Muñoz*\n` +
         `- Orden realizada por: ${nombre}\n` +
         `Productos:\n` +
-        carrito.map(item => `${item.cantidad} - ${item.nombre} : ${item.precio.toFixed(2)} USD`).join('\n') +
+        carrito.map(item => {
+            const pesoInfo = item.peso ? ` (${item.peso} libras)` : ''; // Agregar peso si existe
+            return `${item.cantidad} - ${item.nombre}${pesoInfo} : ${item.precio.toFixed(2)} USD`;
+        }).join('\n') +
         `\n-\n` +
         `Entrega: ${textoEntrega}\n` +
         `……………………………………\n` +
@@ -689,6 +693,7 @@ function confirmarPedido() {
     vaciarCarrito();
     cerrarModal();
 }
+
 
 
     function vaciarCarrito() {
