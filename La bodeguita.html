@@ -511,7 +511,35 @@ footer {
     transform: scale(1.05); /* Aumentar un poco el tamaño */
 }
 
+/* Precio anterior */
+.precio-anterior {
+    text-decoration: line-through; /* Línea que tacha el texto */
+    color: #999; /* Color gris claro */
+    font-size: 0.9rem; /* Tamaño más pequeño */
+    margin-right: 10px; /* Espacio con el nuevo precio */
+}
 
+/* Precio en oferta */
+.precio-oferta {
+    color: #FF5733; /* Color rojo anaranjado */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1.2rem; /* Tamaño más grande */
+}
+
+/* Etiqueta de oferta */
+/* Etiqueta de oferta */
+.producto .etiqueta-oferta {
+    background-color: #e00000; /* Fondo rojo anaranjado */
+    color: white; /* Texto blanco */
+    font-size: 0.9rem; /* Tamaño de la etiqueta */
+    padding: 5px 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    position: absolute; /* Posición relativa al contenedor */
+    top: 10px; /* Distancia desde el borde superior del producto */
+    left: 10px; /* Distancia desde el borde izquierdo del producto */
+    z-index: 10; /* Asegura que esté encima de otros elementos */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
 
  </style>
 </head>
@@ -624,19 +652,23 @@ footer {
         </div>
         
 
-        <div class="producto" data-id="2" data-disponible="true" data-precio="3.00">
+        
+        <div class="producto" data-id="2" data-disponible="true" data-precio="3.00" style="position: relative;">
+            <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
             <img src="pernil1.jpg" alt="Pernil de cerdo">
             <h3>Pernil de cerdo</h3>
-            <p>Precio por libra: $3.00 USD</p>
-            
+            <p>
+                <span class="precio-anterior">$3.50 USD</span>
+                <span class="precio-oferta">$3.00 USD</span> por libra
+            </p>
+        
             <!-- Selector de peso -->
-            <label for="peso-2">Selecionar Peso:</label>
+            <label for="peso-2">Seleccionar Peso:</label>
             <select id="peso-2" class="selector-peso" data-id="2">
                 <option value="17">17 libras</option>
                 <option value="18">18 libras</option>
-              
             </select>
-            
+        
             <!-- Botón de agregar -->
             <button class="btn agregar-al-carrito" data-id="2" data-nombre="Pernil de cerdo" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
