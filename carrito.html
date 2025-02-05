@@ -660,12 +660,13 @@ footer {
 
     total += precioServicio;
 
-    // Formatear el mensaje con el nuevo emoji para tienda
+    // Formatear el mensaje con peso si existe
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
         `👤 *Orden realizada por:* ${nombre}\n\n` +
         `📦 *Productos:*\n` +
         carrito.map(item => {
-            return `➡️ ${item.cantidad}x ${item.nombre}: $${item.precio.toFixed(2)}`;
+            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
+            return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}: $${item.precio.toFixed(2)}`;
         }).join('\n') +
         `\n\n🚚 *Entrega:* ${precioServicio > 0 ? '10 USD' : 'Gratis'}\n` +
         `────────────────────────\n` +
@@ -688,7 +689,6 @@ footer {
     vaciarCarrito();
     cerrarModal();
 }
-
 
 
     function vaciarCarrito() {
