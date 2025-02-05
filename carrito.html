@@ -634,7 +634,7 @@ footer {
             estadoServicioText.textContent = selectedOption;
         }
     });
-    function confirmarPedido() {
+   function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
     const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
@@ -654,34 +654,29 @@ footer {
 
     // Determinar el costo de envío según el lugar seleccionado
     let precioServicio = 0;
-    let textoEntrega = "Gratis";
-
-    if (servicioDomicilio === "Yara" || servicioDomicilio === "Masó" || 
-        servicioDomicilio === "Bayamo" || servicioDomicilio === "Veguita" || 
-        servicioDomicilio === "Campechuela") {
+    if (servicioDomicilio !== "Manzanillo") {
         precioServicio = 10;
-        textoEntrega = "10 USD";
     }
 
     total += precioServicio;
 
-    // Formatear el mensaje
-    const mensaje = `*La Bodeguita Muñoz*\n` +
-        `- Orden realizada por: ${nombre}\n` +
-        `Productos:\n` +
+    // Formatear el mensaje con el nuevo emoji para tienda
+    const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
+        `👤 *Orden realizada por:* ${nombre}\n\n` +
+        `📦 *Productos:*\n` +
         carrito.map(item => {
-            const pesoInfo = item.peso ? ` (${item.peso} libras)` : ''; // Agregar peso si existe
-            return `${item.cantidad} - ${item.nombre}${pesoInfo} : ${item.precio.toFixed(2)} USD`;
+            return `➡️ ${item.cantidad}x ${item.nombre}: $${item.precio.toFixed(2)}`;
         }).join('\n') +
-        `\n-\n` +
-        `Entrega: ${textoEntrega}\n` +
-        `……………………………………\n` +
-        `TOTAL: ${total.toFixed(2)} USD\n` +
-        `-\n` +
-        `Cliente: ${nombreReceptor}\n` +
-        `Teléfono: ${telefonoReceptor}\n` +
-        `Entregar en: ${direccion}.\n` +
-        `Zona: ${servicioDomicilio}`;
+        `\n\n🚚 *Entrega:* ${precioServicio > 0 ? '10 USD' : 'Gratis'}\n` +
+        `────────────────────────\n` +
+        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+        `📝 *Detalles de entrega:*\n` +
+        `👤 *Cliente:* ${nombreReceptor}\n` +
+        `📞 *Teléfono:* ${telefonoReceptor}\n` +
+        `📍 *Dirección:* ${direccion}\n` +
+        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+        `¡Gracias por tu pedido! 🎉\n` +
+        `Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪5353393723‬';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
@@ -689,7 +684,7 @@ footer {
     // Abrir WhatsApp
     window.open(url);
 
-    // Vaciar el carrito y actualizar la vista
+    // Vaciar el carrito y cerrar el modal
     vaciarCarrito();
     cerrarModal();
 }
