@@ -81,6 +81,26 @@
 
 
         
+/* Corazones animados para San Valentín */
+.heart {
+    position: fixed;
+    color: red;
+    font-size: 30px;
+    opacity: 0.8;
+    animation: float 6s linear infinite, fadeOut 6s linear infinite;
+    transform: rotate(0deg);
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
 
 
         .producto {
@@ -223,40 +243,87 @@
     bottom: 0px;
 
 }
-        .mensaje-bienvenida {
+.mensaje-bienvenida {
     position: fixed;
-    top: 20%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(50px); /* Inicialmente movido hacia abajo */
-    background-color: #000000;
+    transform: translate(-50%, -50%); /* Centrado perfecto */
+    background: linear-gradient(45deg, #ff66b2, #ff4081); /* Degradado romántico */
     color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    font-size: 1.5rem;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
     z-index: 1000;
     opacity: 0;
-    animation: mostrarMensaje 5s forwards; /* Animación de aparición y desaparición */
+    animation: mostrarMensaje 6s forwards, latido 1.5s infinite alternate; /* Animación de aparición y latido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    width: 400px;
 }
 
-/* Animación para hacer aparecer el mensaje */
+/* Animación de entrada y salida */
 @keyframes mostrarMensaje {
     0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(50px); /* Inicia movido hacia abajo */
+        transform: translate(-50%, -60%) scale(0.8);
     }
     40% {
         opacity: 1;
-        transform: translateX(-50%) translateY(0); /* Se mueve hacia su posición original */
+        transform: translate(-50%, -50%) scale(1);
     }
     80% {
         opacity: 1;
     }
     100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-50px); /* Se mueve hacia arriba y se desvanece */
+        transform: translate(-50%, -40%) scale(0.8);
+    }
+}
+
+/* Efecto de latido */
+@keyframes latido {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+/* Corazones animados */
+.mensaje-bienvenida::before,
+.mensaje-bienvenida::after {
+    content: "💕";
+    font-size: 2rem;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.mensaje-bienvenida::before {
+    top: -15px;
+    left: -15px;
+    animation: flotarCorazones 2s infinite alternate ease-in-out;
+}
+
+.mensaje-bienvenida::after {
+    bottom: -15px;
+    right: -15px;
+    animation: flotarCorazones 2s infinite alternate ease-in-out reverse;
+}
+
+/* Animación flotante de corazones */
+@keyframes flotarCorazones {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
     }
 }
 
@@ -541,6 +608,22 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
 }
 
+
+.valentine-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ff66b2;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
  </style>
 </head>
 <body>
@@ -558,7 +641,10 @@ footer {
         </nav>
 <div class="img1">
 
-
+    <div class="valentine-banner">
+        💖 ¡Feliz San Valentín! 💖
+    </div>
+    
     <img src="image.png" alt="" width="10%">
 </div>
         
@@ -592,10 +678,10 @@ footer {
     </div>
     
     <!-- Mensaje de bienvenida -->
-<div id="mensaje-bienvenida" class="mensaje-bienvenida">
-    <h2>¡Bienvenido a La Bodeguita Muñoz!</h2>
-</div>
-
+    <div id="mensaje-bienvenida" class="mensaje-bienvenida">
+        💖 ¡Bienvenido a La Bodeguita Muñoz, tu tienda especial en San Valentín! 💖
+    </div>
+    
 
 <div class="carousel-container">
     <div class="carousel-track">
@@ -1412,6 +1498,33 @@ footer {
     </div>
 
     <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖"; // Corazón con brillo, puedes cambiarlo a "❤️" o "💕"
+
+        // Posición aleatoria en la pantalla
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px"; // Empieza desde abajo
+        heart.style.fontSize = Math.random() * 40 + 20 + "px"; // Tamaño más grande (20px - 60px)
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s"; // Velocidad aleatoria (3s - 6s)
+
+        document.body.appendChild(heart);
+
+        // Elimina el corazón después de un tiempo
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    // Generar corazones cada 400ms (más frecuencia)
+    setInterval(createHeart, 400);
+});
+
+
+
         document.addEventListener("DOMContentLoaded", function() {
             const floatingBar = document.querySelector(".floating-bar");
             const sections = document.querySelectorAll('.section');
