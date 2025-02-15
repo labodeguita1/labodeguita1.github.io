@@ -529,6 +529,7 @@ footer {
         <select id="servicioDomicilio">
     <option value="ninguno">Selecciona un lugar</option>
     <option value="Manzanillo">Manzanillo (Gratis)</option>
+    <option value="San Francisco">San Francisco (+$5)</option>
     <option value="Yara">Yara (+$10)</option>
     <option value="Masó">Masó (+$10)</option>
     <option value="Bayamo">Bayamo (+$10)</option>
@@ -655,13 +656,14 @@ footer {
     let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 
     // Determinar el costo de envío según el lugar seleccionado
-    let precioServicio = 0;
-if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
+   let precioServicio = 0;
+if (servicioDomicilio === "San Francisco") {
+    precioServicio = 5;
+} else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
     precioServicio = 10;
 } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
     precioServicio = 15;
 }
-
     total += precioServicio;
 
     // Formatear el mensaje con peso si existe
