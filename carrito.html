@@ -527,14 +527,16 @@ footer {
         <!-- Lista desplegable para el servicio a domicilio -->
         <label for="servicioDomicilio">Servicio a Domicilio:</label>
         <select id="servicioDomicilio">
-            <option value="ninguno">Selecciona un lugar</option>
-            <option value="Manzanillo">Manzanillo (Gratis)</option>
-            <option value="Yara">Yara (+$10)</option>
-            <option value="Masó">Masó (+$10)</option>
-            <option value="Bayamo">Bayamo (+$10)</option>
-            <option value="Veguita">Veguita (+$10)</option>
-            <option value="Campechuela">Campechuela (+$10)</option>
-        </select>
+    <option value="ninguno">Selecciona un lugar</option>
+    <option value="Manzanillo">Manzanillo (Gratis)</option>
+    <option value="Yara">Yara (+$10)</option>
+    <option value="Masó">Masó (+$10)</option>
+    <option value="Bayamo">Bayamo (+$10)</option>
+    <option value="Veguita">Veguita (+$10)</option>
+    <option value="Campechuela">Campechuela (+$10)</option>
+    <option value="Niquero">Niquero (+$15)</option>
+    <option value="Media Luna">Media Luna (+$15)</option>
+</select>
         <div id="estadoServicio" class="status-text">No seleccionado</div> <!-- Estado del servicio -->
 
         <button id="confirmar-pedido" class="boton">Confirmar Pedido</button>
@@ -654,9 +656,11 @@ footer {
 
     // Determinar el costo de envío según el lugar seleccionado
     let precioServicio = 0;
-    if (servicioDomicilio !== "Manzanillo") {
-        precioServicio = 10;
-    }
+if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
+    precioServicio = 10;
+} else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
+    precioServicio = 15;
+}
 
     total += precioServicio;
 
