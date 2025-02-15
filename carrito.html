@@ -666,22 +666,22 @@ if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomic
 
     // Formatear el mensaje con peso si existe
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
-        `👤 *Orden realizada por:* ${nombre}\n\n` +
-        `📦 *Productos:*\n` +
-        carrito.map(item => {
-            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
-            return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}: $${item.precio.toFixed(2)}`;
-        }).join('\n') +
-        `\n\n🚚 *Entrega:* ${precioServicio > 0 ? '10 USD' : 'Gratis'}\n` +
-        `────────────────────────\n` +
-        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
-        `📝 *Detalles de entrega:*\n` +
-        `👤 *Cliente:* ${nombreReceptor}\n` +
-        `📞 *Teléfono:* ${telefonoReceptor}\n` +
-        `📍 *Dirección:* ${direccion}\n` +
-        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
-        `¡Gracias por tu pedido! 🎉\n` +
-        `Tu satisfacción es nuestra prioridad. 😊`;
+    `👤 *Orden realizada por:* ${nombre}\n\n` +
+    `📦 *Productos:*\n` +
+    carrito.map(item => {
+        const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
+        return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}: $${item.precio.toFixed(2)}`;
+    }).join('\n') +
+    `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` + // ✅ CORREGIDO
+    `────────────────────────\n` +
+    `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+    `📝 *Detalles de entrega:*\n` +
+    `👤 *Cliente:* ${nombreReceptor}\n` +
+    `📞 *Teléfono:* ${telefonoReceptor}\n` +
+    `📍 *Dirección:* ${direccion}\n` +
+    `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+    `¡Gracias por tu pedido! 🎉\n` +
+    `Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪529624900130';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
