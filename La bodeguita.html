@@ -1896,7 +1896,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = ahora.getHours(); // Hora actual (formato 24 horas)
 
         // Verificar si está dentro del horario (lunes a sábado de 8:00 a 18:00)
-        const tiendaAbierta = (dia >= 1 && dia <= 7) && (hora >= 8 && hora < 24);
+        const tiendaAbierta = (dia >= 0 && dia <= 6) && (hora >= 8 && hora < 24);
 
         if (tiendaAbierta) {
             estadoTienda.textContent = "Abierto";
