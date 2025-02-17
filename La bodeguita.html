@@ -1031,7 +1031,7 @@ footer {
   <div class="section" id="dulces">
       <h2>Desayuno</h2>
       <section id="productos" class="productos">
-          <div class="producto" data-id="28" data-disponible="false">
+          <div class="producto" data-id="28" data-disponible="true">
               <img src="pan.jpg" alt="Pan">
               <h3>Bolsa de Pan (15 uds)<h3>
               <p>Precio: $4.00 14 USD</p>
@@ -1896,7 +1896,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = ahora.getHours(); // Hora actual (formato 24 horas)
 
         // Verificar si está dentro del horario (lunes a sábado de 8:00 a 18:00)
-        const tiendaAbierta = (dia >= 1 && dia <= 6) && (hora >= 8 && hora < 18);
+        const tiendaAbierta = (dia >= 1 && dia <= 7) && (hora >= 8 && hora < 24);
 
         if (tiendaAbierta) {
             estadoTienda.textContent = "Abierto";
