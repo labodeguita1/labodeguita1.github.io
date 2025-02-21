@@ -667,14 +667,23 @@ footer {
     }
     total += precioServicio;
 
-    // Construir el mensaje de WhatsApp incluyendo el sabor
+    // Función para obtener el emoji del sabor
+    function obtenerEmojiSabor(sabor) {
+        if (sabor === "Cola") return "🥤";
+        if (sabor === "Naranja") return "🍊";
+        if (sabor === "Limón") return "🍋";
+        return ""; // Si no tiene sabor, no mostramos emoji
+    }
+
+    // Construir el mensaje de WhatsApp con emojis y negritas
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
         `👤 *Orden realizada por:* ${nombre}\n\n` +
         `📦 *Productos:*\n` +
         carrito.map(item => {
             const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
-            const saborInfo = item.sabor ? ` [Sabor: ${item.sabor}]` : ''; // Agregar sabor si existe
-            return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}${saborInfo}: $${item.precio.toFixed(2)}`;
+            const saborEmoji = obtenerEmojiSabor(item.sabor); // Obtener emoji del sabor
+            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; // Resaltar sabor con negritas
+            return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
         }).join('\n') +
         `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
         `────────────────────────\n` +
@@ -684,8 +693,8 @@ footer {
         `📞 *Teléfono:* ${telefonoReceptor}\n` +
         `📍 *Dirección:* ${direccion}\n` +
         `🌍 *Zona:* ${servicioDomicilio}\n\n` +
-        `¡Gracias por tu pedido! 🎉\n` +
-        `Tu satisfacción es nuestra prioridad. 😊`;
+        `🎉 ¡Gracias por tu pedido! 🎉\n` +
+        `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪529624900130';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
@@ -697,6 +706,7 @@ footer {
     vaciarCarrito();
     cerrarModal();
 }
+
 
 
     function vaciarCarrito() {
