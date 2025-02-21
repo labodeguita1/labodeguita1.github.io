@@ -569,7 +569,8 @@ footer {
             <img src="${item.imagen}" alt="${item.nombre}">
             <div>
                 <h3>${item.nombre}</h3>
-                ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} <!-- Mostrar peso si existe -->
+                <p>Sabor: ${item.sabor}</p> <!-- Mostrar sabor seleccionado -->
+                ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} 
                 <p>Precio: $${item.precio.toFixed(2)}</p>
                 <p>Cantidad: ${item.cantidad}</p>
                 <div>
@@ -637,7 +638,7 @@ footer {
             estadoServicioText.textContent = selectedOption;
         }
     });
-   function confirmarPedido() {
+    function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
     const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
@@ -656,34 +657,35 @@ footer {
     let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 
     // Determinar el costo de envío según el lugar seleccionado
-   let precioServicio = 0;
-if (servicioDomicilio === "San Francisco") {
-    precioServicio = 5;
-} else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
-    precioServicio = 10;
-} else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
-    precioServicio = 15;
-}
+    let precioServicio = 0;
+    if (servicioDomicilio === "San Francisco") {
+        precioServicio = 5;
+    } else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
+        precioServicio = 10;
+    } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
+        precioServicio = 15;
+    }
     total += precioServicio;
 
-    // Formatear el mensaje con peso si existe
+    // Construir el mensaje de WhatsApp incluyendo el sabor
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
-    `👤 *Orden realizada por:* ${nombre}\n\n` +
-    `📦 *Productos:*\n` +
-    carrito.map(item => {
-        const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
-        return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}: $${item.precio.toFixed(2)}`;
-    }).join('\n') +
-    `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` + // ✅ CORREGIDO
-    `────────────────────────\n` +
-    `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
-    `📝 *Detalles de entrega:*\n` +
-    `👤 *Cliente:* ${nombreReceptor}\n` +
-    `📞 *Teléfono:* ${telefonoReceptor}\n` +
-    `📍 *Dirección:* ${direccion}\n` +
-    `🌍 *Zona:* ${servicioDomicilio}\n\n` +
-    `¡Gracias por tu pedido! 🎉\n` +
-    `Tu satisfacción es nuestra prioridad. 😊`;
+        `👤 *Orden realizada por:* ${nombre}\n\n` +
+        `📦 *Productos:*\n` +
+        carrito.map(item => {
+            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
+            const saborInfo = item.sabor ? ` [Sabor: ${item.sabor}]` : ''; // Agregar sabor si existe
+            return `➡️ ${item.cantidad}x ${item.nombre}${pesoInfo}${saborInfo}: $${item.precio.toFixed(2)}`;
+        }).join('\n') +
+        `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
+        `────────────────────────\n` +
+        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+        `📝 *Detalles de entrega:*\n` +
+        `👤 *Cliente:* ${nombreReceptor}\n` +
+        `📞 *Teléfono:* ${telefonoReceptor}\n` +
+        `📍 *Dirección:* ${direccion}\n` +
+        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+        `¡Gracias por tu pedido! 🎉\n` +
+        `Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪529624900130';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
