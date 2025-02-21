@@ -588,6 +588,31 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
 }
 
+.selector-sabor {
+    border: 2px solid #ccc; /* Borde inicial */
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Cambiar color de fondo según el sabor seleccionado */
+.selector-sabor[data-color="Cola"] {
+    background-color: #8B0000; /* Rojo oscuro */
+    color: white;
+}
+
+.selector-sabor[data-color="Naranja"] {
+    background-color: orange;
+    color: white;
+}
+
+.selector-sabor[data-color="Limón"] {
+    background-color: #32CD32; /* Verde limón */
+    color: white;
+}
 
 
 
@@ -1248,17 +1273,18 @@ footer {
 
 
         <div class="producto" data-id="84" data-disponible="true">
-            <img src="IMG_0777.webp" alt="refrescospomo">
+            <img src="IMG_0696.jpeg" alt="refrescospomo">
             <h3>Caja de Refresco (24uds)</h3>
             <p>Precio: $15.00 USD</p>
         
             <!-- Selector de sabor -->
             <label for="sabor-84">Seleccionar sabor:</label>
-            <select id="sabor-84" class="selector-sabor" data-id="84">
-                <option value="Cola">Cola</option>
-                <option value="Naranja">Naranja</option>
-                <option value="Limón">Limón</option>
-            </select>
+<select id="sabor-84" class="selector-sabor" data-id="84">
+    <option value="Cola">Cola</option>
+    <option value="Naranja">Naranja</option>
+    <option value="Limón">Limón</option>
+</select>
+
         
             <button class="btn agregar-al-carrito" data-id="84" data-nombre="Caja de Refresco" data-precio="15.00">
                 Agregar al carrito
@@ -1507,6 +1533,32 @@ footer {
         </a>
     </div>
 
+    <script>
+    document.querySelectorAll(".selector-sabor").forEach(selector => {
+    // Función para actualizar el color del selector según la opción seleccionada
+    function actualizarColor() {
+        const sabor = selector.value;
+        if (sabor === "Cola") {
+            selector.style.backgroundColor = "#8B0000"; // Rojo oscuro
+            selector.style.color = "white";
+        } else if (sabor === "Naranja") {
+            selector.style.backgroundColor = "orange";
+            selector.style.color = "white";
+        } else if (sabor === "Limón") {
+            selector.style.backgroundColor = "#32CD32"; // Verde limón
+            selector.style.color = "white";
+        }
+    }
+
+    // Llamar a la función cuando se carga la página
+    actualizarColor();
+
+    // Escuchar cambios en el selector para actualizar el color en tiempo real
+    selector.addEventListener("change", actualizarColor);
+});
+
+
+    </script>
     <script>
 
 
