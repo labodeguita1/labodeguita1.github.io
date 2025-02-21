@@ -1247,6 +1247,24 @@ footer {
         </div>
 
 
+        <div class="producto" data-id="84" data-disponible="true">
+            <img src="IMG_0696.jpeg" alt="refrescospomo">
+            <h3>Caja de Refresco (24uds)</h3>
+            <p>Precio: $15.00 USD</p>
+        
+            <!-- Selector de sabor -->
+            <label for="sabor-84">Seleccionar sabor:</label>
+            <select id="sabor-84" class="selector-sabor" data-id="84">
+                <option value="Cola">Cola</option>
+                <option value="Naranja">Naranja</option>
+                <option value="Limón">Limón</option>
+            </select>
+        
+            <button class="btn agregar-al-carrito" data-id="84" data-nombre="Caja de Refresco" data-precio="15.00">
+                Agregar al carrito
+            </button>
+            <span class="etiqueta-disponibilidad disponible">Disponible</span>
+        </div>
         
         
 
@@ -1616,22 +1634,24 @@ footer {
 
     if (selectorPeso) {
         pesoSeleccionado = parseFloat(selectorPeso.value);
-
-        // Validar si el peso seleccionado es válido
         if (isNaN(pesoSeleccionado) || pesoSeleccionado <= 0) {
             alert('Por favor, selecciona un peso válido antes de agregar al carrito.');
             return;
         }
     }
 
+    // Verificar si el producto tiene un selector de sabor
+    const selectorSabor = producto.querySelector('.selector-sabor');
+    const saborSeleccionado = selectorSabor ? selectorSabor.value : "Sin especificar";
+
     // Calcular el precio total basado en el peso seleccionado (si aplica)
     const precioTotal = pesoSeleccionado ? pesoSeleccionado * precioUnitario : precioUnitario;
 
     const imagen = producto.querySelector('img').src;
 
-    // Verificar si ya existe un producto similar en el carrito
+    // Verificar si ya existe un producto similar en el carrito (mismo ID y mismo sabor)
     let productoEnCarrito = carrito.find(
-        (p) => p.id === id && (p.peso === pesoSeleccionado || !selectorPeso)
+        (p) => p.id === id && (p.peso === pesoSeleccionado || !selectorPeso) && p.sabor === saborSeleccionado
     );
 
     if (productoEnCarrito) {
@@ -1641,8 +1661,9 @@ footer {
             id,
             nombre,
             precio: precioTotal,
-            peso: selectorPeso ? pesoSeleccionado : null, // Solo añadimos peso si existe
+            peso: selectorPeso ? pesoSeleccionado : null,
             cantidad: 1,
+            sabor: saborSeleccionado, // Guardar el sabor en el carrito
             imagen,
         });
     }
