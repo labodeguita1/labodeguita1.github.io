@@ -565,20 +565,20 @@ footer {
         const productoDiv = document.createElement('div');
         productoDiv.classList.add('producto');
 
-        productoDiv.innerHTML = `
-            <img src="${item.imagen}" alt="${item.nombre}">
-            <div>
-                <h3>${item.nombre}</h3>
-                ${item.sabor ? `<p>Sabor: ${item.sabor}</p>` : ''} <!-- Mostrar solo si tiene sabor -->
-                ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} 
-                <p>Precio: $${item.precio.toFixed(2)}</p>
-                <p>Cantidad: ${item.cantidad}</p>
-                <div>
-                    <button class="boton agregar" onclick="agregarProducto(${index})">Agregar</button>
-                    <button class="boton eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
-                </div>
-            </div>
-        `;
+       productoDiv.innerHTML = `
+    <img src="${item.imagen}" alt="${item.nombre}">
+    <div>
+        <h3>${item.nombre}</h3>
+        ${item.sabor ? `<p>Sabor: ${item.sabor}</p>` : ''} <!-- Mostrar solo si tiene sabor -->
+        ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} 
+        <p>Precio: $${item.precio.toFixed(2)}</p>
+        <p>Cantidad: ${item.cantidad}</p>
+        <div>
+            <button class="boton agregar" onclick="agregarProducto(${index})">Agregar</button>
+            <button class="boton eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+        </div>
+    </div>
+`;
         carritoItems.appendChild(productoDiv);
 
         total += item.precio * item.cantidad; 
@@ -666,24 +666,24 @@ function confirmarPedido() {
     }
 
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
-        `👤 *Orden realizada por:* ${nombre}\n\n` +
-        `📦 *Productos:*\n` +
-        carrito.map(item => {
-            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; 
-            const saborEmoji = obtenerEmojiSabor(item.sabor);
-            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; 
-            return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
-        }).join('\n') +
-        `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
-        `────────────────────────\n` +
-        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
-        `📝 *Detalles de entrega:*\n` +
-        `👤 *Cliente:* ${nombreReceptor}\n` +
-        `📞 *Teléfono:* ${telefonoReceptor}\n` +
-        `📍 *Dirección:* ${direccion}\n` +
-        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
-        `🎉 ¡Gracias por tu pedido! 🎉\n` +
-        `📩 Tu satisfacción es nuestra prioridad. 😊`;
+    `👤 *Orden realizada por:* ${nombre}\n\n` +
+    `📦 *Productos:*\n` +
+    carrito.map(item => {
+        const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; 
+        const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : ''; 
+        const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; 
+        return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
+    }).join('\n') +
+    `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
+    `────────────────────────\n` +
+    `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+    `📝 *Detalles de entrega:*\n` +
+    `👤 *Cliente:* ${nombreReceptor}\n` +
+    `📞 *Teléfono:* ${telefonoReceptor}\n` +
+    `📍 *Dirección:* ${direccion}\n` +
+    `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+    `🎉 ¡Gracias por tu pedido! 🎉\n` +
+    `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪529624900130';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
