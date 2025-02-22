@@ -675,14 +675,14 @@ footer {
         return ""; // Si no tiene sabor, no mostramos emoji
     }
 
-    // Construir el mensaje de WhatsApp con emojis y negritas
+    // Construir el mensaje de WhatsApp con formato mejorado
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
         `👤 *Orden realizada por:* ${nombre}\n\n` +
         `📦 *Productos:*\n` +
         carrito.map(item => {
             const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
             const saborEmoji = obtenerEmojiSabor(item.sabor); // Obtener emoji del sabor
-            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; // Resaltar sabor con negritas
+            const saborInfo = item.sabor && item.sabor !== "Sin especificar" ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; // Mostrar sabor solo si existe
             return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
         }).join('\n') +
         `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
