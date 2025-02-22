@@ -643,21 +643,32 @@ function confirmarPedido() {
     const nombre = document.getElementById('nombre').value;
     const nombreReceptor = document.getElementById('nombre-receptor').value;
     const direccion = document.getElementById('direccion').value;
-    const telefonoReceptor = document.getElementById('telefono-receptor').value; 
+    const telefonoReceptor = document.getElementById('telefono-receptor').value;
     const servicioDomicilio = document.getElementById('servicioDomicilio').value;
 
+    // Ocultar mensajes de error previos
+    document.getElementById('error-msg').style.display = "none";
+
+    // Validación de campos
     if (!nombre || !nombreReceptor || !direccion || !telefonoReceptor || servicioDomicilio === "ninguno") {
         document.getElementById('error-msg').style.display = "block";
         return;
     }
 
     let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
+
+    // Determinar el costo de envío según el lugar seleccionado
     let precioServicio = 0;
-    if (servicioDomicilio === "San Francisco") precioServicio = 5;
-    else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) precioServicio = 10;
-    else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) precioServicio = 15;
+    if (servicioDomicilio === "San Francisco") {
+        precioServicio = 5;
+    } else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
+        precioServicio = 10;
+    } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
+        precioServicio = 15;
+    }
     total += precioServicio;
 
+    // Función para obtener el emoji del sabor
     function obtenerEmojiSabor(sabor) {
         if (sabor === "Cola") return "🥤";
         if (sabor === "Naranja") return "🍊";
@@ -665,30 +676,34 @@ function confirmarPedido() {
         return ""; // Si no tiene sabor, no mostramos emoji
     }
 
+    // Construir el mensaje de WhatsApp con formato mejorado
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
-    `👤 *Orden realizada por:* ${nombre}\n\n` +
-    `📦 *Productos:*\n` +
-    carrito.map(item => {
-        const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; 
-        const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : ''; 
-        const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; 
-        return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
-    }).join('\n') +
-    `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
-    `────────────────────────\n` +
-    `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
-    `📝 *Detalles de entrega:*\n` +
-    `👤 *Cliente:* ${nombreReceptor}\n` +
-    `📞 *Teléfono:* ${telefonoReceptor}\n` +
-    `📍 *Dirección:* ${direccion}\n` +
-    `🌍 *Zona:* ${servicioDomicilio}\n\n` +
-    `🎉 ¡Gracias por tu pedido! 🎉\n` +
-    `📩 Tu satisfacción es nuestra prioridad. 😊`;
+        `👤 *Orden realizada por:* ${nombre}\n\n` +
+        `📦 *Productos:*\n` +
+        carrito.map(item => {
+            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
+            const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : ''; // Obtener emoji del sabor solo si existe
+            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; // Mostrar sabor solo si existe
+            return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
+        }).join('\n') +
+        `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
+        `────────────────────────\n` +
+        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+        `📝 *Detalles de entrega:*\n` +
+        `👤 *Cliente:* ${nombreReceptor}\n` +
+        `📞 *Teléfono:* ${telefonoReceptor}\n` +
+        `📍 *Dirección:* ${direccion}\n` +
+        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+        `🎉 ¡Gracias por tu pedido! 🎉\n` +
+        `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
     const telefono = '‪529624900130';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
 
+    // Abrir WhatsApp
     window.open(url);
+
+    // Vaciar el carrito y cerrar el modal
     vaciarCarrito();
     cerrarModal();
 }
