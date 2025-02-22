@@ -1701,14 +1701,14 @@ footer {
 
     // Verificar si el producto tiene un selector de sabor
     const selectorSabor = producto.querySelector('.selector-sabor');
-    const saborSeleccionado = selectorSabor ? selectorSabor.value : "Sin especificar";
+    const saborSeleccionado = selectorSabor ? selectorSabor.value : null; // Solo asignar sabor si existe el selector
 
     // Calcular el precio total basado en el peso seleccionado (si aplica)
     const precioTotal = pesoSeleccionado ? pesoSeleccionado * precioUnitario : precioUnitario;
 
     const imagen = producto.querySelector('img').src;
 
-    // Verificar si ya existe un producto similar en el carrito (mismo ID y mismo sabor)
+    // Verificar si ya existe un producto similar en el carrito (mismo ID, mismo peso y mismo sabor)
     let productoEnCarrito = carrito.find(
         (p) => p.id === id && (p.peso === pesoSeleccionado || !selectorPeso) && p.sabor === saborSeleccionado
     );
@@ -1716,15 +1716,21 @@ footer {
     if (productoEnCarrito) {
         productoEnCarrito.cantidad++;
     } else {
-        carrito.push({
+        const nuevoProducto = {
             id,
             nombre,
             precio: precioTotal,
             peso: selectorPeso ? pesoSeleccionado : null,
             cantidad: 1,
-            sabor: saborSeleccionado, // Guardar el sabor en el carrito
             imagen,
-        });
+        };
+
+        // Solo agregar el sabor si existe un selector de sabor
+        if (selectorSabor) {
+            nuevoProducto.sabor = saborSeleccionado;
+        }
+
+        carrito.push(nuevoProducto);
     }
 
     // Guardar en el localStorage
