@@ -1673,7 +1673,7 @@ footer {
                 notificacion.style.display = 'none';
             }, 2000);
         }
-        function agregarAlCarrito(event) {
+       function agregarAlCarrito(event) {
     const boton = event.target;
     const producto = boton.closest('.producto');
     const disponible = producto.getAttribute('data-disponible') === 'true';
@@ -1701,21 +1701,25 @@ footer {
 
     // Verificar si el producto tiene un selector de sabor
     const selectorSabor = producto.querySelector('.selector-sabor');
-    const saborSeleccionado = selectorSabor ? selectorSabor.value : null; // Solo asignar sabor si existe el selector
+    const saborSeleccionado = selectorSabor ? selectorSabor.value : null;
 
     // Calcular el precio total basado en el peso seleccionado (si aplica)
     const precioTotal = pesoSeleccionado ? pesoSeleccionado * precioUnitario : precioUnitario;
 
     const imagen = producto.querySelector('img').src;
 
-    // Verificar si ya existe un producto similar en el carrito (mismo ID, mismo peso y mismo sabor)
+    // Buscar si el producto ya está en el carrito con las mismas características
     let productoEnCarrito = carrito.find(
-        (p) => p.id === id && (p.peso === pesoSeleccionado || !selectorPeso) && p.sabor === saborSeleccionado
+        (p) => p.id === id && 
+               (p.peso === pesoSeleccionado || !selectorPeso) && 
+               (p.sabor === saborSeleccionado || !selectorSabor)
     );
 
     if (productoEnCarrito) {
+        // Si el producto ya está en el carrito, solo aumenta la cantidad
         productoEnCarrito.cantidad++;
     } else {
+        // Si no está en el carrito, agregarlo como nuevo producto
         const nuevoProducto = {
             id,
             nombre,
@@ -1723,12 +1727,8 @@ footer {
             peso: selectorPeso ? pesoSeleccionado : null,
             cantidad: 1,
             imagen,
+            sabor: selectorSabor ? saborSeleccionado : null, // Agrega el sabor si existe
         };
-
-        // Solo agregar el sabor si existe un selector de sabor
-        if (selectorSabor) {
-            nuevoProducto.sabor = saborSeleccionado;
-        }
 
         carrito.push(nuevoProducto);
     }
@@ -1736,7 +1736,7 @@ footer {
     // Guardar en el localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    // Sonido de confirmación
+    // Reproducir sonido de confirmación (opcional)
     const sonidoAgregar = new Audio('sonido.mp3');
     sonidoAgregar.play();
 
