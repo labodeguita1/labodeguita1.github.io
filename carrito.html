@@ -526,7 +526,7 @@ footer {
 
         <!-- Lista desplegable para el servicio a domicilio -->
         <label for="servicioDomicilio">Servicio a Domicilio:</label>
-        <select id="servicioDomicilio">
+<select id="servicioDomicilio">
     <option value="ninguno">Selecciona un lugar</option>
     <option value="Manzanillo">Manzanillo (Gratis)</option>
     <option value="San Francisco">San Francisco (+$5)</option>
@@ -537,6 +537,7 @@ footer {
     <option value="Campechuela">Campechuela (+$10)</option>
     <option value="Niquero">Niquero (+$15)</option>
     <option value="Media Luna">Media Luna (+$15)</option>
+    <option value="Las Novillas">Las Novillas (+$5)</option> <!-- Nueva opción -->
 </select>
         <div id="estadoServicio" class="status-text">No seleccionado</div> <!-- Estado del servicio -->
 
@@ -659,8 +660,8 @@ function confirmarPedido() {
 
     // Determinar el costo de envío según el lugar seleccionado
     let precioServicio = 0;
-    if (servicioDomicilio === "San Francisco") {
-        precioServicio = 5;
+    if (servicioDomicilio === "San Francisco" || servicioDomicilio === "Las Novillas") {
+        precioServicio = 5; // Las Novillas también tiene un costo de $5
     } else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela"].includes(servicioDomicilio)) {
         precioServicio = 10;
     } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
@@ -697,7 +698,7 @@ function confirmarPedido() {
         `🎉 ¡Gracias por tu pedido! 🎉\n` +
         `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
-    const telefono = '‪529624900130';
+    const telefono = '‪17542088026';
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
 
     // Abrir WhatsApp
