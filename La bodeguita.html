@@ -1247,14 +1247,24 @@ footer {
  
 
 
- <div class="producto" data-id="49" data-disponible="true">
-            <img src="shasta.jpg" alt="refrescosabores">
-            <h3>Caja de Refresco (24uds)<h3>
-            <p>Precio: $20.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="49" data-nombre="Caja de Refresco" data-precio="20.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
+<div class="producto" data-id="49" data-disponible="true">
+    <img src="shasta.jpg" alt="refrescosabores">
+    <h3>Caja de Refrescos (24uds)</h3>
+    <p>Precio: $20.00 USD</p>
 
-        </div>
+    <!-- Selector de sabor -->
+    <label for="sabor-49">Seleccionar sabor:</label>
+    <select id="sabor-49" class="selector-sabor" data-id="49">
+        <option value="Cola">Cola</option>
+        <option value="Naranja">Naranja</option>
+        <option value="Limón">Limón</option>
+    </select>
+
+    <button class="btn agregar-al-carrito" data-id="49" data-nombre="Caja de Refrescos" data-precio="20.00">
+        Agregar al carrito
+    </button>
+    <span class="etiqueta-disponibilidad disponible">Disponible</span>
+</div>
         
         
          <div class="producto" data-id="65" data-disponible="true">
@@ -1317,15 +1327,17 @@ footer {
 
         </div>
 
-        <div class="producto" data-id="52" data-disponible="false">
-            <img src="caja de jugos.webp" alt="jugos">
-            <h3>Caja de Jugos (24 uds)<h3>
-            <p>Precio: $20.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="52" data-nombre="Caja de Jugos Mixto" data-precio="20.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
+        <div class="producto" data-id="52" data-disponible="true" style="position: relative;">
+    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
+    <img src="caja de jugos.webp" alt="jugos">
+    <h3>Caja de Jugos (24 uds)</h3>
+    <p>
+        <span class="precio-anterior">$20.00 USD</span> <!-- Precio anterior tachado -->
+        <span class="precio-oferta">$18.00 USD</span> <!-- Nuevo precio en oferta -->
+    </p>
+    <button class="btn agregar-al-carrito" data-id="52" data-nombre="Caja de Jugos Mixto" data-precio="18.00">Agregar al carrito</button>
+    <span class="etiqueta-disponibilidad disponible">Disponible</span>
+</div>
 
                  <div class="producto" data-id="69" data-disponible="true">
             <img src="jugomango.jpg" alt="jugosmango">
