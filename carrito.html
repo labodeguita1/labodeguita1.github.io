@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras - Raiky Pizza</title>
+    <title>Carrito de Compras - La bodeguita</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
@@ -648,9 +648,6 @@ function confirmarPedido() {
     const telefonoReceptor = document.getElementById('telefono-receptor').value;
     const servicioDomicilio = document.getElementById('servicioDomicilio').value;
 
-    // Ocultar mensajes de error previos
-    document.getElementById('error-msg').style.display = "none";
-
     // Validación de campos
     if (!nombre || !nombreReceptor || !direccion || !telefonoReceptor || servicioDomicilio === "ninguno") {
         document.getElementById('error-msg').style.display = "block";
@@ -659,33 +656,25 @@ function confirmarPedido() {
 
     let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
 
-    // Determinar el costo de envío según el lugar seleccionado
+    // Determinar el costo de envío
     let precioServicio = 0;
     if (servicioDomicilio === "San Francisco" || servicioDomicilio === "Las Novillas") {
-        precioServicio = 5; // Las Novillas también tiene un costo de $5
+        precioServicio = 5;
     } else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela", "Las Caobas"].includes(servicioDomicilio)) {
-        precioServicio = 10; // Las Caobas tiene un costo de $10
+        precioServicio = 10;
     } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
         precioServicio = 15;
     }
     total += precioServicio;
 
-    // Función para obtener el emoji del sabor
-    function obtenerEmojiSabor(sabor) {
-        if (sabor === "Cola") return "🥤";
-        if (sabor === "Naranja") return "🍊";
-        if (sabor === "Limón") return "🍋";
-        return ""; // Si no tiene sabor, no mostramos emoji
-    }
-
-    // Construir el mensaje de WhatsApp con formato mejorado
+    // Construir el mensaje de WhatsApp
     const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
         `👤 *Orden realizada por:* ${nombre}\n\n` +
         `📦 *Productos:*\n` +
         carrito.map(item => {
-            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : ''; // Agregar peso si existe
-            const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : ''; // Obtener emoji del sabor solo si existe
-            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : ''; // Mostrar sabor solo si existe
+            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : '';
+            const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : '';
+            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : '';
             return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
         }).join('\n') +
         `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
@@ -699,7 +688,8 @@ function confirmarPedido() {
         `🎉 ¡Gracias por tu pedido! 🎉\n` +
         `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
-    const telefono = '‪17542088026';
+    // Número de teléfono en formato internacional
+    const telefono = '+17542088026'; // Asegúrate de que el número esté en formato internacional
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
 
     // Abrir WhatsApp
