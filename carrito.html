@@ -673,8 +673,7 @@ function confirmarPedido() {
         `📦 *Productos:*\n` +
         carrito.map(item => {
             const pesoInfo = item.peso ? ` (${item.peso} lbs)` : '';
-            const saborEmoji = item.sabor ? obtenerEmojiSabor(item.sabor) : '';
-            const saborInfo = item.sabor ? ` *${saborEmoji} Sabor:* ${item.sabor}*` : '';
+            const saborInfo = item.sabor ? ` - Sabor: ${item.sabor}` : '';
             return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
         }).join('\n') +
         `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
