@@ -532,7 +532,7 @@ footer {
     <option value="San Francisco">San Francisco (+$5)</option>
     <option value="Yara">Yara (+$10)</option>
     <option value="Masó">Masó (+$10)</option>
-    <option value="Bayamo">Bayamo (+$10)</option>
+    <option value="Bayamo">Bayamo (+$15)</option>
     <option value="Veguita">Veguita (+$10)</option>
     <option value="Campechuela">Campechuela (+$10)</option>
     <option value="Niquero">Niquero (+$15)</option>
@@ -660,9 +660,9 @@ function confirmarPedido() {
     let precioServicio = 0;
     if (servicioDomicilio === "San Francisco" || servicioDomicilio === "Las Novillas") {
         precioServicio = 5;
-    } else if (["Yara", "Masó", "Bayamo", "Veguita", "Campechuela", "Las Caobas"].includes(servicioDomicilio)) {
+    } else if (["Yara", "Masó", "Veguita", "Campechuela", "Las Caobas"].includes(servicioDomicilio)) {
         precioServicio = 10;
-    } else if (["Niquero", "Media Luna"].includes(servicioDomicilio)) {
+    } else if (["Niquero", "Bayamo", "Media Luna"].includes(servicioDomicilio)) {
         precioServicio = 15;
     }
     total += precioServicio;
