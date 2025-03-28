@@ -1137,14 +1137,18 @@ footer {
             <button class="btn agregar-al-carrito" data-id="34" data-nombre="Queso Blanco" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
-  <div class="producto" data-id="81" data-disponible="true">
-            <img src="IMG_0775.webp" alt="gouda">
-            <h3>Queso Gouda (2LB)<h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="81" data-nombre="Queso Gouda" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-
+  
+<div class="producto" data-id="81" data-disponible="true" style="position: relative;">
+    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
+    <img src="IMG_0775.webp" alt="gouda">
+    <h3>Queso Gouda (2LB)</h3>
+    <p>
+        <span class="precio-anterior">$12.00 USD</span> <!-- Precio anterior tachado -->
+        <span class="precio-oferta">$10.00 USD</span> <!-- Precio en oferta -->
+    </p>
+    <button class="btn agregar-al-carrito" data-id="81" data-nombre="Queso Gouda (2LB)" data-precio="10.00">Agregar al carrito</button>
+    <span class="etiqueta-disponibilidad disponible">Disponible</span>
+</div>
 
       </section>
   </div>
