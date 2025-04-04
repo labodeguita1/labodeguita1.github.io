@@ -687,12 +687,28 @@ function confirmarPedido() {
         `🎉 ¡Gracias por tu pedido! 🎉\n` +
         `📩 Tu satisfacción es nuestra prioridad. 😊`;
 
-    // Número de teléfono en formato internacional
-    const telefono = '+5354764569'; // Sin caracteres especiales // Asegúrate de que el número esté en formato internacional
-    const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
+    // Número de teléfono en formato internacional (Cuba: +53)
+    const telefono = '+5354764569'; // Asegúrate de que este número sea correcto
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
-    // Abrir WhatsApp
-    window.open(url);
+    // Intentar abrir WhatsApp en una nueva pestaña
+    const nuevaVentana = window.open(url, '_blank');
+    
+    // Si el navegador bloqueó la ventana emergente, mostrar instrucciones
+    if (!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed == 'undefined') {
+        // Crear un elemento para mostrar el mensaje
+        const mensajeDiv = document.createElement('div');
+        mensajeDiv.innerHTML = `
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                        background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 9999;">
+                <h3>No se pudo abrir WhatsApp automáticamente</h3>
+                <p>Por favor, haz clic en este enlace:</p>
+                <a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">Abrir WhatsApp</a>
+                <button onclick="this.parentNode.remove()" style="margin-top: 10px; padding: 5px 10px;">Cerrar</button>
+            </div>
+        `;
+        document.body.appendChild(mensajeDiv);
+    }
 
     // Vaciar el carrito y cerrar el modal
     vaciarCarrito();
