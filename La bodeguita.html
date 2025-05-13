@@ -718,12 +718,8 @@ footer {
             <select id="peso-1" class="selector-peso" data-id="1">
             
              
-              <option value="3.75">3.75 libras</option>
-                <option value="4.17">4.17 libras</option>
-                 <option value="6.58">6.58 libras</option>
-                 <option value="6.60">6.60 libras</option>
-                 <option value="8.47">8.47 libras</option>
-                <option value="8.69">8.69 libras</option>
+              <option value="4.13">3.75 libras</option>
+                
             </select>
             
             <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernil de ovejo" data-precio="2.50">Agregar al carrito</button>
@@ -1011,7 +1007,7 @@ footer {
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
 
-        <div class="producto" data-id="54" data-disponible="false">
+        <div class="producto" data-id="54" data-disponible="trymmmmnnnnnn">
             <img src="kake.webp" alt="kake">
             <h3>Kake <h3>
             <p>Precio: $25.00 USD</p>
@@ -1019,7 +1015,7 @@ footer {
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
 
-        <div class="producto" data-id="55" data-disponible="false">
+        <div class="producto" data-id="55" data-disponible="true">
             <img src="ensalada.webp" alt="ensalda">
             <h3>Ensalada Fría (Tina) <h3>
             <p>Precio: $25.00 USD</p>
@@ -1183,7 +1179,7 @@ footer {
             <button class="btn agregar-al-carrito" data-id="33" data-nombre="Queso fundido" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
-        <div class="producto" data-id="34" data-disponible="true">
+        <div class="producto" data-id="34" data-disponible="false">
             <img src="blanco.jpg" alt="blanco">
             <h3>Queso Blanco (2LB)<h3>
             <p>Precio: $6.00 USD</p>
@@ -1191,7 +1187,7 @@ footer {
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
   
-<div class="producto" data-id="81" data-disponible="false" style="position: relative;">
+<div class="producto" data-id="81" data-disponible="true" style="position: relative;">
     <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
     <img src="IMG_0775.webp" alt="gouda">
     <h3>Queso Gouda (2LB)</h3>
@@ -1231,7 +1227,7 @@ footer {
         <div class="producto" data-id="44" data-disponible="true">
             <img src="IMG_0755.jpeg" alt="chicharo">
             <h3>Chicharo (500g)<h3>
-            <p>Precio: $3.00 USD</p>
+            <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="44" data-nombre="Chicharo" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
 
@@ -1257,14 +1253,14 @@ footer {
 
         <div class="producto" data-id="47" data-disponible="true">
             <img src="garbanzos.webp" alt="garbanzos">
-            <h3>Garbanzos (500g)<h3>
-            <p>Precio: $3.00 USD</p>
+            <h3>Garbanzos (1 kg)<h3>
+            <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="47" data-nombre="Garbanzos" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
 
         </div>
         
-        <div class="producto" data-id="77" data-disponible="false">
+        <div class="producto" data-id="77" data-disponible="ytie">
             <img src="IMG_0751.png" alt="frijolcolorado">
             <h3>Frijol Colorado (500g)<h3>
             <p>Precio: $3.00 USD</p>
@@ -2144,7 +2140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = ahora.getHours(); // Hora actual (formato 24 horas)
 
         // Verificar si está dentro del horario (lunes a sábado de 8:00 a 18:00)
-        const tiendaAbierta = (dia >= 2 && dia <= 4) && (hora >= 1 && hora < 24);
+        const tiendaAbierta = (dia >= 0 && dia <= 6) && (hora >= 1 && hora < 24);
 
         if (tiendaAbierta) {
             estadoTienda.textContent = "Abierto";
