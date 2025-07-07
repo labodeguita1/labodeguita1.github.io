@@ -990,7 +990,7 @@ footer {
             <button class="btn agregar-al-carrito" data-id="16" data-nombre="Caja de Sorbeto Porleo" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
-        <div class="producto" data-id="17" data-disponible="true">
+        <div class="producto" data-id="17" data-disponible="false">
             <img src="bombones.webp" alt="bombones">
             <h3>Pote de Bombones (125uds) <h3>
             <p>Precio: $15.00 USD</p>
@@ -1016,8 +1016,8 @@ footer {
         <div class="producto" data-id="19" data-disponible="true">
             <img src="gelatina.webp" alt="gelatina">
             <h3>Gelatina (5 cajitas) <h3>
-            <p>Precio: $8.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="19" data-nombre="Gelatina" data-precio="8.00">Agregar al carrito</button>
+            <p>Precio: $6.00 USD</p>
+            <button class="btn agregar-al-carrito" data-id="19" data-nombre="Gelatina" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
      <!--   <div class="producto" data-id="20" data-disponible="false">
@@ -2317,7 +2317,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = ahora.getHours(); // Hora actual (formato 24 horas)
 
         // Verificar si está dentro del horario (lunes a sábado de 8:00 a 18:00)
-        const tiendaAbierta = (dia >= 1 && dia <= 1) && (hora >= 1 && hora < 24);
+        const tiendaAbierta = (dia >= 1 && dia <= 6) && (hora >= 1 && hora < 24);
 
         if (tiendaAbierta) {
             estadoTienda.textContent = "Abierto";
