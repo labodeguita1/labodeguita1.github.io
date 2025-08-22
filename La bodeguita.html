@@ -227,27 +227,85 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, #ff66b2, #ff1493, #ff4da6);
-    background-size: 300% 300%;
-    animation: moverFondo 6s infinite alternate;
-    color: #fff;
-    padding: 25px 40px;
+    transform: translate(-50%, -50%); /* Centrado perfecto */
+    background: linear-gradient(45deg, #ff66b2, #ff4081); /* Degradado romántico */
+    color: white;
+    padding: 30px;
     border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    overflow: hidden;
+    opacity: 0;
+    animation: mostrarMensaje 6s forwards, latido 1.5s infinite alternate; /* Animación de aparición y latido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    width: 400px;
 }
 
-/* Fondo animado */
-@keyframes moverFondo {
-    0% { background-position: left top; }
-    100% { background-position: right bottom; }
+/* Animación de entrada y salida */
+@keyframes mostrarMensaje {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.8);
+    }
+    40% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.8);
+    }
 }
 
+/* Efecto de latido */
+@keyframes latido {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+/* Corazones animados */
+.mensaje-bienvenida::before,
+.mensaje-bienvenida::after {
+    content: "💕";
+    font-size: 2rem;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.mensaje-bienvenida::before {
+    top: -15px;
+    left: -15px;
+    animation: flotarCorazones 2s infinite alternate ease-in-out;
+}
+
+.mensaje-bienvenida::after {
+    bottom: -15px;
+    right: -15px;
+    animation: flotarCorazones 2s infinite alternate ease-in-out reverse;
+}
+
+/* Animación flotante de corazones */
+@keyframes flotarCorazones {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
 
 
 
@@ -1839,24 +1897,7 @@ footer {
             <span id="contador-carrito">0</span>
         </a>
     </div>
-<script>
-// Texto con efecto máquina de escribir
-const texto = "¡Bienvenido a La Bodeguita Muñoz!";
-let i = 0;
-function escribirTexto() {
-    if (i < texto.length) {
-        document.getElementById("texto-bienvenida").textContent += texto.charAt(i);
-        i++;
-        setTimeout(escribirTexto, 80); // velocidad de escritura
-    } else {
-        // Ocultar después de unos segundos
-        setTimeout(() => {
-            document.getElementById("mensaje-bienvenida").style.display = "none";
-        }, 3000);
-    }
-}
-window.onload = escribirTexto;
-</script>
+
     <script>
     document.querySelectorAll(".selector-sabor").forEach(selector => {
     // Función para actualizar el color del selector según la opción seleccionada
@@ -2362,5 +2403,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
 </body>
 </html>
+
 
 
