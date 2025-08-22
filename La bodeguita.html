@@ -228,32 +228,26 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.85);
+    background: linear-gradient(135deg, #ff66b2, #ff1493, #ff4da6);
+    background-size: 300% 300%;
+    animation: moverFondo 6s infinite alternate;
     color: #fff;
-    padding: 30px 40px;
+    padding: 25px 40px;
     border-radius: 15px;
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     z-index: 1000;
-    opacity: 0;
-    animation: mostrarMensaje 6s forwards, brillo 2s infinite alternate;
-    text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff66b2, 0 0 40px #ff3385;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    overflow: hidden;
 }
 
-/* Animación de aparición/desaparición */
-@keyframes mostrarMensaje {
-    0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
-    30% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    70% { opacity: 1; }
-    100% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+/* Fondo animado */
+@keyframes moverFondo {
+    0% { background-position: left top; }
+    100% { background-position: right bottom; }
 }
 
-/* Efecto neón */
-@keyframes brillo {
-    from { text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff3385, 0 0 20px #ff1a75; }
-    to { text-shadow: 0 0 20px #ff99cc, 0 0 40px #ff66b2, 0 0 60px #ff3385; }
-}
 
 
 
@@ -1845,7 +1839,24 @@ footer {
             <span id="contador-carrito">0</span>
         </a>
     </div>
-
+<script>
+// Texto con efecto máquina de escribir
+const texto = "¡Bienvenido a La Bodeguita Muñoz!";
+let i = 0;
+function escribirTexto() {
+    if (i < texto.length) {
+        document.getElementById("texto-bienvenida").textContent += texto.charAt(i);
+        i++;
+        setTimeout(escribirTexto, 80); // velocidad de escritura
+    } else {
+        // Ocultar después de unos segundos
+        setTimeout(() => {
+            document.getElementById("mensaje-bienvenida").style.display = "none";
+        }, 3000);
+    }
+}
+window.onload = escribirTexto;
+</script>
     <script>
     document.querySelectorAll(".selector-sabor").forEach(selector => {
     // Función para actualizar el color del selector según la opción seleccionada
