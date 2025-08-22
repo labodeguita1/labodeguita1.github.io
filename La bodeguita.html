@@ -223,89 +223,46 @@
     bottom: 0px;
 
 }
-.mensaje-bienvenida {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado perfecto */
-    background: linear-gradient(45deg, #ff66b2, #ff4081); /* Degradado romántico */
-    color: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    z-index: 1000;
-    opacity: 0;
-    animation: mostrarMensaje 6s forwards, latido 1.5s infinite alternate; /* Animación de aparición y latido */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 90%;
-    width: 400px;
+/* Bienvenida con máquina de escribir */
+.type-welcome{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1200;
+  pointer-events: none;
+  background: radial-gradient( circle at 50% 40%, rgba(255,102,178,.15), rgba(0,0,0,.65) );
+  backdrop-filter: blur(2px);
+}
+.type-card{
+  background: linear-gradient(135deg,#FF66B2 0%, #111 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: clamp(16px,3vw,28px) clamp(20px,4vw,36px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: clamp(20px, 3.5vw, 34px);
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+}
+.type-card .caret{
+  width: 2px;
+  height: 1.1em;
+  display: inline-block;
+  background: #fff;
+  animation: caretBlink .6s step-end infinite;
+  transform: translateY(.1em);
+}
+@keyframes caretBlink{ 50%{ opacity: 0; } }
+
+.type-welcome.hide{
+  opacity: 0;
+  transition: opacity .35s ease;
 }
 
-/* Animación de entrada y salida */
-@keyframes mostrarMensaje {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -60%) scale(0.8);
-    }
-    40% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    80% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -40%) scale(0.8);
-    }
-}
-
-/* Efecto de latido */
-@keyframes latido {
-    from {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1.05);
-    }
-}
-
-/* Corazones animados */
-.mensaje-bienvenida::before,
-.mensaje-bienvenida::after {
-    content: "💕";
-    font-size: 2rem;
-    position: absolute;
-    opacity: 0.8;
-}
-
-.mensaje-bienvenida::before {
-    top: -15px;
-    left: -15px;
-    animation: flotarCorazones 2s infinite alternate ease-in-out;
-}
-
-.mensaje-bienvenida::after {
-    bottom: -15px;
-    right: -15px;
-    animation: flotarCorazones 2s infinite alternate ease-in-out reverse;
-}
-
-/* Animación flotante de corazones */
-@keyframes flotarCorazones {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-10px);
-    }
-}
 
 
 
@@ -665,11 +622,13 @@ footer {
         <a href="#ingredientes">Ingredientes de cocina</a> <!-- Nuevo enlace -->
     </div>
     
-    <!-- Mensaje de bienvenida -->
-    <div id="mensaje-bienvenida" class="mensaje-bienvenida">
-        💖 ¡Bienvenido a La Bodeguita Muñoz! 💖
-    </div>
-    
+    <!-- Bienvenida: máquina de escribir -->
+<div id="typeWelcome" class="type-welcome" aria-live="polite" aria-atomic="true">
+  <div class="type-card">
+    <span id="typewriter"></span><span class="caret" aria-hidden="true"></span>
+  </div>
+</div>
+
 
 <div class="carousel-container">
     <div class="carousel-track">
@@ -2399,10 +2358,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const text = '¡Bienvenido a La Bodeguita Muñoz!';
+  const totalMs = 4000;                 // 4 segundos totales
+  const pauseMs = 200;                  // pausa breve con el texto completo
+  const typeMs = 2000;                  // tiempo para ESCRIBIR
+  const delMs  = totalMs - typeMs - pauseMs; // tiempo para BORRAR
+
+  const elWrap = document.getElementById('typeWelcome');
+  const el = document.getElementById('typewriter');
+
+  // Escribir
+  let i = 0;
+  const typeStep = Math.max(10, Math.floor(typeMs / Math.max(1, text.length)));
+  const typeTimer = setInterval(() => {
+    el.textContent = text.slice(0, ++i);
+    if (i >= text.length) {
+      clearInterval(typeTimer);
+      // Pausa breve con el texto ya completo
+      setTimeout(startDelete, pauseMs);
+    }
+  }, typeStep);
+
+  function startDelete(){
+    let j = text.length;
+    const delStep = Math.max(10, Math.floor(delMs / Math.max(1, text.length)));
+    const delTimer = setInterval(() => {
+      j--;
+      el.textContent = text.slice(0, j);
+      if (j <= 0) {
+        clearInterval(delTimer);
+        // Desvanecer y retirar el overlay
+        elWrap.classList.add('hide');
+        setTimeout(() => elWrap.remove(), 400);
+      }
+    }, delStep);
+  }
+});
+</script>
 
     
 </body>
 </html>
-
 
 
