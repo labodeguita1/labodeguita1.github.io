@@ -227,84 +227,32 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centrado perfecto */
-    background: linear-gradient(45deg, #ff66b2, #ff4081); /* Degradado romántico */
-    color: white;
-    padding: 30px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 30px 40px;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     z-index: 1000;
     opacity: 0;
-    animation: mostrarMensaje 6s forwards, latido 1.5s infinite alternate; /* Animación de aparición y latido */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 90%;
-    width: 400px;
+    animation: mostrarMensaje 6s forwards, brillo 2s infinite alternate;
+    text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff66b2, 0 0 40px #ff3385;
 }
 
-/* Animación de entrada y salida */
+/* Animación de aparición/desaparición */
 @keyframes mostrarMensaje {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -60%) scale(0.8);
-    }
-    40% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    80% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -40%) scale(0.8);
-    }
+    0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
 }
 
-/* Efecto de latido */
-@keyframes latido {
-    from {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1.05);
-    }
-}
-
-/* Corazones animados */
-.mensaje-bienvenida::before,
-.mensaje-bienvenida::after {
-    content: "💕";
-    font-size: 2rem;
-    position: absolute;
-    opacity: 0.8;
-}
-
-.mensaje-bienvenida::before {
-    top: -15px;
-    left: -15px;
-    animation: flotarCorazones 2s infinite alternate ease-in-out;
-}
-
-.mensaje-bienvenida::after {
-    bottom: -15px;
-    right: -15px;
-    animation: flotarCorazones 2s infinite alternate ease-in-out reverse;
-}
-
-/* Animación flotante de corazones */
-@keyframes flotarCorazones {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-10px);
-    }
+/* Efecto neón */
+@keyframes brillo {
+    from { text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff3385, 0 0 20px #ff1a75; }
+    to { text-shadow: 0 0 20px #ff99cc, 0 0 40px #ff66b2, 0 0 60px #ff3385; }
 }
 
 
