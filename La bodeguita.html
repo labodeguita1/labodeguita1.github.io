@@ -9,21 +9,98 @@
 
    <style>
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
-            color: white; /* Color blanco para el texto */
-            padding: 1.5rem; /* Espaciado en el encabezado */
-            text-align: center; /* Centra el texto en el encabezado */
-            top: 0px;
-            position: relative;
-        }
+       :root{
+  /* paleta base */
+  --ink:#2b2b2b;
+  --paper:#fffdf8;
+
+  /* paleta de otoño */
+  --autumn-1:#FF7A00;   /* naranja calabaza */
+  --autumn-2:#C75100;   /* caramelo tostado */
+  --autumn-3:#8C3D00;   /* marrón hoja */
+  --autumn-4:#F1D6A2;   /* crema */
+
+  --shadow:0 6px 14px rgba(25,12,6,.14);
+}
+
+/* fondo cálido con viñetas suaves */
+body{
+  background: var(--paper);
+  background-image:
+    radial-gradient(1200px 600px at -10% -10%, rgba(255,122,0,.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%,  rgba(199,81,0,.07),  transparent 60%),
+    radial-gradient(800px 400px at 50% 120%,  rgba(140,61,0,.06),   transparent 70%);
+}
+
+/* header con degradado otoñal */
+header{
+  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2) 55%, var(--autumn-3));
+  color:#fff;
+  padding:1.5rem 1rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* botones con look de temporada */
+.btn{
+  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2));
+  color:#fff; border:none; border-radius:10px;
+  padding:.6rem 1rem; font-weight:700; cursor:pointer;
+  transition:.2s transform, filter .2s;
+}
+.btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+/* etiqueta oferta más “pumpkin spice” */
+.producto .etiqueta-oferta{
+  background: linear-gradient(135deg,#E15A00,#BA3F00);
+  color:#fff; font-size:.9rem; padding:6px 10px; border-radius:8px;
+  position:absolute; top:10px; left:10px; z-index:10;
+  box-shadow:0 6px 14px rgba(186,63,0,.25);
+}
+
+/* enlaces activos de la barra flotante con otoño */
+.floating-bar a.active{
+  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2));
+  color:#fff; transform: scale(1.1);
+}
+
+/* cards con borde cálido sutil */
+.producto{
+  border:1px solid rgba(199,81,0,.12);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* banner fino de temporada */
+.autumn-banner{
+  margin:.75rem auto 0;
+  background: rgba(241,214,162,.25);
+  border:1px dashed rgba(199,81,0,.35);
+  color:#3b2412;
+  width:min(920px,92%);
+  padding:.55rem .9rem;
+  border-radius:14px;
+  font-weight:600;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+}
+
+/* hojas cayendo */
+#fall-container{
+  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 999;
+}
+.leaf{
+  position: absolute; top: -40px;
+  font-size: clamp(16px, 2.2vw, 28px);
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.2));
+  user-select: none;
+}
+@keyframes fallY{ to{ transform: translateY(110vh) rotate(360deg); } }
+@keyframes swayX{
+  0%{ transform: translateX(0) }
+  50%{ transform: translateX(40px) }
+  100%{ transform: translateX(0) }
+}
         nav ul {
             list-style: none;
             padding: 0;
@@ -588,6 +665,11 @@ footer {
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
+        <div class="autumn-banner" role="status" aria-live="polite">
+  🍁 Temporada de Otoño: ofertas cálidas y sabores de temporada 🍂
+</div>
+<div id="fall-container" aria-hidden="true"></div>
+
 <div class="img1">
 
     <img src="image.png" alt="" width="10%">
@@ -1864,6 +1946,41 @@ footer {
             <span id="contador-carrito">0</span>
         </a>
     </div>
+<script>
+(() => {
+  const container = document.getElementById('fall-container');
+  if(!container) return;
+
+  const EMOJIS = ["🍁","🍂","🍃"];
+  const MIN_MS = 6000;   // tiempo mínimo de caída
+  const MAX_MS = 12000;  // tiempo máximo de caída
+  const MAX_LEAVES = 18; // cuántas hojas simultáneas
+
+  function newLeaf(){
+    if(!container) return;
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    const span = document.createElement('span');
+    span.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    leaf.style.left = Math.random()*100 + 'vw';
+    const duration = Math.random()*(MAX_MS-MIN_MS)+MIN_MS;
+    leaf.style.animation = `fallY ${duration}ms linear forwards`;
+    span.style.animation = `swayX ${4000 + Math.random()*3000}ms ease-in-out infinite`;
+    leaf.appendChild(span);
+    container.appendChild(leaf);
+    setTimeout(() => leaf.remove(), duration + 500);
+  }
+
+  // Lluvia suave de hojas
+  setInterval(() => {
+    const current = container.childElementCount;
+    if(current < MAX_LEAVES) newLeaf();
+  }, 600);
+
+  // arrancar con unas cuantas
+  for(let i=0;i<8;i++) setTimeout(newLeaf, i*250);
+})();
+</script>
 
     <script>
     document.querySelectorAll(".selector-sabor").forEach(selector => {
