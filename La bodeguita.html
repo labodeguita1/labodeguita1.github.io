@@ -9,97 +9,131 @@
 
    <style>
 
-       :root{
+     :root{
   /* paleta base */
   --ink:#2b2b2b;
-  --paper:#fffdf8;
+  --paper:#fff;
 
-  /* paleta de otoño */
-  --autumn-1:#FF7A00;   /* naranja calabaza */
-  --autumn-2:#C75100;   /* caramelo tostado */
-  --autumn-3:#8C3D00;   /* marrón hoja */
-  --autumn-4:#F1D6A2;   /* crema */
+  /* paleta de navidad divertida */
+  --xmas-1:#ff0000;  /* rojo brillante */
+  --xmas-2:#008000;  /* verde pino */
+  --xmas-3:#ffd700;  /* dorado */
+  --xmas-4:#ffffff;  /* blanco nieve */
 
-  --shadow:0 6px 14px rgba(25,12,6,.14);
+  --shadow:0 6px 14px rgba(0,0,0,.15);
 }
 
-/* fondo cálido con viñetas suaves */
+/* fondo con copos de nieve */
 body{
   background: var(--paper);
   background-image:
-    radial-gradient(1200px 600px at -10% -10%, rgba(255,122,0,.08), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%,  rgba(199,81,0,.07),  transparent 60%),
-    radial-gradient(800px 400px at 50% 120%,  rgba(140,61,0,.06),   transparent 70%);
+    radial-gradient(1200px 600px at -10% -10%, rgba(255,0,0,.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%,  rgba(0,128,0,.07),  transparent 60%),
+    radial-gradient(800px 400px at 50% 120%,  rgba(255,215,0,.06),   transparent 70%);
+  overflow-x: hidden;
 }
 
-/* header con degradado otoñal */
+/* header con degradado navideño */
 header{
-  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2) 55%, var(--autumn-3));
+  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2), var(--xmas-3));
   color:#fff;
   padding:1.5rem 1rem;
   text-align:center;
   position:relative;
   overflow:hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* botones con look de temporada */
+/* botones con look navideño */
 .btn{
-  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2));
-  color:#fff; border:none; border-radius:10px;
-  padding:.6rem 1rem; font-weight:700; cursor:pointer;
+  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2));
+  color:#fff; 
+  border:none; 
+  border-radius:12px;
+  padding:.6rem 1rem; 
+  font-weight:700; 
+  cursor:pointer;
   transition:.2s transform, filter .2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
-.btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+.btn:hover{ 
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
 
-/* etiqueta oferta más “pumpkin spice” */
+/* etiqueta oferta versión navideña */
 .producto .etiqueta-oferta{
-  background: linear-gradient(135deg,#E15A00,#BA3F00);
-  color:#fff; font-size:.9rem; padding:6px 10px; border-radius:8px;
-  position:absolute; top:10px; left:10px; z-index:10;
-  box-shadow:0 6px 14px rgba(186,63,0,.25);
+  background: linear-gradient(135deg,#ff0000,#c70000);
+  color:#fff; 
+  font-size:.9rem; 
+  padding:6px 10px; 
+  border-radius:8px;
+  position:absolute; 
+  top:10px; 
+  left:10px; 
+  z-index:10;
+  box-shadow:0 6px 14px rgba(255,0,0,.3);
 }
 
-/* enlaces activos de la barra flotante con otoño */
+/* barra flotante con espíritu navideño */
 .floating-bar a.active{
-  background: linear-gradient(135deg, var(--autumn-1), var(--autumn-2));
-  color:#fff; transform: scale(1.1);
+  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2));
+  color:#fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 6px rgba(255,215,0,0.5);
 }
 
-/* cards con borde cálido sutil */
+/* borde navideño para productos */
 .producto{
-  border:1px solid rgba(199,81,0,.12);
-  border-radius: 14px;
+  border:2px solid rgba(255,0,0,.1);
+  border-radius: 16px;
   box-shadow: var(--shadow);
+  background: #fffdfd;
+  position: relative;
 }
 
-/* banner fino de temporada */
-.autumn-banner{
+/* banner de temporada navideño */
+.xmas-banner{
   margin:.75rem auto 0;
-  background: rgba(241,214,162,.25);
-  border:1px dashed rgba(199,81,0,.35);
-  color:#3b2412;
+  background: rgba(255,0,0,.15);
+  border:2px dashed rgba(0,128,0,.35);
+  color:#2b2b2b;
   width:min(920px,92%);
-  padding:.55rem .9rem;
-  border-radius:14px;
-  font-weight:600;
-  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  padding:.7rem 1rem;
+  border-radius:16px;
+  font-weight:700;
+  text-align:center;
+  font-size:1.1rem;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  animation: blinkBanner 2s infinite alternate;
 }
 
-/* hojas cayendo */
-#fall-container{
-  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 999;
+@keyframes blinkBanner {
+  0% { box-shadow: 0 0 10px var(--xmas-3); }
+  100% { box-shadow: 0 0 20px var(--xmas-1); }
 }
-.leaf{
-  position: absolute; top: -40px;
+
+/* copos de nieve cayendo */
+#snow-container{
+  position: fixed; 
+  inset: 0; 
+  pointer-events: none; 
+  overflow: hidden; 
+  z-index: 999;
+}
+.snowflake{
+  position: absolute; 
+  top: -40px;
   font-size: clamp(16px, 2.2vw, 28px);
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,.2));
+  color: white;
+  opacity: 0.9;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
   user-select: none;
+  animation: fallSnow linear infinite;
 }
-@keyframes fallY{ to{ transform: translateY(110vh) rotate(360deg); } }
-@keyframes swayX{
-  0%{ transform: translateX(0) }
-  50%{ transform: translateX(40px) }
-  100%{ transform: translateX(0) }
+@keyframes fallSnow{
+  0%{ transform: translateY(0) rotate(0deg); }
+  100%{ transform: translateY(110vh) rotate(360deg); }
 }
         nav ul {
             list-style: none;
@@ -665,11 +699,10 @@ footer {
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-        <div class="autumn-banner" role="status" aria-live="polite">
-  🍁 Temporada de Otoño: ofertas cálidas y sabores de temporada 🍂
+      <div class="xmas-banner" role="status" aria-live="polite">
+  🎅 ¡Feliz Navidad en La Bodeguita! 🎄 Ofertas brillantes y espíritu festivo ✨
 </div>
-<div id="fall-container" aria-hidden="true"></div>
-
+<div id="snow-container" aria-hidden="true"></div>
 <div class="img1">
 
     <img src="image.png" alt="" width="10%">
@@ -2562,7 +2595,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-
+<script>
+const snowContainer = document.getElementById('snow-container');
+const snowflakes = ['❄️','❅','❆'];
+setInterval(()=>{
+  const snow = document.createElement('div');
+  snow.className='snowflake';
+  snow.textContent = snowflakes[Math.floor(Math.random()*snowflakes.length)];
+  snow.style.left = Math.random()*100 + 'vw';
+  snow.style.animationDuration = (5 + Math.random()*5) + 's';
+  snow.style.fontSize = (10 + Math.random()*20) + 'px';
+  snowContainer.appendChild(snow);
+  setTimeout(()=>snow.remove(),10000);
+},250);
+</script>
     
 </body>
 </html>
