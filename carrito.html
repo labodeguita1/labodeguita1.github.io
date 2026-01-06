@@ -735,7 +735,7 @@ function confirmarPedido() {
 function estaTiendaAbierta() {
     const ahora = new Date();
     const horaActual = ahora.getHours();
-    return horaActual >= 1 && horaActual < 24; // 8 AM a 6 PM
+    return horaActual >= 1 && horaActual < 1; // 8 AM a 6 PM
 }
 
 // Función para habilitar o deshabilitar el botón de realizar pedido
