@@ -10,15 +10,15 @@
    <style>
 
      :root{
-  /* paleta base */
+  /* base */
   --ink:#2b2b2b;
   --paper:#fff;
 
-  /* paleta de navidad divertida */
-  --xmas-1:#ff0000;  /* rojo brillante */
-  --xmas-2:#008000;  /* verde pino */
-  --xmas-3:#ffd700;  /* dorado */
-  --xmas-4:#ffffff;  /* blanco nieve */
+  /* paleta San Valentín */
+  --love-1:#ff4d6d;   /* rosa intenso */
+  --love-2:#ff758f;   /* rosa suave */
+  --love-3:#c9184a;   /* rojo romántico */
+  --love-4:#fff0f3;   /* rosa muy claro */
 
   --shadow:0 6px 14px rgba(0,0,0,.15);
 }
@@ -27,54 +27,54 @@
 body{
   background: var(--paper);
   background-image:
-    radial-gradient(1200px 600px at -10% -10%, rgba(255,0,0,.08), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%,  rgba(0,128,0,.07),  transparent 60%),
-    radial-gradient(800px 400px at 50% 120%,  rgba(255,215,0,.06),   transparent 70%);
+    radial-gradient(1200px 600px at -10% -10%, rgba(255,77,109,.15), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%,  rgba(255,117,143,.12), transparent 60%),
+    radial-gradient(800px 400px at 50% 120%,  rgba(201,24,74,.10),  transparent 70%);
   overflow-x: hidden;
 }
 
 /* header con degradado navideño */
 header{
-  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2), var(--xmas-3));
+  background: linear-gradient(135deg, var(--love-1), var(--love-2), var(--love-3));
   color:#fff;
   padding:1.5rem 1rem;
   text-align:center;
   position:relative;
   overflow:hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 14px rgba(255,77,109,.5);
 }
 
 /* botones con look navideño */
 .btn{
-  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2));
+  background: linear-gradient(135deg, var(--love-1), var(--love-3));
   color:#fff; 
   border:none; 
-  border-radius:12px;
-  padding:.6rem 1rem; 
+  border-radius:14px;
+  padding:.6rem 1.2rem; 
   font-weight:700; 
   cursor:pointer;
-  transition:.2s transform, filter .2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition:.25s transform, box-shadow .25s;
+  box-shadow: 0 6px 14px rgba(255,77,109,.4);
 }
+
 .btn:hover{ 
-  transform: scale(1.05);
-  filter: brightness(1.1);
+  transform: scale(1.07);
+  box-shadow: 0 10px 20px rgba(201,24,74,.6);
 }
 
 /* etiqueta oferta versión navideña */
 .producto .etiqueta-oferta{
-  background: linear-gradient(135deg,#ff0000,#c70000);
-  color:#fff; 
-  font-size:.9rem; 
-  padding:6px 10px; 
-  border-radius:8px;
-  position:absolute; 
-  top:10px; 
-  left:10px; 
+  background: linear-gradient(135deg,#ff4d6d,#c9184a);
+  color:#fff;
+  font-size:.9rem;
+  padding:6px 12px;
+  border-radius:999px;
+  position:absolute;
+  top:10px;
+  left:10px;
   z-index:10;
-  box-shadow:0 6px 14px rgba(255,0,0,.3);
+  box-shadow:0 6px 14px rgba(255,77,109,.5);
 }
-
 /* barra flotante con espíritu navideño */
 .floating-bar a.active{
   background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2));
@@ -85,27 +85,36 @@ header{
 
 /* borde navideño para productos */
 .producto{
-  border:2px solid rgba(255,0,0,.1);
-  border-radius: 16px;
+  border:2px solid rgba(255,77,109,.15);
+  border-radius: 18px;
   box-shadow: var(--shadow);
-  background: #fffdfd;
+  background: #fff;
   position: relative;
+  transition: transform .25s ease;
 }
 
-/* banner de temporada navideño */
-.xmas-banner{
+.producto:hover{
+  transform: translateY(-6px);
+}
+
+.love-banner{
   margin:.75rem auto 0;
-  background: rgba(255,0,0,.15);
-  border:2px dashed rgba(0,128,0,.35);
+  background: rgba(255,77,109,.15);
+  border:2px dashed rgba(201,24,74,.5);
   color:#2b2b2b;
   width:min(920px,92%);
-  padding:.7rem 1rem;
-  border-radius:16px;
+  padding:.8rem 1rem;
+  border-radius:18px;
   font-weight:700;
   text-align:center;
   font-size:1.1rem;
   box-shadow:0 6px 14px rgba(0,0,0,.08);
-  animation: blinkBanner 2s infinite alternate;
+  animation: pulseLove 2s infinite alternate;
+}
+
+@keyframes pulseLove{
+  0%{ box-shadow: 0 0 10px var(--love-1); }
+  100%{ box-shadow: 0 0 22px var(--love-3); }
 }
 
 @keyframes blinkBanner {
@@ -113,27 +122,47 @@ header{
   100% { box-shadow: 0 0 20px var(--xmas-1); }
 }
 
-/* copos de nieve cayendo */
-#snow-container{
-  position: fixed; 
-  inset: 0; 
-  pointer-events: none; 
-  overflow: hidden; 
+#hearts-container{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
   z-index: 999;
 }
-.snowflake{
-  position: absolute; 
-  top: -40px;
-  font-size: clamp(16px, 2.2vw, 28px);
-  color: white;
-  opacity: 0.9;
-  text-shadow: 0 0 10px rgba(255,255,255,0.8);
-  user-select: none;
-  animation: fallSnow linear infinite;
+
+.heart{
+  position: absolute;
+  bottom: -30px;
+  font-size: clamp(18px, 2.5vw, 32px);
+  animation: floatHeart linear infinite;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 6px rgba(255,77,109,.4));
 }
-@keyframes fallSnow{
-  0%{ transform: translateY(0) rotate(0deg); }
-  100%{ transform: translateY(110vh) rotate(360deg); }
+
+@keyframes floatHeart{
+  0%{
+    transform: translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  100%{
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.heart{
+  position: fixed;
+  bottom: -20px;
+  font-size: 22px;
+  animation: floatHeart linear infinite;
+  color: #ff4d6d;
+  opacity: .8;
+  pointer-events: none;
+}
+
+@keyframes floatHeart{
+  0%{ transform: translateY(0) scale(1); opacity:.9; }
+  100%{ transform: translateY(-110vh) scale(1.4); opacity:0; }
 }
         nav ul {
             list-style: none;
@@ -699,12 +728,11 @@ footer {
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-      <div class="xmas-banner" role="status" aria-live="polite">
-  🎅 ¡Feliz Navidad en La Bodeguita! 🎄 Ofertas brillantes y espíritu festivo ✨
+  <div class="love-banner" role="status" aria-live="polite">
+  💖 Especial 14 de Febrero 💖 Regalos, dulces y detalles que enamoran
 </div>
-<div id="snow-container" aria-hidden="true"></div>
+<div id="hearts-container" aria-hidden="true"></div>
 <div class="img1">
-
     <img src="image.png" alt="" width="10%">
 </div>
         
@@ -2649,18 +2677,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-const snowContainer = document.getElementById('snow-container');
-const snowflakes = ['❄️','❅','❆'];
-setInterval(()=>{
-  const snow = document.createElement('div');
-  snow.className='snowflake';
-  snow.textContent = snowflakes[Math.floor(Math.random()*snowflakes.length)];
-  snow.style.left = Math.random()*100 + 'vw';
-  snow.style.animationDuration = (5 + Math.random()*5) + 's';
-  snow.style.fontSize = (10 + Math.random()*20) + 'px';
-  snowContainer.appendChild(snow);
-  setTimeout(()=>snow.remove(),10000);
-},250);
+
+const heartsContainer = document.getElementById("hearts-container");
+const hearts = ["❤️","💖","💗","💕","💘"];
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 8000);
+}
+
+// Intervalo de aparición
+setInterval(createHeart, 500);
+
 </script>
     
 </body>
