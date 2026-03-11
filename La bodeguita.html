@@ -8,712 +8,463 @@
 
 
    <style>
-
-     :root{
-  /* base */
-  --ink:#2b2b2b;
-  --paper:#fff;
-
-  /* paleta San Valentín */
-  --love-1:#ff4d6d;   /* rosa intenso */
-  --love-2:#ff758f;   /* rosa suave */
-  --love-3:#c9184a;   /* rojo romántico */
-  --love-4:#fff0f3;   /* rosa muy claro */
-
-  --shadow:0 6px 14px rgba(0,0,0,.15);
+/* ── Variables: paleta rosa/roja ── */
+:root {
+  --pink:           #ff4d6d;
+  --pink-light:     #ff758f;
+  --red-romantic:   #c9184a;
+  --bg-pink:        #fff0f3;
+  --white:          #fff;
+  --text:           #2b2b2b;
+  --text-muted:     #6b7280;
+  --border-pink:    #ffd6dd;
+  --shadow-sm:      0 2px 8px rgba(201,24,74,.08);
+  --shadow-md:      0 4px 16px rgba(201,24,74,.13);
+  --shadow-lg:      0 8px 30px rgba(201,24,74,.18);
+  --radius:         16px;
+  --radius-sm:      12px;
+  --transition:     .2s ease;
 }
 
-/* fondo con copos de nieve */
-body{
-  background: var(--paper);
-  background-image:
-    radial-gradient(1200px 600px at -10% -10%, rgba(255,77,109,.15), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%,  rgba(255,117,143,.12), transparent 60%),
-    radial-gradient(800px 400px at 50% 120%,  rgba(201,24,74,.10),  transparent 70%);
+/* ── Reset y base ── */
+html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-pink);
+  color: var(--text);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* header con degradado navideño */
-header{
-  background: linear-gradient(135deg, var(--love-1), var(--love-2), var(--love-3));
-  color:#fff;
-  padding:1.5rem 1rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  box-shadow: 0 4px 14px rgba(255,77,109,.5);
-}
-
-/* botones con look navideño */
-.btn{
-  background: linear-gradient(135deg, var(--love-1), var(--love-3));
-  color:#fff; 
-  border:none; 
-  border-radius:14px;
-  padding:.6rem 1.2rem; 
-  font-weight:700; 
-  cursor:pointer;
-  transition:.25s transform, box-shadow .25s;
-  box-shadow: 0 6px 14px rgba(255,77,109,.4);
-}
-
-.btn:hover{ 
-  transform: scale(1.07);
-  box-shadow: 0 10px 20px rgba(201,24,74,.6);
-}
-
-/* etiqueta oferta versión navideña */
-.producto .etiqueta-oferta{
-  background: linear-gradient(135deg,#ff4d6d,#c9184a);
-  color:#fff;
-  font-size:.9rem;
-  padding:6px 12px;
-  border-radius:999px;
-  position:absolute;
-  top:10px;
-  left:10px;
-  z-index:10;
-  box-shadow:0 6px 14px rgba(255,77,109,.5);
-}
-/* barra flotante con espíritu navideño */
-.floating-bar a.active{
-  background: linear-gradient(135deg, var(--xmas-1), var(--xmas-2));
-  color:#fff;
-  transform: scale(1.1);
-  box-shadow: 0 4px 6px rgba(255,215,0,0.5);
-}
-
-/* borde navideño para productos */
-.producto{
-  border:2px solid rgba(255,77,109,.15);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  background: #fff;
+/* ── Header ── */
+header {
+  background: linear-gradient(135deg, #c9184a 0%, #ff4d6d 55%, #ff758f 100%);
+  color: var(--white);
+  padding: 1.4rem 1rem 1.1rem;
+  text-align: center;
   position: relative;
-  transition: transform .25s ease;
+  box-shadow: var(--shadow-md);
+}
+header h1 {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-bottom: .4rem;
 }
 
-.producto:hover{
-  transform: translateY(-6px);
-}
-
-.love-banner{
-  margin:.75rem auto 0;
-  background: rgba(255,77,109,.15);
-  border:2px dashed rgba(201,24,74,.5);
-  color:#2b2b2b;
-  width:min(920px,92%);
-  padding:.8rem 1rem;
-  border-radius:18px;
-  font-weight:700;
-  text-align:center;
-  font-size:1.1rem;
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
-  animation: pulseLove 2s infinite alternate;
-}
-
-@keyframes pulseLove{
-  0%{ box-shadow: 0 0 10px var(--love-1); }
-  100%{ box-shadow: 0 0 22px var(--love-3); }
-}
-
-@keyframes blinkBanner {
-  0% { box-shadow: 0 0 10px var(--xmas-3); }
-  100% { box-shadow: 0 0 20px var(--xmas-1); }
-}
-
-#hearts-container{
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 999;
-}
-
-.heart{
+/* ── Estado tienda ── */
+#estado-tienda {
   position: absolute;
-  bottom: -30px;
-  font-size: clamp(18px, 2.5vw, 32px);
-  animation: floatHeart linear infinite;
-  opacity: 0.85;
-  filter: drop-shadow(0 4px 6px rgba(255,77,109,.4));
+  top: 12px;
+  left: 14px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
 }
 
-@keyframes floatHeart{
-  0%{
-    transform: translateY(0) scale(1);
-    opacity: 0.9;
-  }
-  100%{
-    transform: translateY(-110vh) scale(1.5);
-    opacity: 0;
-  }
+/* ── Nav ── */
+nav ul { list-style: none; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: .4rem; }
+nav ul li a {
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .95rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  transition: var(--transition);
+}
+nav ul li a:hover { background: rgba(255,255,255,.22); color: var(--white); }
+
+/* ── Barra de búsqueda (glassmorphism) ── */
+.search-wrapper {
+  margin: .9rem auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  max-width: 480px;
+  padding: 0 1rem;
+}
+#barra-busqueda {
+  flex: 1;
+  padding: .65rem 1.1rem;
+  border: 2px solid rgba(255,255,255,.45);
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(6px);
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: .95rem;
+  outline: none;
+  transition: var(--transition);
+}
+#barra-busqueda::placeholder { color: rgba(255,255,255,.75); }
+#barra-busqueda:focus { border-color: var(--white); background: rgba(255,255,255,.28); }
+#boton-buscar {
+  padding: .65rem 1.2rem;
+  background: var(--white);
+  color: var(--red-romantic);
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition);
+}
+#boton-buscar:hover { background: var(--bg-pink); transform: scale(1.04); }
+
+#mensaje-no-encontrado {
+  display: none;
+  color: var(--red-romantic);
+  text-align: center;
+  font-weight: 600;
+  padding: .5rem;
+  margin-top: .5rem;
 }
 
-.heart{
+/* ── Barra flotante ── */
+.floating-bar {
   position: fixed;
-  bottom: -20px;
-  font-size: 22px;
-  animation: floatHeart linear infinite;
-  color: #ff4d6d;
-  opacity: .8;
-  pointer-events: none;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(8px);
+  padding: .6rem 1rem;
+  border-bottom: 2px solid var(--border-pink);
+  box-shadow: var(--shadow-md);
+  z-index: 900;
+  overflow-x: auto;
+  white-space: nowrap;
+  cursor: grab;
+  transition: top .3s ease;
+  scrollbar-width: none;
 }
-
-@keyframes floatHeart{
-  0%{ transform: translateY(0) scale(1); opacity:.9; }
-  100%{ transform: translateY(-110vh) scale(1.4); opacity:0; }
+.floating-bar::-webkit-scrollbar { display: none; }
+.floating-bar.visible { top: 0; }
+.floating-bar.grabbing { cursor: grabbing; }
+.floating-bar a {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: .45rem 1rem;
+  border-radius: 999px;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  flex-shrink: 0;
 }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .hero {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: #e8f5e9;
-        }
-        .hero h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-        }
-        .hero .btn {
-            background-color: #FF66B2;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .hero .btn:hover {
-            background-color: #FF66B2;
-        }
-        .productos {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            
-        }
-        @media (max-width: 600px) {
-            .productos {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.floating-bar a:hover { background: var(--bg-pink); color: var(--red-romantic); border-color: var(--border-pink); }
+.floating-bar a.active { background: var(--pink); color: var(--white); border-color: var(--pink); }
 
-
-        
-
-
-        .producto {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .producto img {
-    max-width: 100%; /* Asegura que las imágenes no excedan su contenedor */
-    height: auto; /* Mantiene la proporción de las imágenes */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-}
-
-/* Animación al pasar el cursor */
-.producto img:hover {
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Intensifica la sombra */
-}
-        .producto h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: #333;
-        }
-        .producto p {
-            font-size: 1rem;
-            margin: 10px 0;
-        }
-        .producto .btn {
-    background-color: #FF66B2;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%; /* Ocupa todo el ancho disponible */
-    max-width: 150px; /* Ancho máximo */
-    height: 40px; /* Altura fija para los botones */
-    margin-top: auto; /* Empuja el botón hacia abajo */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-        .producto .btn:hover {
-            background-color: #FF66B2;
-        }
-        .producto .btn[disabled] {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .notificacion-agotado {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ff0000;
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            font-weight: bold;
-            text-align: center;
-        }
-        .footer {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 20px;
-        }
-        .etiqueta-disponibilidad {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-            bottom: 70px; /* Asegura que siempre esté a la misma altura */
-        }
-        .etiqueta-disponibilidad.disponible {
-            color: #4CAF50;
-        }
-        .etiqueta-disponibilidad.agotado {
-            color: #ff0000;
-        }
-        #boton-flotante {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
-            color: white;
-            border-radius: 25%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-        #boton-flotante img {
-            width: 40px;
-            height: 40px;
-        }
-        #boton-flotante span {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
-            color: white;
-            font-size: 0.8rem;
-            font-weight: bold;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-   #contador {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    animation: bounce 0.5s infinite alternate;
-}
-
-   .img1{
-    text-align: right;
-   position: static;
-    top: 40px;
-    left: 50spx;
-    right: 25xp;
-    bottom: 0px;
-
-}
-/* Bienvenida con máquina de escribir */
-.type-welcome{
+/* ── Typewriter overlay ── */
+.type-welcome {
   position: fixed;
   inset: 0;
   display: grid;
   place-items: center;
   z-index: 1200;
   pointer-events: none;
-  background: radial-gradient( circle at 50% 40%, rgba(255,102,178,.15), rgba(0,0,0,.65) );
-  backdrop-filter: blur(2px);
+  background: rgba(43,43,43,.52);
+  backdrop-filter: blur(3px);
 }
-.type-card{
-  background: linear-gradient(135deg,#FF66B2 0%, #111 100%);
-  color: #fff;
-  border-radius: 16px;
-  padding: clamp(16px,3vw,28px) clamp(20px,4vw,36px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: clamp(20px, 3.5vw, 34px);
-  line-height: 1.2;
+.type-card {
+  background: linear-gradient(135deg, var(--red-romantic), var(--pink));
+  color: var(--white);
+  border-radius: 20px;
+  padding: clamp(14px,3vw,26px) clamp(20px,5vw,40px);
+  box-shadow: var(--shadow-lg);
+  font-weight: 700;
+  font-size: clamp(1.2rem,3.5vw,2rem);
   display: inline-flex;
   align-items: center;
   gap: .25rem;
+  border: 2px solid rgba(255,255,255,.35);
 }
-.type-card .caret{
+.type-card .caret {
   width: 2px;
   height: 1.1em;
   display: inline-block;
-  background: #fff;
+  background: var(--white);
   animation: caretBlink .6s step-end infinite;
   transform: translateY(.1em);
 }
-@keyframes caretBlink{ 50%{ opacity: 0; } }
+@keyframes caretBlink { 50% { opacity: 0; } }
+.type-welcome.hide { opacity: 0; transition: opacity .35s ease; }
 
-.type-welcome.hide{
-  opacity: 0;
-  transition: opacity .35s ease;
+/* ── Carrusel ── */
+.carousel-container { width: 100%; overflow: hidden; position: relative; }
+.carousel-track { display: flex; transition: transform .5s ease-in-out; }
+.carousel-slide { min-width: 100%; height: 52vh; display: flex; justify-content: center; align-items: center; position: relative; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+.product-info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(201,24,74,.82);
+  color: var(--white);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid rgba(255,255,255,.6);
+}
+.product-info h2 { font-size: 1.15rem; font-weight: 700; }
+.product-info p { font-size: .9rem; opacity: .92; }
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,77,109,.6);
+  color: var(--white);
+  border: none;
+  font-size: 2rem;
+  padding: .4rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+.carousel-button:hover { background: rgba(201,24,74,.85); }
+.carousel-button.prev { left: 10px; }
+.carousel-button.next { right: 10px; }
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,.6);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.carousel-indicators button.active { background: var(--white); transform: scale(1.25); }
+
+/* ── Tipografía ── */
+h2 {
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.section > h2 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding-bottom: .5rem;
+  border-bottom: 3px solid var(--pink);
+  margin-bottom: 1.2rem;
+  color: var(--red-romantic);
 }
 
-
-
-
-        #barra-busqueda {
-    padding: 0.8rem;
-    width: 80%;
-    max-width: 400px;
-    border: 2px solid #4CAF50; /* Borde de color verde */
-    border-radius: 50px; /* Bordes redondeados */
-    background-color: #ffffff;
-    font-size: 1rem;
-    color: #333;
-    transition: all 0.3s ease; /* Efecto suave para los cambios */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    outline: none; /* Elimina el contorno por defecto */
+/* ── Sección ── */
+.section {
+  padding: 24px 20px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  max-width: 1240px;
+  margin: 16px auto;
 }
 
-#barra-busqueda:focus {
-    border-color: #388e3c; /* Cambia el color del borde al enfocar */
-    box-shadow: 0 0 10px rgba(56, 142, 60, 0.5); /* Resalta el campo con sombra verde */
+/* ── Grid productos ── */
+.productos {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
 }
+@media (max-width: 600px) { .productos { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
 
-#barra-busqueda::placeholder {
-    color: #888; /* Color de texto del placeholder */
-    font-style: italic;
-}
-
-
-.sobre-nosotros {
-        background-color: #f4f4f4; /* Fondo gris claro para la sección */
-        padding: 40px 20px; /* Padding de 40px en la parte superior e inferior, 20px a los lados */
-        text-align: center; /* Centra el contenido dentro de la sección */
-    }
-    .sobre-nosotros h2 {
-        font-size: 2rem; /* Tamaño del título */
-        color: #333; /* Color gris oscuro para el texto */
-        margin-bottom: 20px; /* Espacio debajo del título */
-    }
-    .sobre-nosotros p {
-        font-size: 1.2rem; /* Tamaño del texto de la descripción */
-        color: #666; /* Color gris claro para el texto */
-        line-height: 1.5; /* Espacio entre líneas de texto */
-        margin-bottom: 30px; /* Espacio debajo del párrafo */
-    }
-    .sobre-nosotros .logo {
-        max-width: 200px; /* Limita el tamaño máximo del logo */
-        margin-top: 20px; /* Espacio encima del logo */
-        border-radius: 10px; /* Redondea las esquinas del logo */
-    }
-
-
-    .carousel-container {
-  width: 100%; /* Establece el ancho del carrusel al 80% del contenedor principal */
-  margin: 0 auto; /* Centra el carrusel horizontalmente */
-  overflow: hidden;
+/* ── Tarjeta producto ── */
+.producto {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border-pink);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  padding: 14px 12px 16px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.producto:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--pink-light); }
+.producto img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition);
+}
+.producto img:hover { transform: scale(1.04); }
+.producto h3 { font-size: .95rem; font-weight: 600; color: var(--text); line-height: 1.3; margin: 2px 0; }
+.producto p { font-size: .9rem; color: var(--text-muted); margin: 0; }
+
+/* ── Precios con oferta ── */
+.precio-anterior { text-decoration: line-through; color: #9ca3af; font-size: .85rem; margin-right: 6px; }
+.precio-oferta { color: var(--red-romantic); font-weight: 700; font-size: 1.05rem; }
+
+/* ── Etiqueta oferta ── */
+.etiqueta-oferta {
+  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
+  color: var(--white);
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
 }
 
+/* ── Chips disponibilidad ── */
+.etiqueta-disponibilidad { display: inline-block; font-size: .78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; margin-top: 4px; }
+.etiqueta-disponibilidad.disponible { background: #d1fae5; color: #065f46; }
+.etiqueta-disponibilidad.agotado { background: #e5e7eb; color: #4b5563; }
 
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
+/* ── Botones ── */
+.btn {
+  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: .55rem 1rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 3px 10px rgba(255,77,109,.32);
+  width: 100%;
+  font-size: .88rem;
+}
+.btn:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(201,24,74,.42); }
+.btn[disabled] { background: #d1d5db; cursor: not-allowed; box-shadow: none; transform: none; color: #6b7280; }
 
-    .carousel-slide {
-      min-width: 100%;
-      height: 50vh; /* Ajusta la altura según tus necesidades */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+/* ── Selectores peso/sabor ── */
+.selector-peso, .selector-sabor {
+  border: 2px solid var(--border-pink);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  width: 100%;
+  background: var(--white);
+  color: var(--text);
+}
+.selector-peso:hover, .selector-sabor:hover { border-color: var(--pink-light); }
+.selector-peso:focus, .selector-sabor:focus { outline: none; border-color: var(--pink); }
+label { font-size: .8rem; font-weight: 600; color: var(--text-muted); text-align: left; display: block; }
 
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+/* ── Botón flotante carrito ── */
+#boton-flotante {
+  position: fixed;
+  bottom: 24px;
+  right: 25px;
+  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
+  color: var(--white);
+  border-radius: 50%;
+  width: 62px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(255,77,109,.45);
+  cursor: pointer;
+  z-index: 800;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+#boton-flotante:hover { transform: scale(1.1); box-shadow: 0 10px 28px rgba(201,24,74,.55); }
+#boton-flotante img { width: 30px; height: 30px; }
 
-    .product-info {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-    }
+/* ── Contador carrito (burbuja) ── */
+#contador-carrito {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--red-romantic);
+  color: var(--white);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .78rem;
+  font-weight: 700;
+  border: 2px solid var(--white);
+  animation: bounce .5s infinite alternate;
+}
+@keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
 
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      font-size: 2rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      z-index: 10;
-    }
-
-    .carousel-button.prev {
-      left: 10px;
-    }
-
-    .carousel-button.next {
-      right: 10px;
-    }
-
-    .carousel-indicators {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-    }
-
-    .carousel-indicators button {
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .carousel-indicators button.active {
-      background-color: rgba(255, 255, 255, 1);
-    }
-
-
-
-    .floating-bar {
-    position: fixed;
-    top: -100px; /* Inicialmente oculta arriba de la pantalla */
-    left: 0;
-    width: 100%;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
-    padding: 1rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    overflow-x: auto;
-    white-space: nowrap;
-    cursor: grab;
-    transition: top 0.3s ease-in-out;
+/* ── Notificación agotado ── */
+#notificacion-agotado {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50px;
+  transform: translate(-50%,-50%);
+  background: var(--red-romantic);
+  color: var(--white);
+  padding: 1rem 1.8rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1rem;
 }
 
-/* Clase para mostrar la barra */
-.floating-bar.visible {
-    top: 0;
+/* ── Sobre nosotros ── */
+.sobre-nosotros {
+  background: linear-gradient(135deg, var(--red-romantic), var(--pink));
+  color: var(--white);
+  padding: 40px 24px;
+  text-align: center;
+  margin: 16px 0;
 }
+.sobre-nosotros h2 { color: var(--white); border: none; }
+.sobre-nosotros p { color: rgba(255,255,255,.9); font-size: 1.05rem; line-height: 1.7; max-width: 700px; margin: 1rem auto 0; }
+.sobre-nosotros .logo { max-width: 160px; margin-top: 20px; border-radius: var(--radius-sm); }
 
-/* Estilos para los enlaces */
-.floating-bar a {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-    text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-}
-
-.floating-bar a.active {
-    background: linear-gradient(to right, #FF66B2, #FF99CC);
-    color: white;
-    transform: scale(1.1);
-}
-
-/* Cuando el usuario está arrastrando la barra */
-.floating-bar.grabbing {
-    cursor: grabbing;
-}
-
-/* Botones de desplazamiento (si los usas) */
-.scroll-left, .scroll-right {
-    background-color: transparent;
-    border: none;
-    color: #FF66B2;
-    font-size: 1.5rem;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1100;
-    padding: 0.5rem;
-    transition: color 0.3s ease;
-}
-
-.scroll-left {
-    left: 10px;
-}
-
-.scroll-right {
-    right: 10px;
-}
-
-/* Efecto de hover en los botones de desplazamiento */
-.scroll-left:hover, .scroll-right:hover {
-    color: #FF99CC;
-}
+/* ── Footer ── */
 footer {
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
-            color: #333;
-            margin-top: 20px;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .footer-content {
-            max-width: 900px; 
-            margin: 0 auto; 
-            font-size: 1rem; 
-            padding: 5px; 
-        }
-
-        .section {
-  
-    padding: 20px;
-    background-color: rgb(252, 248, 248);
-    margin: 20px 0;
-    
+  background: linear-gradient(135deg, var(--red-romantic) 0%, #7b0028 100%);
+  color: rgba(255,255,255,.88);
+  text-align: center;
+  padding: 20px 16px;
+  margin-top: 24px;
 }
+.footer-content { max-width: 900px; margin: 0 auto; font-size: .95rem; line-height: 1.7; }
+.footer-content a { color: #ffb3c1; text-decoration: none; }
+.footer-content a:hover { text-decoration: underline; }
 
+/* ── Logo / imagen header ── */
+.img1 { text-align: right; position: absolute; top: 14px; right: 14px; }
 
-.selector-peso {
-    border: 2px solid #FF66B2; /* Borde rosado */
-    border-radius: 10px; /* Bordes redondeados */
-    font-family: 'Comic Sans MS', cursive; /* Fuente Comic Sans */
-    font-weight: bold; /* Letras en negrita */
-    padding: 5px 10px; /* Espaciado interno */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #333333; /* Color del texto */
-    transition: all 0.3s ease; /* Efecto suave en hover */
-    cursor: pointer; /* Cursor estilo puntero */
-}
-
-/* Estilo al pasar el cursor por encima */
-.selector-peso:hover {
-    border-color: #FF99CC; /* Cambiar a un tono más claro de rosado */
-    background-color: #FFEBF5; /* Fondo ligeramente rosado */
-    transform: scale(1.05); /* Aumentar un poco el tamaño */
-}
-
-/* Precio anterior */
-.precio-anterior {
-    text-decoration: line-through; /* Línea que tacha el texto */
-    color: #999; /* Color gris claro */
-    font-size: 0.9rem; /* Tamaño más pequeño */
-    margin-right: 10px; /* Espacio con el nuevo precio */
-}
-
-/* Precio en oferta */
-.precio-oferta {
-    color: #FF5733; /* Color rojo anaranjado */
-    font-weight: bold; /* Texto en negrita */
-    font-size: 1.2rem; /* Tamaño más grande */
-}
-
-/* Etiqueta de oferta */
-/* Etiqueta de oferta */
-.producto .etiqueta-oferta {
-    background-color: #e00000; /* Fondo rojo anaranjado */
-    color: white; /* Texto blanco */
-    font-size: 0.9rem; /* Tamaño de la etiqueta */
-    padding: 5px 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    position: absolute; /* Posición relativa al contenedor */
-    top: 10px; /* Distancia desde el borde superior del producto */
-    left: 10px; /* Distancia desde el borde izquierdo del producto */
-    z-index: 10; /* Asegura que esté encima de otros elementos */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
-}
-
-.selector-sabor {
-    border: 2px solid #ccc; /* Borde inicial */
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-/* Cambiar color de fondo según el sabor seleccionado */
-.selector-sabor[data-color="Cola"] {
-    background-color: #8B0000; /* Rojo oscuro */
-    color: white;
-}
-
-.selector-sabor[data-color="Naranja"] {
-    background-color: orange;
-    color: white;
-}
-
-.selector-sabor[data-color="Limón"] {
-    background-color: #32CD32; /* Verde limón */
-    color: white;
-}
-
-
-
- </style>
+/* ── Responsive pequeño ── */
+@media (max-width: 400px) { .producto h3 { font-size: .82rem; } .btn { padding: .45rem .7rem; font-size: .8rem; } }
+  </style>
 </head>
 <body>
     <header>
@@ -728,28 +479,12 @@ footer {
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-  <div class="love-banner" role="status" aria-live="polite">
-  💖 Especial 14 de Febrero 💖 Regalos, dulces y detalles que enamoran
+<!-- Barra de búsqueda -->
+<div class="search-wrapper">
+    <input type="text" id="barra-busqueda" placeholder="🔍 Buscar producto...">
+    <button id="boton-buscar">Buscar</button>
 </div>
-<div id="hearts-container" aria-hidden="true"></div>
-<div class="img1">
-    <img src="image.png" alt="" width="10%">
-</div>
-        
-<!-- Barra de búsqueda con un botón -->
-<div style="margin-top: 1rem; text-align: center;">
-    <input 
-        type="text" 
-        id="barra-busqueda" 
-        placeholder="Buscar producto..." 
-        style="padding: 0.5rem; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;">
-    <button id="boton-buscar" style="padding: 0.5rem; background-color: #FF66B2; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Buscar</button>
-</div>
-
-<!-- Mensaje de "sin resultados" -->
-<p id="mensaje-no-encontrado" style="display: none; color: #FF0000; text-align: center; font-weight: bold; margin-top: 10px;">
-    No se encontraron productos.
-</p>
+<p id="mensaje-no-encontrado">No se encontraron productos.</p>
 
 
     </header>
@@ -921,7 +656,7 @@ footer {
         </div>
     <div class="producto" data-id="4" data-disponible="true">
         <img src="picadillo.jpg" alt="Picadillo">
-        <h3>Picadillo de Pollo<h3>
+        <h3>Picadillo de Pollo</h3>
         <p>Precio: 400g x 2 USD</p>
         <button class="btn agregar-al-carrito" data-id="4" data-nombre="Picadillo de Pollo" data-precio="2.00">Agregar al carrito</button>
         <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -929,15 +664,15 @@ footer {
     
      <div class="producto" data-id="82" data-disponible="false">
         <img src="IMG_0785.webp" alt="Picadillo1">
-        <h3>Picadillo de Pollo<h3>
+        <h3>Picadillo de Pollo</h3>
         <p>Precio: 4(LB) x 5 USD</p>
-        <button class="btn agregar-al-carrito" data-id="82" data-nombre="Picadillo de Pollo (LB)" data-precio="5k p.00">Agregar al carrito</button>
+        <button class="btn agregar-al-carrito" data-id="82" data-nombre="Picadillo de Pollo (LB)" data-precio="5.00">Agregar al carrito</button>
         <span class="etiqueta-disponibilidad disponible">Disponible</span>
     </div>
 
     <div class="producto" data-id="5" data-disponible="true">
         <img src="pescado2.jpg" alt="Filetepescado">
-        <h3>Filete de Pescado<h3>
+        <h3>Filete de Pescado</h3>
         <p>Precio: 5LB x 14USD</p>
         <button class="btn agregar-al-carrito" data-id="5" data-nombre="Filete de Pescado" data-precio="14.00">Agregar al carrito</button>
         <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -945,7 +680,7 @@ footer {
 
     <div class="producto" data-id="6" data-disponible="false">
     <img src="camarones.jpg" alt="Camarones">
-    <h3>Camarones Pelados<h3>
+    <h3>Camarones Pelados</h3>
     <p>Precio: 4LB x 20USD</p>
     <button class="btn agregar-al-carrito" data-id="6" data-nombre="Camarones Pelados" data-precio="20.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -954,7 +689,7 @@ footer {
 
 <div class="producto" data-id="7" data-disponible="false">
     <img src="lomo.jpg" alt="Jamonlomo">
-    <h3>Jamón Lomo<h3>
+    <h3>Jamón Lomo</h3>
     <p>Precio: $5.00 USD x LB</p>
     <button class="btn agregar-al-carrito" data-id="7" data-nombre="Jamón Lomo" data-precio="5.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -962,7 +697,7 @@ footer {
 
 <div class="producto" data-id="8" data-disponible="true">
     <img src="vicky.jpg" alt="Jamonviky">
-    <h3>Jamón Vicky<h3>
+    <h3>Jamón Vicky</h3>
     <p>Precio: 1 LB x $3.50 USD</p>
     <button class="btn agregar-al-carrito" data-id="8" data-nombre="Jamón Vicky" data-precio="3.50">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -970,7 +705,7 @@ footer {
 <!--
 <div class="producto" data-id="9" data-disponible="true">
     <img src="pechuga.jpg" alt="Pechuga">
-    <h3>Pechuga de Pollo(1KG)<h3>
+    <h3>Pechuga de Pollo(1KG)</h3>
     <p>Precio: $12.00 USD x KG</p>
     <button class="btn agregar-al-carrito" data-id="9" data-nombre="Pechuga de Pollo" data-precio="12.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -995,7 +730,7 @@ footer {
 
 <div class="producto" data-id="10" data-disponible="true">
     <img src="huevos.jpg" alt="huevoo">
-    <h3>Cartón de Huevo<h3>
+    <h3>Cartón de Huevo</h3>
     <p>Precio: $12.00 USD </p>
     <button class="btn agregar-al-carrito" data-id="10" data-nombre="Cartón de Huevo" data-precio="12.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1005,14 +740,14 @@ footer {
 
 <div class="producto" data-id="11" data-disponible="false">
     <img src="caja de pollo.avif" alt="Cajapollo">
-    <h3>Caja de Pollo (40LB)  <h3>
+    <h3>Caja de Pollo (40LB)  </h3>
     <p>Precio: $45.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="11" data-nombre="Caja de Pollo (40 LB)" data-precio="45.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
 </div>
 <div class="producto" data-id="12" data-disponible="true">
     <img src="pollo.jpg" alt="pollo">
-    <h3>Paquete de Pollo (10LB) <h3>
+    <h3>Paquete de Pollo (10LB) </h3>
     <p>Precio: $14.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="12" data-nombre="Paquete de Pollo " data-precio="14.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1020,7 +755,7 @@ footer {
 
 <!--<div class="producto" data-id="67" data-disponible="false">
     <img src="pollo33.jpeg" alt="Cajapollo33">
-    <h3>Caja de Pollo (33LB)  <h3>
+    <h3>Caja de Pollo (33LB)  </h3>
     <p>Precio: $40.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="67" data-nombre="Caja de Pollo (33 LB)" data-precio="40.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1028,7 +763,7 @@ footer {
 
 <div class="producto" data-id="68" data-disponible="false">
     <img src="pollo11.jpeg" alt="pollo11">
-    <h3>Paquete de Pollo (11LB) <h3>
+    <h3>Paquete de Pollo (11LB) </h3>
     <p>Precio: $15.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="68" data-nombre="Paquete de Pollo " data-precio="15.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1037,7 +772,7 @@ footer {
 -->
 <div class="producto" data-id="168" data-disponible="false">
     <img src="IMG_1144.jpeg" alt="pollo114">
-    <h3>Paquete de Pollo (muslos) (4.4LB) <h3>
+    <h3>Paquete de Pollo (muslos) (4.4LB) </h3>
     <p>Precio: $7.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="168" data-nombre="Paquete de Pollo 4.4 lb " data-precio="7.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1046,7 +781,7 @@ footer {
 
 <div class="producto" data-id="13" data-disponible="false">
     <img src="salchicha.jpg" alt="salchicha">
-    <h3>Paquete de Salchichas (60uds) <h3>
+    <h3>Paquete de Salchichas (60uds) </h3>
     <p>Precio: $12.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="13" data-nombre="Paquete de Salchichas (60uds)  " data-precio="12.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1054,7 +789,7 @@ footer {
 <!--
 <div class="producto" data-id="62" data-disponible="false">
     <img src="hamburguesa.jpg" alt="hamburguesa">
-    <h3>Hamburguesa (4uds) <h3>
+    <h3>Hamburguesa (4uds) </h3>
     <p>Precio: $3.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="62" data-nombre=" Hamburguesa" data-precio="3.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1062,14 +797,14 @@ footer {
 -->
 <div class="producto" data-id="70" data-disponible="true">
     <img src="IMG_0709.png" alt="chorizo">
-    <h3>Chorizo (8uds) <h3>
+    <h3>Chorizo (8uds) </h3>
     <p>Precio: $4.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="70" data-nombre="Chorizo" data-precio="4.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible#">Disponible</span>
 </div>
 <div class="producto" data-id="79" data-disponible="true">
     <img src="IMG_2068.jpeg" alt="salchicha12">
-    <h3>Paquete de salchichas (7uds) <h3>
+    <h3>Paquete de salchichas (7uds) </h3>
     <p>Precio: $2.50 USD</p>
     <button class="btn agregar-al-carrito" data-id="79" data-nombre="Paquete de salchichas" data-precio="2.50">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1077,7 +812,7 @@ footer {
 <!--
 <div class="producto" data-id="96" data-disponible="false">
         <img src="salchichon.webp" alt="Salchichon">
-        <h3>Salchichón<h3>
+        <h3>Salchichón</h3>
         <p>Precio: 500g 3.50 USD</p>
         <button class="btn agregar-al-carrito" data-id="96" data-nombre="Salchichón" data-precio="3.50">Agregar al carrito</button>
         <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1086,7 +821,7 @@ footer {
     
 <div class="producto" data-id="462" data-disponible="true">
     <img src="IMG_1381.webp" alt="hamburguesapollo">
-    <h3>Hamburguesa de pollo (10uds) <h3>
+    <h3>Hamburguesa de pollo (10uds) </h3>
     <p>Precio: $6.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="462" data-nombre=" Hamburguesa de Pollo" data-precio="6.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1095,7 +830,7 @@ footer {
 
 <div class="producto" data-id="4623" data-disponible="true">
     <img src="IMG_2524.jpeg" alt="Spam">
-    <h3>Spam de cerdo y pollo <h3>
+    <h3>Spam de cerdo y pollo </h3>
     <p>Precio: $5.00 USD</p>
     <button class="btn agregar-al-carrito" data-id="4623" data-nombre=" Spam de cerdo y pollo" data-precio="5.00">Agregar al carrito</button>
     <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1109,7 +844,7 @@ footer {
       <section id="productos" class="productos">
        <!--   <div class="producto" data-id="14" data-disponible="false">
               <img src="surtido.jpeg" alt="Surtido Mixto">
-              <h3>Surtido Mixto 3LB<h3>
+              <h3>Surtido Mixto 3LB</h3>
               <p>Precio: $10.00 USD</p>
               <button class="btn agregar-al-carrito" data-id="14" data-nombre="Surtido Mixto" data-precio="10.00">Agregar al carrito</button>
               <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1119,7 +854,7 @@ footer {
         
         <div class="producto" data-id="17" data-disponible="false">
             <img src="IMG_2208.jpeg" alt="bombones">
-            <h3>Bombones <h3>
+            <h3>Bombones </h3>
             <p>Precio: $7.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="17" data-nombre="Bombones" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1127,7 +862,7 @@ footer {
         
        <!-- <div class="producto" data-id="83" data-disponible="false">
             <img src="IMG_0786.png" alt="piero">
-            <h3>Caja de Bombones (100uds) <h3>
+            <h3>Caja de Bombones (100uds) </h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="83" data-nombre="Caja de Bombones" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1135,21 +870,21 @@ footer {
 
  <div class="producto" data-id="18" data-disponible="true">
             <img src="nutela.webp" alt="nutela">
-            <h3>Nutela <h3>
+            <h3>Nutela </h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="18" data-nombre="Nutela" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
         <div class="producto" data-id="19" data-disponible="true">
             <img src="gelatina.webp" alt="gelatina">
-            <h3>Gelatina (5 cajitas) <h3>
+            <h3>Gelatina (5 cajitas) </h3>
             <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="19" data-nombre="Gelatina" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
      <!--   <div class="producto" data-id="20" data-disponible="false">
             <img src="up.png" alt="cajasup">
-            <h3>Caja de UP(24uds) <h3>
+            <h3>Caja de UP(24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="20" data-nombre="Caja de UP" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1157,7 +892,7 @@ footer {
         <!--
         <div class="producto" data-id="21" data-disponible="false">
             <img src="dona1.jpg" alt="cajadona">
-            <h3>Caja de Donas(24uds) <h3>
+            <h3>Caja de Donas(24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="21" data-nombre="Caja de Donas" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1165,7 +900,7 @@ footer {
 -->
        <!-- <div class="producto" data-id="22" data-disponible="false">
             <img src="efruz-fotor-bg-remover-2025011801928.png" alt="cajaefruz">
-            <h3>Caja de Efruz (24uds) <h3>
+            <h3>Caja de Efruz (24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="22" data-nombre="Caja de Efruz" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1173,7 +908,7 @@ footer {
 
         <div class="producto" data-id="23" data-disponible="false">
             <img src="soda.webp" alt="soda">
-            <h3>Galleta de Soda (7 paq) <h3>
+            <h3>Galleta de Soda (7 paq) </h3>
             <p>Precio: $7.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="23" data-nombre="Galleta de Soda" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1181,7 +916,7 @@ footer {
 
         <div class="producto" data-id="54" data-disponible="true">
             <img src="kake.webp" alt="kake">
-            <h3>Kake <h3>
+            <h3>Kake </h3>
             <p>Precio: $25.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="54" data-nombre="Kake" data-precio="25.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1189,7 +924,7 @@ footer {
         <!--
          <div class="producto" data-id="354" data-disponible="false">
             <img src="IMG_1710.jpeg" alt="kake3">
-            <h3>Kake 3 Leches <h3>
+            <h3>Kake 3 Leches </h3>
             <p>Precio: $30.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="354" data-nombre="Kake 3 Leches" data-precio="30.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1197,14 +932,14 @@ footer {
 -->
         <div class="producto" data-id="55" data-disponible="true">
             <img src="ensalada.webp" alt="ensalda">
-            <h3>Ensalada Fría (Tina) <h3>
+            <h3>Ensalada Fría (Tina) </h3>
             <p>Precio: $25.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="55" data-nombre="Ensalada Fría" data-precio="25.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
        <!-- <div class="producto" data-id="72" data-disponible="false">
             <img src="cakebreak.webp" alt="cakebreak">
-            <h3>Cake Break (24 uds) <h3>
+            <h3>Cake Break (24 uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="72" data-nombre="Cake Break" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1213,7 +948,7 @@ footer {
         <!--
         <div class="producto" data-id="73" data-disponible="false">
             <img src="bisqui.jpg" alt="Bisqui">
-            <h3>Galletas Bisqui (3 uds) <h3>
+            <h3>Galletas Bisqui (3 uds) </h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="73" data-nombre="Galletas Bisqui" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1221,7 +956,7 @@ footer {
         <!--
         <div class="producto" data-id="75" data-disponible="false">
             <img src="IMG_0734.jpeg" alt="conos">
-            <h3>Caja de conos rellenos (24 uds) <h3>
+            <h3>Caja de conos rellenos (24 uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="75" data-nombre="Caja de conos rellenos" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1229,7 +964,7 @@ footer {
         -->
                 <div class="producto" data-id="85" data-disponible="true">
             <img src="gallesoda.jpeg" alt="gallesoda">
-            <h3>Galletas de Soda (3 Tacos) <h3>
+            <h3>Galletas de Soda (3 Tacos) </h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="85" data-nombre="Galletas de Soda" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1238,14 +973,14 @@ footer {
         <!--
           <div class="producto" data-id="90" data-disponible="false">
             <img src="IMG_0514.webp" alt="efsane">
-            <h3>Caja de Efsane (24 uds )<h3>
+            <h3>Caja de Efsane (24 uds )</h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="90" data-nombre="Caja de Efsane" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
      <!--   <div class="producto" data-id="91" data-disponible="false">
             <img src="IMG_0622.jpeg" alt="gallesoda4">
-            <h3>Galletas de Soda (4 Tacos) <h3>
+            <h3>Galletas de Soda (4 Tacos) </h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="91" data-nombre="Galletas de Soda 4 Tacos" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1254,7 +989,7 @@ footer {
         
       <div class="producto" data-id="94" data-disponible="true">
             <img src="IMG_0773.png" alt="happy">
-            <h3>Piñatero (600g) <h3>
+            <h3>Piñatero (600g) </h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="94" data-nombre="Piñatero" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1264,7 +999,7 @@ footer {
         <!--
           <div class="producto" data-id="100" data-disponible="false">
             <img src="IMG_0972.jpeg" alt="finger">
-            <h3>Caja de Finger Cake (24uds) <h3>
+            <h3>Caja de Finger Cake (24uds) </h3>
             <p>Precio: $10.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="100" data-nombre="Caja de Finger Cake" data-precio="10.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1272,7 +1007,7 @@ footer {
         <!--
           <div class="producto" data-id="103" data-disponible="false">
             <img src="IMG_1031.jpeg" alt="surtibom">
-            <h3>Surtidfo de Bombones (100uds) <h3>
+            <h3>Surtidfo de Bombones (100uds) </h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="103" data-nombre="Surtido de bombones" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1281,7 +1016,7 @@ footer {
         
          <div class="producto" data-id="108" data-disponible="false">
             <img src="IMG_1068.jpeg" alt="croisant">
-            <h3>Croissant (20uds) <h3>
+            <h3>Croissant (20uds) </h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="108" data-nombre="Croissant" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1289,7 +1024,7 @@ footer {
         
          <div class="producto" data-id="110" data-disponible="true">
             <img src="IMG_1075.jpeg" alt="keks">
-            <h3>Keks (24uds) <h3>
+            <h3>Keks (24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="110" data-nombre="Keks" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1298,7 +1033,7 @@ footer {
         
         <div class="producto" data-id="1102" data-disponible="false">
             <img src="IMG_1295.webp" alt="kekros">
-            <h3>Keks Roll (24uds) <h3>
+            <h3>Keks Roll (24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1102" data-nombre="Keks Roll" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1307,7 +1042,7 @@ footer {
         
         <div class="producto" data-id="1103" data-disponible="false">
             <img src="IMG_1296.jpeg" alt="balls">
-            <h3>Today Snowball (24uds) <h3>
+            <h3>Today Snowball (24uds) </h3>
             <p>Precio: $14.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1103" data-nombre="Today Snowball" data-precio="14.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1316,7 +1051,7 @@ footer {
         
         <div class="producto" data-id="1104" data-disponible="false">
             <img src="IMG_1297.webp" alt="full">
-            <h3>Fulltop <h3>
+            <h3>Fulltop </h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1104" data-nombre="Fulltop" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1324,7 +1059,7 @@ footer {
         <!--
         <div class="producto" data-id="1105" data-disponible="false">
             <img src="IMG_1298.jpeg" alt="dady">
-            <h3>Dadey  <h3>
+            <h3>Dadey  </h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1105" data-nombre="Dadey" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1332,7 +1067,7 @@ footer {
         -->
         <div class="producto" data-id="1106" data-disponible="false">
             <img src="IMG_1300.jpeg" alt="blue">
-            <h3>Caja de Bombones Blue (130uds) <h3>
+            <h3>Caja de Bombones Blue (130uds) </h3>
             <p>Precio: $18.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1106" data-nombre="Bombones Blue" data-precio="18.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1348,7 +1083,7 @@ footer {
       <section id="productos" class="productos">
           <div class="producto" data-id="24" data-disponible="true">
               <img src="tomate.webp" alt="Tomate">
-              <h3>Pasta de Tomate (3KG)<h3>
+              <h3>Pasta de Tomate (3KG)</h3>
               <p>Precio: $12.00 USD</p>
               <button class="btn agregar-al-carrito" data-id="24" data-nombre="Pasta de Tomate" data-precio="12.00">Agregar al carrito</button>
               <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1356,7 +1091,7 @@ footer {
 <!--
           <div class="producto" data-id="25" data-disponible="false">
             <img src="frijolnegro.png" alt="frijolnegro">
-            <h3>Frijoles Negros (2 uds)<h3>
+            <h3>Frijoles Negros (2 uds)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="25" data-nombre="Frijoles Negros" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1364,7 +1099,7 @@ footer {
 
        <!-- <div class="producto" data-id="26" data-disponible="true">
             <img src="coctel.jpg" alt="coctel">
-            <h3>Coctel de Frutas (420g)<h3>
+            <h3>Coctel de Frutas (420g)</h3>
             <p>Precio: $4.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="26" data-nombre="Coctel de Frutas" data-precio="4.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1372,7 +1107,7 @@ footer {
 
         <div class="producto" data-id="27" data-disponible="true">
             <img src="condensada.webp" alt="condensada">
-            <h3>Lata de leche condensada<h3>
+            <h3>Lata de leche condensada</h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="27" data-nombre="Lata de leche condensada" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1386,7 +1121,7 @@ footer {
       <section id="productos" class="productos">
           <div class="producto" data-id="28" data-disponible="true">
               <img src="pan.jpg" alt="Pan">
-              <h3>Bolsa de Pan    (15 uds)<h3>
+              <h3>Bolsa de Pan    (15 uds)</h3>
               <p>Precio: $4.00 USD</p>
               <button class="btn agregar-al-carrito" data-id="28" data-nombre="Bolsa de Pan" data-precio=" 4.00">Agregar al carrito</button>
               <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1394,14 +1129,14 @@ footer {
 
           <div class="producto" data-id="29" data-disponible="true">
             <img src="IMG_1976.webp" alt="mayonesa">
-            <h3>Mayonesa (500g)<h3>
+            <h3>Mayonesa (500g)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="29" data-nombre="Mayonesa" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
         <div class="producto" data-id="421" data-disponible="true">
             <img src="IMG_1835.png" alt="pastabo">
-            <h3>Pasta de bocaditos (465g)<h3>
+            <h3>Pasta de bocaditos (465g)</h3>
             <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="421" data-nombre="Pasta de bocaditos" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1410,7 +1145,7 @@ footer {
 
         <div class="producto" data-id="30" data-disponible="true">
             <img src="IMG_2101.webp" alt="mantequilla">
-            <h3>Mantequilla (250g)<h3>
+            <h3>Mantequilla (250g)</h3>
             <p>Precio: $2.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="30" data-nombre="Mantequilla" data-precio="2.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1429,21 +1164,21 @@ footer {
 </div>
         <div class="producto" data-id="32" data-disponible="true">
             <img src="cafe.webp" alt="cafe">
-            <h3>Café la LLave<h3>
+            <h3>Café la LLave</h3>
             <p>Precio: $8.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="32" data-nombre="Café la LLave" data-precio="8.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
         <div class="producto" data-id="33" data-disponible="false">
             <img src="fundido.jpg" alt="fundido">
-            <h3>Queso fundido (2LB)<h3>
+            <h3>Queso fundido (2LB)</h3>
             <p>Precio: $7.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="33" data-nombre="Queso fundido" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
         </div>
         <div class="producto" data-id="34" data-disponible="false">
             <img src="blanco.jpg" alt="blanco">
-            <h3>Queso Blanco (2LB)<h3>
+            <h3>Queso Blanco (2LB)</h3>
             <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="34" data-nombre="Queso Blanco" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1451,7 +1186,7 @@ footer {
         
          <div class="producto" data-id="934" data-disponible="false">
             <img src="IMG_2523.png" alt="blancovrema">
-            <h3>Queso crema <h3>
+            <h3>Queso crema </h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="934" data-nombre="Queso crema" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1471,7 +1206,7 @@ footer {
 
  <div class="producto" data-id="134" data-disponible="true">
             <img src="IMG_1358.jpeg" alt="blancolacteada">
-            <h3>Harina Lacteada<h3>
+            <h3>Harina Lacteada</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="134" data-nombre="Harina Lacteada" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1487,7 +1222,7 @@ footer {
       <section id="productos" class="productos">
         <div class="producto" data-id="42" data-disponible="true">
             <img src="fideos.webp" alt="Fideos">
-            <h3>Paquete de Fideos (500g)<h3>
+            <h3>Paquete de Fideos (500g)</h3>
             <p>Precio: $2.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="42" data-nombre="Paquete de Fideos" data-precio="2.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1496,7 +1231,7 @@ footer {
 
         <div class="producto" data-id="43" data-disponible="true">
             <img src="macarrones.webp" alt="macarrones">
-            <h3>Macarrones (500g)<h3>
+            <h3>Macarrones (500g)</h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="43" data-nombre="Macarrones" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1505,7 +1240,7 @@ footer {
         
          <div class="producto" data-id="123" data-disponible="true">
             <img src="IMG_1989.jpeg" alt="sopacarne">
-            <h3>Sopa instantanea sabor Carne<h3>
+            <h3>Sopa instantanea sabor Carne</h3>
             <p>Precio: $1.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="123" data-nombre="Sopa instantánea de Carne " data-precio="1.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1514,7 +1249,7 @@ footer {
         
          <div class="producto" data-id="124" data-disponible="true">
             <img src="IMG_1990.jpeg" alt="sopacarne">
-            <h3>Sopa instantanea sabor Pollo <h3>
+            <h3>Sopa instantanea sabor Pollo </h3>
             <p>Precio: $1.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="124" data-nombre="Sopa instantánea de Pollo  " data-precio="1.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1523,7 +1258,7 @@ footer {
 
       <!--  <div class="producto" data-id="44" data-disponible="fslse">
             <img src="IMG_0755.jpeg" alt="chicharo">
-            <h3>Chicharo (1Kg)<h3>
+            <h3>Chicharo (1Kg)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="44" data-nombre="Chicharo" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1533,7 +1268,7 @@ footer {
         
         <div class="producto" data-id="144" data-disponible="true">
             <img src="IMG_0755.jpeg" alt="chicharog">
-            <h3>Chicharo (500g)<h3>
+            <h3>Chicharo (500g)</h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="144" data-nombre="Chicharo" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1543,7 +1278,7 @@ footer {
         
            <div class="producto" data-id="1442" data-disponible="true">
             <img src="IMG_2816.png" alt="Papa">
-            <h3>Papa (5 LB)<h3>
+            <h3>Papa (5 LB)</h3>
             <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="1442" data-nombre="Papa" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1556,7 +1291,7 @@ footer {
 
         <div class="producto" data-id="45" data-disponible="true">
             <img src="arroz.webp" alt="arroz">
-            <h3>Arroz (10LB)<h3>
+            <h3>Arroz (10LB)</h3>
             <p>Precio: $10.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="45" data-nombre="Arroz" data-precio="10.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1565,7 +1300,7 @@ footer {
 
         <div class="producto" data-id="46" data-disponible="true">
             <img src="spagueti.webp" alt="spagueti">
-            <h3>Spaguettis (2uds)<h3>
+            <h3>Spaguettis (2uds)</h3>
             <p>Precio: $4.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="46" data-nombre="Spaguettis" data-precio="4.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1574,7 +1309,7 @@ footer {
 
      <!--   <div class="producto" data-id="47" data-disponible="false">
             <img src="garbanzos.webp" alt="garbanzos">
-            <h3>Garbanzos (1 kg)<h3>
+            <h3>Garbanzos (1 kg)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="47" data-nombre="Garbanzos" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1584,7 +1319,7 @@ footer {
         
         <div class="producto" data-id="147" data-disponible="true">
             <img src="garbanzos.webp" alt="garbanzosg">
-            <h3>Garbanzos (500g)<h3>
+            <h3>Garbanzos (500g)</h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="147" data-nombre="Garbanzos" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1594,7 +1329,7 @@ footer {
         
         <div class="producto" data-id="77" data-disponible="true">
             <img src="IMG_0751.png" alt="frijolcolorado">
-            <h3>Frijol Colorado (5g)<h3>
+            <h3>Frijol Colorado (5g)</h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="77" data-nombre="Frijol Colorado" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1603,7 +1338,7 @@ footer {
         
         <div class="producto" data-id="78" data-disponible="true">
             <img src="IMG_0752.webp" alt="frijolblanco">
-            <h3>Frijol Blanco (500g)<h3>
+            <h3>Frijol Blanco (500g)</h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="78" data-nombre="Frijol Blanco" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1612,7 +1347,7 @@ footer {
 
 <div class="producto" data-id="95" data-disponible="true">
             <img src="IMG_0793.webp" alt="frijolnegroo">
-            <h3>Frijol Negro (1kg)<h3>
+            <h3>Frijol Negro (1kg)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="95" data-nombre="Frijol Negro" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1621,7 +1356,7 @@ footer {
         
         <div class="producto" data-id="106" data-disponible="false">
             <img src="IMG_1066.jpeg" alt="frijolbayo">
-            <h3>Frijol Bayo (500g)<h3>
+            <h3>Frijol Bayo (500g)</h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="106" data-nombre="Frijol Bayo" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1637,7 +1372,7 @@ footer {
       <section id="productos" class="productos">
         <div class="producto" data-id="48" data-disponible="true">
             <img src="malta.webp" alt="malta">
-            <h3>Caja de Malta (24uds)<h3>
+            <h3>Caja de Malta (24uds)</h3>
             <p>Precio: $25.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="48" data-nombre="Caja de Malta Bucanero" data-precio="25.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1686,7 +1421,7 @@ footer {
         
          <div class="producto" data-id="65" data-disponible="false">
             <img src="IMG_0697.webp" alt="refrescosaborespiña">
-            <h3>Caja de Refresco de Piña (24uds)<h3>
+            <h3>Caja de Refresco de Piña (24uds)</h3>
             <p>Precio: $20.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="65" data-nombre="Caja de Refresco de Piña" data-precio="20.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1695,7 +1430,7 @@ footer {
         
          <div class="producto" data-id="66" data-disponible="true">
             <img src="IMG_0696.jpeg" alt="refrescosaborescola">
-            <h3>Caja de Refresco de Cola (24uds)<h3>
+            <h3>Caja de Refresco de Cola (24uds)</h3>
             <p>Precio: $20.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="66" data-nombre="Caja de Refresco de Cola" data-precio="20.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1732,7 +1467,7 @@ footer {
 
         <div class="producto" data-id="50" data-disponible="true">
             <img src="agua.jpg" alt="agua">
-            <h3>Six Pack de agua (1.5LT)<h3>
+            <h3>Six Pack de agua (1.5LT)</h3>
             <p>Precio: $8.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="50" data-nombre="Six Pack" data-precio="8.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1740,7 +1475,7 @@ footer {
         </div>
          <div class="producto" data-id="250" data-disponible="true">
             <img src="IMG_1902.jpeg" alt="hidra">
-            <h3>Bebida Hidratante (6 pomos)<h3>
+            <h3>Bebida Hidratante (6 pomos)</h3>
             <p>Precio: $2.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="250" data-nombre="Bebida Hidratante" data-precio="2.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1749,7 +1484,7 @@ footer {
 
         <div class="producto" data-id="51" data-disponible="true">
             <img src="paqueticos.png" alt="paqueticos">
-            <h3>Caja de Refresquitos (24 paqueticos)<h3>
+            <h3>Caja de Refresquitos (24 paqueticos)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="51" data-nombre="Caja de Refresquitos" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1770,7 +1505,7 @@ footer {
 
                  <div class="producto" data-id="69" data-disponible="true">
             <img src="IMG_1813.jpeg" alt="jugosmango">
-            <h3>Caja de Jugos de mixto (27 uds)<h3>
+            <h3>Caja de Jugos de mixto (27 uds)</h3>
             <p>Precio: $18.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="69" data-nombre="Caja de Jugos de Mixto" data-precio="18.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1829,7 +1564,7 @@ footer {
         <div class="producto" data-id="53" data-disponible="true"style="position: relative;">
             <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
             <img src="cerveza.webp" alt="cerveza">
-            <h3>Caja de Cerveza (24 uds)<h3>
+            <h3>Caja de Cerveza (24 uds)</h3>
                 <p>
         <span class="precio-anterior">$21.00 USD</span> <!-- Precio anterior tachado -->
         <span class="precio-oferta">$18.00 USD</span> <!-- Precio en oferta -->
@@ -1845,7 +1580,7 @@ footer {
         
 <div class="producto" data-id="71" data-disponible="false">
             <img src="IMG_0710.webp" alt="cervezacristal">
-            <h3>Caja de Cerveza Cristal (24 uds)<h3>
+            <h3>Caja de Cerveza Cristal (24 uds)</h3>
             <p>Precio: $21.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="71" data-nombre="Caja de Cerveza Cristal" data-precio="21.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1854,7 +1589,7 @@ footer {
         
         <div class="producto" data-id="61" data-disponible="false">
             <img src="combo bebidas.jpeg" alt="Combo de Bebidas">
-            <h3>Combo de bebidas<h3>
+            <h3>Combo de bebidas</h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="61" data-nombre="Combo de bebidas" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1863,7 +1598,7 @@ footer {
 
 <div class="producto" data-id="161" data-disponible="true">
             <img src="IMG_1359.png" alt="cremalicor">
-            <h3>Crema Licor Arisbel<h3>
+            <h3>Crema Licor Arisbel</h3>
             <p>Precio: $10.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="161" data-nombre="Crema Licor Arisbel" data-precio="10.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1873,7 +1608,7 @@ footer {
         
 <div class="producto" data-id="4161" data-disponible="true">
             <img src="IMG_1360.jpeg" alt="cremalicor">
-            <h3>Malt Cream<h3>
+            <h3>Malt Cream</h3>
             <p>Precio: $12.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="4161" data-nombre="Malt Cream" data-precio="12.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1891,7 +1626,7 @@ footer {
 
         <div class="producto" data-id="36" data-disponible="true">
             <img src="c72bc8cd-9a7f-4e8b-bcbf-078518c4d124.jpeg" alt="Shampoo">
-            <h3>Shampoo y Acondicionador<h3>
+            <h3>Shampoo y Acondicionador</h3>
             <p>Precio: $10.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="36" data-nombre="Shampoo y Acondicionador" data-precio="10.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1901,7 +1636,7 @@ footer {
         
         <div class="producto" data-id="76" data-disponible="true">
             <img src="IMG_0735.jpeg" alt="sanitario2">
-            <h3>Papel Sanitario (4 uds) <h3>
+            <h3>Papel Sanitario (4 uds) </h3>
             <p>Precio: $2.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="76" data-nombre="Papel Sanitario" data-precio="2.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1910,7 +1645,7 @@ footer {
 
         <div class="producto" data-id="38" data-disponible="true">
             <img src="colcha.webp" alt="colcha">
-            <h3>Frasada de piso<h3>
+            <h3>Frasada de piso</h3>
             <p>Precio: $2.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="38" data-nombre="Frasada de piso" data-precio="2.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1920,7 +1655,7 @@ footer {
         
         <div class="producto" data-id="39" data-disponible="true">
             <img src="jabon.jpg" alt="jabon">
-            <h3>Jabón (8uds)<h3>
+            <h3>Jabón (8uds)</h3>
             <p>Precio: $6.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="39" data-nombre="Jabón" data-precio="6.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1929,7 +1664,7 @@ footer {
 
         <div class="producto" data-id="40" data-disponible="true">
             <img src="pasta.jpg" alt="pasta">
-            <h3>Pasta dental(2 tubos)<h3>
+            <h3>Pasta dental(2 tubos)</h3>
             <p>Precio: $8.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="40" data-nombre="Pasta dental" data-precio="8.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1942,7 +1677,7 @@ footer {
         
           <div class="producto" data-id="109" data-disponible="true">
             <img src="IMG_1073.jpeg" alt="desodoranteq">
-            <h3>Desodorante<h3>
+            <h3>Desodorante</h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="109" data-nombre="Desodorante" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1952,7 +1687,7 @@ footer {
 
 <div class="producto" data-id="92" data-disponible="true">
             <img src="IMG_1197.jpeg" alt="Bolsa de Detergente Vico">
-            <h3>Bolsa de Detergente (500g)<h3>
+            <h3>Bolsa de Detergente (500g)</h3>
             <p>Precio: $2.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="92" data-nombre="Bolsa de Detergente Vico" data-precio="2.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1961,7 +1696,7 @@ footer {
         
        <div class="producto" data-id="492" data-disponible="false">
             <img src="3kg.jpeg" alt="Bolsa de Detergente 2kg">
-            <h3>Bolsa de Detergente (3kg)<h3>
+            <h3>Bolsa de Detergente (3kg)</h3>
             <p>Precio: $8.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="492" data-nombre="Bolsa de Detergente 3KG" data-precio="8.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1969,7 +1704,7 @@ footer {
         </div>
          <div class="producto" data-id="496" data-disponible="true">
             <img src="IMG_1689.jpeg" alt="Lavavajillas Omo 450ml">
-            <h3>Lavavajillas Omo 450ml<h3>
+            <h3>Lavavajillas Omo 450ml</h3>
             <p>Precio: $2.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="496" data-nombre="Lavavajillas Omo 450ml" data-precio="2.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad agotado">Agotado</span>
@@ -1985,7 +1720,7 @@ footer {
         
         <div class="producto" data-id="156" data-disponible="false">
             <img src="cajaaceite.jpg" alt="aceitett">
-            <h3> Caja de Aceite 1Lt (12 uds)<h3>
+            <h3> Caja de Aceite 1Lt (12 uds)</h3>
             <p>Precio: $45.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="156" data-nombre="Caja de Aceite 1 Lt" data-precio="45.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -1994,14 +1729,14 @@ footer {
 
         <div class="producto" data-id="57" data-disponible="false">
             <img src="aceite-fotor-bg-remover-2025011911253.png" alt="aceitep">
-            <h3> Pomo de Aceite (1Lt)<h3>
+            <h3> Pomo de Aceite (1Lt)</h3>
             <p>Precio: $4.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="57" data-nombre="Pomo de Aceite 1 Lt" data-precio="4.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
            <div class="producto" data-id="057" data-disponible="true">
             <img src="IMG_2788.jpeg" alt="aceitepp">
-            <h3> Pomo de Aceite (900ml)<h3>
+            <h3> Pomo de Aceite (900ml)</h3>
             <p>Precio: $5.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="057" data-nombre="Pomo de Aceite 1 Lt" data-precio="5.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2009,7 +1744,7 @@ footer {
         
         <div class="producto" data-id="0057" data-disponible="false">
             <img src="IMG_1935.png" alt="aceitfp">
-            <h3> Pomo de Aceite (1.89Lt)<h3>
+            <h3> Pomo de Aceite (1.89Lt)</h3>
             <p>Precio: $7.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="0057" data-nombre="Pomo de Aceite 1.89 Lt" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2018,14 +1753,14 @@ footer {
 
         <div class="producto" data-id="59" data-disponible="false">
             <img src="IMG_0953.jpeg" alt="azucar">
-            <h3> Azúcar Blanca (1KG)<h3>
+            <h3> Azúcar Blanca (1KG)</h3>
             <p>Precio: $3.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="59" data-nombre="Azúcar Blanca" data-precio="3.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
            <div class="producto" data-id="659" data-disponible="true">
             <img src="IMG_1805.jpeg" alt="azucar">
-            <h3> Azúcar Blanca (2Lb)<h3>
+            <h3> Azúcar Blanca (2Lb)</h3>
             <p>Precio: $3.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="659" data-nombre="Azúcar Blanca 2Lb" data-precio="3.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2033,7 +1768,7 @@ footer {
 
         <div class="producto" data-id="60" data-disponible="true">
             <img src="iberia.webp" alt="iveria">
-            <h3> Sazón Iberia (36uds)<h3>
+            <h3> Sazón Iberia (36uds)</h3>
             <p>Precio: $7.00 USD</p>
             <button class="btn agregar-al-carrito" data-id="60" data-nombre="Sazón Iberia" data-precio="7.00">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2041,7 +1776,7 @@ footer {
         
         <div class="producto" data-id="80" data-disponible="false">
             <img src="IMG_0756.png" alt="sal">
-            <h3>Sal de Mesa (1LB)<h3>
+            <h3>Sal de Mesa (1LB)</h3>
             <p>Precio: $1.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="80" data-nombre="Sal de Mesa" data-precio="1.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2049,14 +1784,14 @@ footer {
         
          <div class="producto" data-id="800" data-disponible="true">
             <img src="IMG_2522.jpeg" alt="sall">
-            <h3>Sal de Mesa (1Kg)<h3>
+            <h3>Sal de Mesa (1Kg)</h3>
             <p>Precio: $2.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="800" data-nombre="Sal de Mesa 1 kg" data-precio="2.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
         </div>
         <div class="producto" data-id="87" data-disponible="true">
             <img src="vinagre.webp" alt="vinag">
-            <h3>Vinagre (1LT)<h3>
+            <h3>Vinagre (1LT)</h3>
             <p>Precio: $2.50 USD</p>
             <button class="btn agregar-al-carrito" data-id="87" data-nombre="Vinagre (1LT)" data-precio="2.50">Agregar al carrito</button>
             <span class="etiqueta-disponibilidad disponible">Disponible</span>
@@ -2081,609 +1816,353 @@ footer {
             <span id="contador-carrito">0</span>
         </a>
     </div>
+
+
+    
+    
+
+    
+
+
+
+
+
+
+
+    
 <script>
-(() => {
-  const container = document.getElementById('fall-container');
-  if(!container) return;
+/* =====================================================
+   LA BODEGUITA MUÃ‘OZ â€” JavaScript consolidado
+   Un Ãºnico bloque, sin duplicados, sin errores.
+   ===================================================== */
+document.addEventListener('DOMContentLoaded', () => {
 
-  const EMOJIS = ["🍁","🍂","🍃"];
-  const MIN_MS = 6000;   // tiempo mínimo de caída
-  const MAX_MS = 12000;  // tiempo máximo de caída
-  const MAX_LEAVES = 18; // cuántas hojas simultáneas
+  /* â”€â”€ 1. BIENVENIDA: mÃ¡quina de escribir â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initTypewriter() {
+    const elWrap = document.getElementById('typeWelcome');
+    const el     = document.getElementById('typewriter');
+    if (!elWrap || !el) return;
 
-  function newLeaf(){
-    if(!container) return;
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf';
-    const span = document.createElement('span');
-    span.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-    leaf.style.left = Math.random()*100 + 'vw';
-    const duration = Math.random()*(MAX_MS-MIN_MS)+MIN_MS;
-    leaf.style.animation = `fallY ${duration}ms linear forwards`;
-    span.style.animation = `swayX ${4000 + Math.random()*3000}ms ease-in-out infinite`;
-    leaf.appendChild(span);
-    container.appendChild(leaf);
-    setTimeout(() => leaf.remove(), duration + 500);
-  }
+    const text   = 'Â¡Bienvenido a La Bodeguita MuÃ±oz!';
+    const typeMs = 2000;
+    const pauseMs = 300;
+    const delMs  = 1800;
 
-  // Lluvia suave de hojas
-  setInterval(() => {
-    const current = container.childElementCount;
-    if(current < MAX_LEAVES) newLeaf();
-  }, 600);
+    let i = 0;
+    const typeStep = Math.max(10, Math.floor(typeMs / text.length));
 
-  // arrancar con unas cuantas
-  for(let i=0;i<8;i++) setTimeout(newLeaf, i*250);
-})();
-</script>
-
-    <script>
-    document.querySelectorAll(".selector-sabor").forEach(selector => {
-    // Función para actualizar el color del selector según la opción seleccionada
-    function actualizarColor() {
-        const sabor = selector.value;
-        if (sabor === "Cola") {
-            selector.style.backgroundColor = "#8B0000"; // Rojo oscuro
-            selector.style.color = "white";
-        } else if (sabor === "Naranja") {
-            selector.style.backgroundColor = "orange";
-            selector.style.color = "white";
-        } else if (sabor === "Limón") {
-            selector.style.backgroundColor = "#32CD32"; // Verde limón
-            selector.style.color = "white";
-        }
-    }
-
-    // Llamar a la función cuando se carga la página
-    actualizarColor();
-
-    // Escuchar cambios en el selector para actualizar el color en tiempo real
-    selector.addEventListener("change", actualizarColor);
-});
-
-
-    </script>
-    <script>
-
-
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const floatingBar = document.querySelector(".floating-bar");
-            const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('.floating-bar a');
-            let lastScrollTop = 0;
-            let isMouseDown = false;
-            let startX, scrollLeft;
-        
-            // Función para verificar si un elemento está en el viewport
-            function isInViewport(element) {
-                const rect = element.getBoundingClientRect();
-                return (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.bottom >= 0
-                );
+    const typeTimer = setInterval(() => {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) {
+        clearInterval(typeTimer);
+        setTimeout(() => {
+          let j = text.length;
+          const delStep = Math.max(10, Math.floor(delMs / text.length));
+          const delTimer = setInterval(() => {
+            el.textContent = text.slice(0, --j);
+            if (j <= 0) {
+              clearInterval(delTimer);
+              elWrap.classList.add('hide');
+              setTimeout(() => elWrap.remove(), 400);
             }
-        
-            // Manejo del scroll
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                let isAnySection = false;
-        
-                // Verificar si alguna sección está visible
-                sections.forEach(section => {
-                    if (isInViewport(section)) {
-                        isAnySection = true;
-                        const current = section.getAttribute('id');
-                        
-                        // Actualizar enlaces activos
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href').includes(current)) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-        
-                // Mostrar/ocultar la barra flotante
-                if (scrollTop > lastScrollTop && isAnySection) {
-                    floatingBar.classList.add('visible');
-                } else if (scrollTop < 100 || !isAnySection) {
-                    floatingBar.classList.remove('visible');
-                }
-        
-                lastScrollTop = scrollTop;
-            });
-        
-            // Eventos para el deslizamiento horizontal
-            floatingBar.addEventListener('mousedown', (e) => {
-                isMouseDown = true;
-                startX = e.pageX - floatingBar.offsetLeft;
-                scrollLeft = floatingBar.scrollLeft;
-                floatingBar.classList.add('grabbing');
-            });
-        
-            floatingBar.addEventListener('mouseleave', () => {
-                isMouseDown = false;
-                floatingBar.classList.remove('grabbing');
-            });
-        
-            floatingBar.addEventListener('mouseup', () => {
-                isMouseDown = false;
-                floatingBar.classList.remove('grabbing');
-            });
-        
-            floatingBar.addEventListener('mousemove', (e) => {
-                if (!isMouseDown) return;
-                e.preventDefault();
-                const x = e.pageX - floatingBar.offsetLeft;
-                const walk = (x - startX) * 2;
-                floatingBar.scrollLeft = scrollLeft - walk;
-            });
-        
-            // Scroll suave al hacer clic en los enlaces
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                });
-            });
-        });
-        </script>
+          }, delStep);
+        }, pauseMs);
+      }
+    }, typeStep);
+  })();
 
-    <script>
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-        function actualizarContadorCarrito() {
-            const contador = document.getElementById('contador-carrito');
-            const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
-            contador.textContent = totalProductos;
-        }
-    
-        function mostrarNotificacionAgotado() {
-            const notificacion = document.getElementById('notificacion-agotado');
-            notificacion.style.display = 'block';
-            setTimeout(() => {
-                notificacion.style.display = 'none';
-            }, 2000);
-        }
-       function agregarAlCarrito(event) {
-    const boton = event.target;
-    const producto = boton.closest('.producto');
-    const disponible = producto.getAttribute('data-disponible') === 'true';
+  /* â”€â”€ 2. CARRUSEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initCarousel() {
+    const track       = document.querySelector('.carousel-track');
+    const nextBtn     = document.querySelector('.carousel-button.next');
+    const prevBtn     = document.querySelector('.carousel-button.prev');
+    const indicCont   = document.querySelector('.carousel-indicators');
+    if (!track || !nextBtn || !prevBtn || !indicCont) return;
 
-    if (!disponible) {
-        mostrarNotificacionAgotado();
-        return;
-    }
-
-    const id = boton.getAttribute('data-id');
-    const nombre = boton.getAttribute('data-nombre');
-    const precioUnitario = parseFloat(boton.getAttribute('data-precio'));
-
-    // Verificar si el producto tiene un selector de peso
-    const selectorPeso = producto.querySelector('.selector-peso');
-    let pesoSeleccionado = null;
-
-    if (selectorPeso) {
-        pesoSeleccionado = parseFloat(selectorPeso.value);
-        if (isNaN(pesoSeleccionado) || pesoSeleccionado <= 0) {
-            alert('Por favor, selecciona un peso válido antes de agregar al carrito.');
-            return;
-        }
-    }
-
-    // Verificar si el producto tiene un selector de sabor
-    const selectorSabor = producto.querySelector('.selector-sabor');
-    const saborSeleccionado = selectorSabor ? selectorSabor.value : null;
-
-    // Calcular el precio total basado en el peso seleccionado (si aplica)
-    const precioTotal = pesoSeleccionado ? pesoSeleccionado * precioUnitario : precioUnitario;
-
-    const imagen = producto.querySelector('img').src;
-
-    // Buscar si el producto ya está en el carrito con las mismas características
-    let productoEnCarrito = carrito.find(
-        (p) => p.id === id && 
-               (p.peso === pesoSeleccionado || !selectorPeso) && 
-               (p.sabor === saborSeleccionado || !selectorSabor)
-    );
-
-    if (productoEnCarrito) {
-        // Si el producto ya está en el carrito, solo aumenta la cantidad
-        productoEnCarrito.cantidad++;
-    } else {
-        // Si no está en el carrito, agregarlo como nuevo producto
-        const nuevoProducto = {
-            id,
-            nombre,
-            precio: precioTotal,
-            peso: selectorPeso ? pesoSeleccionado : null,
-            cantidad: 1,
-            imagen,
-            sabor: selectorSabor ? saborSeleccionado : null, // Agrega el sabor si existe
-        };
-
-        carrito.push(nuevoProducto);
-    }
-
-    // Guardar en el localStorage
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-
-    // Reproducir sonido de confirmación (opcional)
-    const sonidoAgregar = new Audio('sonido.mp3');
-    sonidoAgregar.play();
-
-    // Actualizar el contador del carrito
-    actualizarContadorCarrito();
-}
-
-
-
-
-
-
-// Llamar a la función para mostrar el carrito cuando se cargue la página
-window.onload = function() {
-    carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    mostrarCarrito(); // Mostrar el carrito
-    actualizarContadorCarrito(); // Actualizar el contador del carrito
-};
-
-
-    
-        document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
-            boton.addEventListener('click', agregarAlCarrito);
-        });
-    
-        document.querySelectorAll('.producto').forEach(producto => {
-    const disponible = producto.getAttribute('data-disponible') === 'true';
-    const etiquetaDisponibilidad = producto.querySelector('.etiqueta-disponibilidad');
-    
-    if (disponible) {
-        etiquetaDisponibilidad.textContent = 'Disponible';
-        etiquetaDisponibilidad.classList.add('disponible');
-        etiquetaDisponibilidad.classList.remove('agotado'); // Remover clase 'agotado'
-    } else {
-        etiquetaDisponibilidad.textContent = 'Agotado';
-        etiquetaDisponibilidad.classList.add('agotado');
-        etiquetaDisponibilidad.classList.remove('disponible'); // Remover clase 'disponible'
-    }
-});
-
-    
-        setInterval(() => {
-            carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-            actualizarContadorCarrito();
-        }, 1000);
-    
-        actualizarContadorCarrito();
-    
-       // Función para quitar tildes de un texto
-function quitarTildes(texto) {
-    return texto
-        .normalize('NFD') // Normaliza el texto para separar las tildes de las letras
-        .replace(/[\u0300-\u036f]/g, '') // Elimina los caracteres diacríticos (tildes)
-        .toLowerCase(); // Convierte el texto a minúsculas
-}
-
-// Barra de búsqueda
-// Seleccionar elementos
-const barraBusqueda = document.getElementById('barra-busqueda');
-const botonBuscar = document.getElementById('boton-buscar');
-const productos = document.querySelectorAll('.producto');
-const mensajeNoEncontrado = document.getElementById('mensaje-no-encontrado');
-
-// Función para buscar productos
-function buscarProductos() {
-    const busqueda = barraBusqueda.value.toLowerCase().trim();
-    let encontrados = 0;
-
-    productos.forEach(producto => {
-        const nombreProducto = producto.querySelector('h3').textContent.toLowerCase();
-        if (nombreProducto.includes(busqueda)) {
-            producto.style.display = 'block'; // Mostrar el producto
-            encontrados++;
-        } else {
-            producto.style.display = 'none'; // Ocultar el producto
-        }
-    });
-
-    // Mostrar o ocultar el mensaje de "sin resultados"
-    if (encontrados === 0) {
-        mensajeNoEncontrado.style.display = 'block';
-    } else {
-        mensajeNoEncontrado.style.display = 'none';
-    }
-}
-
-// Escuchar eventos en la barra y el botón
-barraBusqueda.addEventListener('input', buscarProductos);
-botonBuscar.addEventListener('click', buscarProductos);
-
-
-window.onload = function() {
-    const mensajeBienvenida = document.getElementById('mensaje-bienvenida');
-    setTimeout(() => {
-        mensajeBienvenida.style.display = 'none'; // Oculta el mensaje después de 5 segundos
-    }, 5000);
-};
-
-
-    </script>
-
-
-<script>
-    const track = document.querySelector('.carousel-track');
     const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.carousel-button.next');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
+    let current  = 0;
 
-    let currentIndex = 0;
-
-    slides.forEach((_, index) => {
-      const indicator = document.createElement('button');
-      if (index === 0) indicator.classList.add('active');
-      indicatorsContainer.appendChild(indicator);
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', `Diapositiva ${idx + 1}`);
+      if (idx === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => { current = idx; go(); });
+      indicCont.appendChild(dot);
     });
 
-    const indicators = Array.from(indicatorsContainer.children);
+    const dots = Array.from(indicCont.children);
 
-    const updateSlidePosition = () => {
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      indicators.forEach((btn, i) => {
-        btn.classList.toggle('active', i === currentIndex);
+    function go() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    nextBtn.addEventListener('click', () => { current = (current + 1) % slides.length; go(); });
+    prevBtn.addEventListener('click', () => { current = (current - 1 + slides.length) % slides.length; go(); });
+
+    // Auto-avance cada 5 s
+    setInterval(() => { current = (current + 1) % slides.length; go(); }, 5000);
+  })();
+
+  /* â”€â”€ 3. BARRA FLOTANTE: mostrar/ocultar + arrastre â”€â”€â”€â”€â”€ */
+  (function initFloatingBar() {
+    const bar      = document.querySelector('.floating-bar');
+    const sections = document.querySelectorAll('.section');
+    if (!bar) return;
+
+    let lastY = 0, isDragging = false, startX = 0, scrollL = 0;
+
+    // Mostrar/ocultar segÃºn scroll
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      bar.classList.toggle('visible', y > 100);
+      lastY = y;
+    }, { passive: true });
+
+    // Arrastre horizontal con ratÃ³n
+    bar.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX  = e.pageX - bar.offsetLeft;
+      scrollL = bar.scrollLeft;
+      bar.classList.add('grabbing');
+    });
+    bar.addEventListener('mouseleave', () => { isDragging = false; bar.classList.remove('grabbing'); });
+    bar.addEventListener('mouseup',    () => { isDragging = false; bar.classList.remove('grabbing'); });
+    bar.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      e.preventDefault();
+      bar.scrollLeft = scrollL - (e.pageX - bar.offsetLeft - startX) * 2;
+    });
+
+    // Click en enlace: scroll suave
+    bar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute('href').slice(1));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
+    });
+  })();
+
+  /* â”€â”€ 4. SECCIÃ“N ACTIVA en el scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initSectionNav() {
+    const sections = document.querySelectorAll('.section');
+    const links    = document.querySelectorAll('.floating-bar a');
+    const bar      = document.getElementById('floatingBar');
+    if (!sections.length || !links.length) return;
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - sec.clientHeight / 3)
+          current = sec.id;
+      });
+      links.forEach(link => {
+        const matches = link.getAttribute('href').includes(current);
+        link.classList.toggle('active', matches);
+        if (matches && bar) {
+          const lr = link.getBoundingClientRect();
+          const br = bar.getBoundingClientRect();
+          if (lr.left < br.left || lr.right > br.right)
+            link.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+      });
+    }, { passive: true });
+  })();
+
+  /* â”€â”€ 5. ETIQUETAS DE DISPONIBILIDAD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initDisponibilidad() {
+    document.querySelectorAll('.producto').forEach(prod => {
+      const tag   = prod.querySelector('.etiqueta-disponibilidad');
+      const avail = prod.dataset.disponible === 'true';
+      if (!tag) return;
+      tag.textContent = avail ? 'Disponible' : 'Agotado';
+      tag.classList.toggle('disponible', avail);
+      tag.classList.toggle('agotado',    !avail);
+    });
+  })();
+
+  /* â”€â”€ 6. CARRITO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initCarrito() {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function guardar()  { localStorage.setItem('carrito', JSON.stringify(carrito)); }
+
+    function actualizarContador() {
+      const contador = document.getElementById('contador-carrito');
+      if (!contador) return;
+      const total = carrito.reduce((s, p) => s + p.cantidad, 0);
+      contador.textContent = total;
+    }
+
+    function mostrarNotificacion(msg) {
+      const el = document.getElementById('notificacion-agotado');
+      if (!el) return;
+      el.textContent = msg || 'âš ï¸ Producto agotado';
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 2200);
+    }
+
+    function agregarAlCarrito(e) {
+      const btn  = e.currentTarget;
+      const prod = btn.closest('.producto');
+      if (!prod || prod.dataset.disponible !== 'true') {
+        mostrarNotificacion('âš ï¸ Este producto estÃ¡ agotado');
+        return;
+      }
+
+      const id    = btn.dataset.id;
+      const nombre = btn.dataset.nombre;
+      const precioUnit = parseFloat(btn.dataset.precio);
+
+      // Peso opcional
+      const selPeso = prod.querySelector('.selector-peso');
+      let peso = null;
+      if (selPeso) {
+        peso = parseFloat(selPeso.value);
+        if (isNaN(peso) || peso <= 0) {
+          alert('Por favor, selecciona un peso vÃ¡lido.');
+          return;
+        }
+      }
+
+      // Sabor opcional
+      const selSabor = prod.querySelector('.selector-sabor');
+      const sabor = selSabor ? selSabor.value : null;
+
+      const precio = peso ? peso * precioUnit : precioUnit;
+      const imagen = prod.querySelector('img')?.src || '';
+
+      const existente = carrito.find(p =>
+        p.id === id &&
+        p.peso === peso &&
+        p.sabor === sabor
+      );
+
+      if (existente) {
+        existente.cantidad++;
+      } else {
+        carrito.push({ id, nombre, precio, peso, sabor, cantidad: 1, imagen });
+      }
+
+      guardar();
+      actualizarContador();
+
+      // Feedback visual en el botÃ³n
+      const textoOrig = btn.textContent;
+      btn.textContent = 'âœ“ Agregado';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = textoOrig; btn.disabled = false; }, 1000);
+    }
+
+    document.querySelectorAll('.agregar-al-carrito')
+      .forEach(btn => btn.addEventListener('click', agregarAlCarrito));
+
+    actualizarContador();
+    // Sincronizar contador si la pestaÃ±a estÃ¡ abierta en otro lado
+    window.addEventListener('storage', actualizarContador);
+  })();
+
+  /* â”€â”€ 7. BÃšSQUEDA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initBusqueda() {
+    const input   = document.getElementById('barra-busqueda');
+    const btnBusc = document.getElementById('boton-buscar');
+    const aviso   = document.getElementById('mensaje-no-encontrado');
+    if (!input) return;
+
+    function normalizar(t) {
+      return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    }
+
+    function buscar() {
+      const q = normalizar(input.value);
+      let hits = 0;
+      document.querySelectorAll('.producto').forEach(prod => {
+        const nombre = normalizar(prod.querySelector('h3')?.textContent || '');
+        const visible = !q || nombre.includes(q);
+        prod.style.display = visible ? '' : 'none';
+        if (visible) hits++;
+      });
+      if (aviso) aviso.style.display = (!q || hits > 0) ? 'none' : 'block';
+    }
+
+    input.addEventListener('input', buscar);
+    btnBusc?.addEventListener('click', buscar);
+  })();
+
+  /* â”€â”€ 8. SELECTOR SABOR: colores dinÃ¡micos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initSelectorSabor() {
+    const colores = {
+      'Cola':   { bg: '#8B0000', fg: '#fff' },
+      'Naranja':{ bg: '#f97316', fg: '#fff' },
+      'LimÃ³n':  { bg: '#65a30d', fg: '#fff' },
+      'PiÃ±a':   { bg: '#eab308', fg: '#fff' },
     };
 
-    nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlidePosition();
-    });
-
-    prevButton.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateSlidePosition();
-    });
-
-    indicators.forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        currentIndex = i;
-        updateSlidePosition();
-      });
-    });
-
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlidePosition();
-    }, 5000);
-  </script>
-<script>
-    const sections = document.querySelectorAll('.section'); // Selecciona todas las secciones por su clase
-    const navLinks = document.querySelectorAll('.floating-bar a'); // Selecciona todos los enlaces dentro de la barra flotante
-
-    // Detectar la sección activa
-    window.addEventListener('scroll', () => {
-        let current = ""; // Variable para almacenar la sección actual
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop; // Obtiene la posición superior de la sección
-            const sectionHeight = section.clientHeight; // Obtiene la altura de la sección
-            if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                current = section.getAttribute('id'); // Asigna el ID de la sección activa
-            }
-        });
-
-        // Actualizar las clases de los enlaces
-        navLinks.forEach(link => {
-            link.classList.remove('active'); // Remueve la clase activa de todos los enlaces
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active'); // Agrega la clase activa al enlace correspondiente
-
-                // Desplazamiento lateral automático
-                const floatingBar = document.getElementById('floatingBar'); // Selecciona la barra flotante
-                const linkRect = link.getBoundingClientRect(); // Obtiene la posición del enlace
-                const barRect = floatingBar.getBoundingClientRect(); // Obtiene la posición de la barra
-
-                if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
-                    link.scrollIntoView({ behavior: 'smooth', inline: 'center' }); // Asegura que el enlace activo esté visible
-                }
-            }
-        });
-    });
-
-    
-    document.addEventListener("DOMContentLoaded", function() {
-    const floatingBar = document.querySelector(".floating-bar");
-    let isMouseDown = false;
-    let startX, scrollLeft;
-
-    // Al hacer clic en la barra, comenzamos el deslizamiento
-    floatingBar.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        startX = e.pageX - floatingBar.offsetLeft;
-        scrollLeft = floatingBar.scrollLeft;
-        floatingBar.classList.add('grabbing');  // Cambiar el cursor cuando está siendo arrastrado
-    });
-
-    // Detener el deslizamiento
-    floatingBar.addEventListener('mouseleave', () => {
-        isMouseDown = false;
-        floatingBar.classList.remove('grabbing');
-    });
-
-    // Cuando el ratón se levanta, detener el desplazamiento
-    floatingBar.addEventListener('mouseup', () => {
-        isMouseDown = false;
-        floatingBar.classList.remove('grabbing');
-    });
-
-    // Mover la barra cuando el ratón se mueve y está presionado
-    floatingBar.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return; // Si no se está presionando, no hacer nada
-        const x = e.pageX - floatingBar.offsetLeft;
-        const walk = (x - startX) * 2; // Ajusta la velocidad del deslizamiento
-        floatingBar.scrollLeft = scrollLeft - walk;
-    });
-
-    // Opcional: Botones para desplazamiento manual
-    const scrollLeftBtn = document.querySelector(".scroll-left");
-    const scrollRightBtn = document.querySelector(".scroll-right");
-
-    if (scrollLeftBtn) {
-        scrollLeftBtn.addEventListener("click", () => {
-            floatingBar.scrollLeft -= 150; // Ajusta el valor para controlar la distancia
-        });
-    }
-
-    if (scrollRightBtn) {
-        scrollRightBtn.addEventListener("click", () => {
-            floatingBar.scrollLeft += 150; // Ajusta el valor para controlar la distancia
-        });
-    }
-});
-
-
-
-
-document.getElementById('barra-busqueda').addEventListener('input', function() {
-    const busqueda = this.value.toLowerCase();
-    const productos = document.querySelectorAll('.producto');
-    
-    productos.forEach(producto => {
-        const nombreProducto = producto.querySelector('h3').textContent.toLowerCase();
-        if (nombreProducto.includes(busqueda)) {
-            producto.style.display = 'block'; // Mostrar el producto
-        } else {
-            producto.style.display = 'none'; // Ocultar el producto
-        }
-    });
-});
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const estadoTienda = document.getElementById("estado-tienda");
-    const botonesCarrito = document.querySelectorAll(".agregar-al-carrito");
-
-    function verificarHorario() {
-        const ahora = new Date();
-        const dia = ahora.getDay(); // Día de la semana (0 = Domingo, 1 = Lunes, ..., 6 = Sábado)
-        const hora = ahora.getHours(); // Hora actual (formato 24 horas)
-
-        // Verificar si está dentro del horario (lunes a sábado de 8:00 a 18:00)
-        const tiendaAbierta = (dia >= 0 && dia <= 6) && (hora >= 1 && hora < 24);
-
-        if (tiendaAbierta) {
-            estadoTienda.textContent = "Abierto";
-            estadoTienda.style.backgroundColor = "green";
-            estadoTienda.style.color = "white";
-            botonesCarrito.forEach(boton => boton.disabled = false);
-        } else {
-            estadoTienda.textContent = "Cerrado";
-            estadoTienda.style.backgroundColor = "red";
-            estadoTienda.style.color = "white";
-            botonesCarrito.forEach(boton => {
-                boton.disabled = true;
-                boton.style.cursor = "not-allowed";
-            });
-
-            // Mostrar mensaje emergente si está cerrado
-            const mensajeCerrado = document.createElement("div");
-            mensajeCerrado.textContent = "La tienda está cerrada. Nuestro horario es de lunes a sábado de 8:00 a.m. a 6:00 p.m.";
-            mensajeCerrado.style.position = "fixed";
-            mensajeCerrado.style.top = "50%";
-            mensajeCerrado.style.left = "50%";
-            mensajeCerrado.style.transform = "translate(-50%, -50%)";
-            mensajeCerrado.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-            mensajeCerrado.style.color = "white";
-            mensajeCerrado.style.padding = "20px";
-            mensajeCerrado.style.borderRadius = "10px";
-            mensajeCerrado.style.textAlign = "center";
-            mensajeCerrado.style.zIndex = "1000";
-            document.body.appendChild(mensajeCerrado);
-
-            setTimeout(() => mensajeCerrado.remove(), 5000);
-        }
-    }
-
-    // Ejecutar la función al cargar la página y cada minuto
-    verificarHorario();
-    setInterval(verificarHorario, 60000);
-});
-
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const text = '¡Bienvenido a La Bodeguita Muñoz!';
-  const totalMs = 4000;                 // 4 segundos totales
-  const pauseMs = 200;                  // pausa breve con el texto completo
-  const typeMs = 2000;                  // tiempo para ESCRIBIR
-  const delMs  = totalMs - typeMs - pauseMs; // tiempo para BORRAR
-
-  const elWrap = document.getElementById('typeWelcome');
-  const el = document.getElementById('typewriter');
-
-  // Escribir
-  let i = 0;
-  const typeStep = Math.max(10, Math.floor(typeMs / Math.max(1, text.length)));
-  const typeTimer = setInterval(() => {
-    el.textContent = text.slice(0, ++i);
-    if (i >= text.length) {
-      clearInterval(typeTimer);
-      // Pausa breve con el texto ya completo
-      setTimeout(startDelete, pauseMs);
-    }
-  }, typeStep);
-
-  function startDelete(){
-    let j = text.length;
-    const delStep = Math.max(10, Math.floor(delMs / Math.max(1, text.length)));
-    const delTimer = setInterval(() => {
-      j--;
-      el.textContent = text.slice(0, j);
-      if (j <= 0) {
-        clearInterval(delTimer);
-        // Desvanecer y retirar el overlay
-        elWrap.classList.add('hide');
-        setTimeout(() => elWrap.remove(), 400);
+    document.querySelectorAll('.selector-sabor').forEach(sel => {
+      function aplicar() {
+        const c = colores[sel.value];
+        sel.style.backgroundColor = c ? c.bg : '';
+        sel.style.color           = c ? c.fg : '';
       }
-    }, delStep);
-  }
-});
+      aplicar();
+      sel.addEventListener('change', aplicar);
+    });
+  })();
+
+  /* â”€â”€ 9. ESTADO TIENDA: horario â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  (function initEstadoTienda() {
+    const badge  = document.getElementById('estado-tienda');
+    const botones = document.querySelectorAll('.agregar-al-carrito');
+    if (!badge) return;
+
+    function verificar() {
+      const ahora = new Date();
+      const dia   = ahora.getDay();   // 0=Dom â€¦ 6=SÃ¡b
+      const hora  = ahora.getHours();
+      // Abierto lunes-sÃ¡bado 8:00-18:00
+      const abierto = dia >= 1 && dia <= 6 && hora >= 8 && hora < 18;
+
+      badge.textContent        = abierto ? 'â— Abierto' : 'â— Cerrado';
+      badge.style.background   = abierto ? '#16a34a' : '#dc2626';
+      badge.style.color        = '#fff';
+
+      botones.forEach(btn => {
+        if (!abierto) {
+          btn.disabled = true;
+          btn.title    = 'Tienda cerrada (abre lunes-sÃ¡bado 8:00-18:00)';
+        }
+      });
+
+      if (!abierto && !document.getElementById('aviso-cerrado')) {
+        const aviso = document.createElement('div');
+        aviso.id = 'aviso-cerrado';
+        Object.assign(aviso.style, {
+          position:'fixed', top:'50%', left:'50%',
+          transform:'translate(-50%,-50%)',
+          background:'rgba(27,67,50,.92)', color:'#fff',
+          padding:'20px 28px', borderRadius:'12px',
+          textAlign:'center', zIndex:'1001',
+          fontFamily:"'Poppins',sans-serif", fontWeight:'600',
+          maxWidth:'90vw', boxShadow:'0 8px 30px rgba(0,0,0,.3)'
+        });
+        aviso.innerHTML = 'ðŸ• La tienda estÃ¡ cerrada.<br><small>Lunes a SÃ¡bado Â· 8:00 AM â€“ 6:00 PM</small>';
+        document.body.appendChild(aviso);
+        setTimeout(() => aviso.remove(), 5000);
+      }
+    }
+
+    verificar();
+    setInterval(verificar, 60_000);
+  })();
+
+}); // fin DOMContentLoaded
 </script>
-<script>
-
-const heartsContainer = document.getElementById("hearts-container");
-const hearts = ["❤️","💖","💗","💕","💘"];
-
-function createHeart(){
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 8000);
-}
-
-// Intervalo de aparición
-setInterval(createHeart, 500);
-
-</script>
-    
 </body>
 </html>
+
+
+
 
 
 
