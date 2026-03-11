@@ -3,2166 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Bodeguita Online</title>
+    <title>Carrito de Compras - La bodeguita</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 
-   <style>
-/* ── Variables: paleta rosa/roja ── */
-:root {
-  --pink:           #ff4d6d;
-  --pink-light:     #ff758f;
-  --red-romantic:   #c9184a;
-  --bg-pink:        #fff0f3;
-  --white:          #fff;
-  --text:           #2b2b2b;
-  --text-muted:     #6b7280;
-  --border-pink:    #ffd6dd;
-  --shadow-sm:      0 2px 8px rgba(201,24,74,.08);
-  --shadow-md:      0 4px 16px rgba(201,24,74,.13);
-  --shadow-lg:      0 8px 30px rgba(201,24,74,.18);
-  --radius:         16px;
-  --radius-sm:      12px;
-  --transition:     .2s ease;
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
-/* ── Reset y base ── */
-html { scroll-behavior: smooth; }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg-pink);
-  color: var(--text);
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-/* ── Header ── */
 header {
-  background: linear-gradient(135deg, #c9184a 0%, #ff4d6d 55%, #ff758f 100%);
-  color: var(--white);
-  padding: 1.4rem 1rem 1.1rem;
-  text-align: center;
-  position: relative;
-  box-shadow: var(--shadow-md);
-}
-header h1 {
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
-  font-weight: 700;
-  letter-spacing: .5px;
-  margin-bottom: .4rem;
+    background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
+    color: #333;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ── Estado tienda ── */
-#estado-tienda {
-  position: absolute;
-  top: 12px;
-  left: 14px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: .8rem;
-  letter-spacing: .5px;
-  text-transform: uppercase;
+
+/* Estilo general para la página del carrito */
+#carrito-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
 }
 
-/* ── Nav ── */
-nav ul { list-style: none; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: .4rem; }
-nav ul li a {
-  color: rgba(255,255,255,.92);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: .95rem;
-  padding: 4px 12px;
-  border-radius: 999px;
-  transition: var(--transition);
-}
-nav ul li a:hover { background: rgba(255,255,255,.22); color: var(--white); }
 
-/* ── Barra de búsqueda (glassmorphism) ── */
-.search-wrapper {
-  margin: .9rem auto 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  max-width: 480px;
-  padding: 0 1rem;
+        .boton:disabled {
+    background-color: #ccc; /* Color gris para el fondo */
+    color: #666; /* Color gris claro para el texto */
+    cursor: not-allowed; /* Cambiar el cursor para mostrar que está deshabilitado */
 }
-#barra-busqueda {
-  flex: 1;
-  padding: .65rem 1.1rem;
-  border: 2px solid rgba(255,255,255,.45);
-  border-radius: 999px;
-  background: rgba(255,255,255,.18);
-  backdrop-filter: blur(6px);
-  color: var(--white);
-  font-family: 'Poppins', sans-serif;
-  font-size: .95rem;
-  outline: none;
-  transition: var(--transition);
-}
-#barra-busqueda::placeholder { color: rgba(255,255,255,.75); }
-#barra-busqueda:focus { border-color: var(--white); background: rgba(255,255,255,.28); }
-#boton-buscar {
-  padding: .65rem 1.2rem;
-  background: var(--white);
-  color: var(--red-romantic);
-  border: none;
-  border-radius: 999px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  transition: var(--transition);
-}
-#boton-buscar:hover { background: var(--bg-pink); transform: scale(1.04); }
-
-#mensaje-no-encontrado {
-  display: none;
-  color: var(--red-romantic);
-  text-align: center;
-  font-weight: 600;
-  padding: .5rem;
-  margin-top: .5rem;
-}
-
-/* ── Barra flotante ── */
-.floating-bar {
-  position: fixed;
-  top: -80px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(8px);
-  padding: .6rem 1rem;
-  border-bottom: 2px solid var(--border-pink);
-  box-shadow: var(--shadow-md);
-  z-index: 900;
-  overflow-x: auto;
-  white-space: nowrap;
-  cursor: grab;
-  transition: top .3s ease;
-  scrollbar-width: none;
-}
-.floating-bar::-webkit-scrollbar { display: none; }
-.floating-bar.visible { top: 0; }
-.floating-bar.grabbing { cursor: grabbing; }
-.floating-bar a {
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
-  padding: .45rem 1rem;
-  border-radius: 999px;
-  transition: var(--transition);
-  border: 2px solid transparent;
-  flex-shrink: 0;
-}
-.floating-bar a:hover { background: var(--bg-pink); color: var(--red-romantic); border-color: var(--border-pink); }
-.floating-bar a.active { background: var(--pink); color: var(--white); border-color: var(--pink); }
-
-/* ── Typewriter overlay ── */
-.type-welcome {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  z-index: 1200;
-  pointer-events: none;
-  background: rgba(43,43,43,.52);
-  backdrop-filter: blur(3px);
-}
-.type-card {
-  background: linear-gradient(135deg, var(--red-romantic), var(--pink));
-  color: var(--white);
-  border-radius: 20px;
-  padding: clamp(14px,3vw,26px) clamp(20px,5vw,40px);
-  box-shadow: var(--shadow-lg);
-  font-weight: 700;
-  font-size: clamp(1.2rem,3.5vw,2rem);
-  display: inline-flex;
-  align-items: center;
-  gap: .25rem;
-  border: 2px solid rgba(255,255,255,.35);
-}
-.type-card .caret {
-  width: 2px;
-  height: 1.1em;
-  display: inline-block;
-  background: var(--white);
-  animation: caretBlink .6s step-end infinite;
-  transform: translateY(.1em);
-}
-@keyframes caretBlink { 50% { opacity: 0; } }
-.type-welcome.hide { opacity: 0; transition: opacity .35s ease; }
-
-/* ── Carrusel ── */
-.carousel-container { width: 100%; overflow: hidden; position: relative; }
-.carousel-track { display: flex; transition: transform .5s ease-in-out; }
-.carousel-slide { min-width: 100%; height: 52vh; display: flex; justify-content: center; align-items: center; position: relative; }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
-.product-info {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(201,24,74,.82);
-  color: var(--white);
-  padding: 10px 16px;
-  border-radius: var(--radius-sm);
-  border-left: 4px solid rgba(255,255,255,.6);
-}
-.product-info h2 { font-size: 1.15rem; font-weight: 700; }
-.product-info p { font-size: .9rem; opacity: .92; }
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,77,109,.6);
-  color: var(--white);
-  border: none;
-  font-size: 2rem;
-  padding: .4rem 1rem;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 8px;
-  transition: var(--transition);
-}
-.carousel-button:hover { background: rgba(201,24,74,.85); }
-.carousel-button.prev { left: 10px; }
-.carousel-button.next { right: 10px; }
-.carousel-indicators {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
-.carousel-indicators button {
-  width: 10px;
-  height: 10px;
-  background: rgba(255,255,255,.6);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.carousel-indicators button.active { background: var(--white); transform: scale(1.25); }
-
-/* ── Tipografía ── */
-h2 {
-  font-size: clamp(1.3rem, 3vw, 1.9rem);
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 1rem;
-}
-.section > h2 {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding-bottom: .5rem;
-  border-bottom: 3px solid var(--pink);
-  margin-bottom: 1.2rem;
-  color: var(--red-romantic);
-}
-
-/* ── Sección ── */
-.section {
-  padding: 24px 20px;
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  max-width: 1240px;
-  margin: 16px auto;
-}
-
-/* ── Grid productos ── */
-.productos {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-}
-@media (max-width: 600px) { .productos { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
-
-/* ── Tarjeta producto ── */
+/* Estilo para cada producto */
 .producto {
-  background: var(--white);
-  border-radius: var(--radius);
-  border: 1.5px solid var(--border-pink);
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-  padding: 14px 12px 16px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #ff69b4; /* Borde rosado */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
-.producto:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--pink-light); }
+
+/* Efecto de hover para los productos */
+.producto:hover {
+    transform: scale(1.03); /* Escalado suave */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen del producto */
 .producto img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition);
-}
-.producto img:hover { transform: scale(1.04); }
-.producto h3 { font-size: .95rem; font-weight: 600; color: var(--text); line-height: 1.3; margin: 2px 0; }
-.producto p { font-size: .9rem; color: var(--text-muted); margin: 0; }
-
-/* ── Precios con oferta ── */
-.precio-anterior { text-decoration: line-through; color: #9ca3af; font-size: .85rem; margin-right: 6px; }
-.precio-oferta { color: var(--red-romantic); font-weight: 700; font-size: 1.05rem; }
-
-/* ── Etiqueta oferta ── */
-.etiqueta-oferta {
-  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
-  color: var(--white);
-  font-size: .75rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 999px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  box-shadow: var(--shadow-sm);
+    max-width: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
 }
 
-/* ── Chips disponibilidad ── */
-.etiqueta-disponibilidad { display: inline-block; font-size: .78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; margin-top: 4px; }
-.etiqueta-disponibilidad.disponible { background: #d1fae5; color: #065f46; }
-.etiqueta-disponibilidad.agotado { background: #e5e7eb; color: #4b5563; }
-
-/* ── Botones ── */
-.btn {
-  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
-  color: var(--white);
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: .55rem 1rem;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 3px 10px rgba(255,77,109,.32);
-  width: 100%;
-  font-size: .88rem;
-}
-.btn:hover { transform: scale(1.04); box-shadow: 0 6px 16px rgba(201,24,74,.42); }
-.btn[disabled] { background: #d1d5db; cursor: not-allowed; box-shadow: none; transform: none; color: #6b7280; }
-
-/* ── Selectores peso/sabor ── */
-.selector-peso, .selector-sabor {
-  border: 2px solid var(--border-pink);
-  border-radius: var(--radius-sm);
-  padding: 6px 8px;
-  font-family: 'Poppins', sans-serif;
-  font-size: .88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color var(--transition);
-  width: 100%;
-  background: var(--white);
-  color: var(--text);
-}
-.selector-peso:hover, .selector-sabor:hover { border-color: var(--pink-light); }
-.selector-peso:focus, .selector-sabor:focus { outline: none; border-color: var(--pink); }
-label { font-size: .8rem; font-weight: 600; color: var(--text-muted); text-align: left; display: block; }
-
-/* ── Botón flotante carrito ── */
-#boton-flotante {
-  position: fixed;
-  bottom: 24px;
-  right: 25px;
-  background: linear-gradient(135deg, var(--pink), var(--red-romantic));
-  color: var(--white);
-  border-radius: 50%;
-  width: 62px;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(255,77,109,.45);
-  cursor: pointer;
-  z-index: 800;
-  text-decoration: none;
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-#boton-flotante:hover { transform: scale(1.1); box-shadow: 0 10px 28px rgba(201,24,74,.55); }
-#boton-flotante img { width: 30px; height: 30px; }
-
-/* ── Contador carrito (burbuja) ── */
-#contador-carrito {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: var(--red-romantic);
-  color: var(--white);
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .78rem;
-  font-weight: 700;
-  border: 2px solid var(--white);
-  animation: bounce .5s infinite alternate;
-}
-@keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
-
-/* ── Notificación agotado ── */
-#notificacion-agotado {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50px;
-  transform: translate(-50%,-50%);
-  background: var(--red-romantic);
-  color: var(--white);
-  padding: 1rem 1.8rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-  z-index: 2000;
-  font-weight: 700;
-  text-align: center;
-  font-size: 1rem;
+/* Contenedor de detalles del producto */
+.producto div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* ── Sobre nosotros ── */
-.sobre-nosotros {
-  background: linear-gradient(135deg, var(--red-romantic), var(--pink));
-  color: var(--white);
-  padding: 40px 24px;
-  text-align: center;
-  margin: 16px 0;
+/* Nombre del producto */
+.producto h3 {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
 }
-.sobre-nosotros h2 { color: var(--white); border: none; }
-.sobre-nosotros p { color: rgba(255,255,255,.9); font-size: 1.05rem; line-height: 1.7; max-width: 700px; margin: 1rem auto 0; }
-.sobre-nosotros .logo { max-width: 160px; margin-top: 20px; border-radius: var(--radius-sm); }
 
-/* ── Footer ── */
+/* Precio del producto */
+.producto p {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 16px;
+    color: #000000; /* Color rosado para el precio */
+}
+
+/* Botones de agregar y eliminar */
+.producto .boton {
+    background-color: #ff69b4; /* Fondo rosado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para los botones */
+.producto .boton:hover {
+    background-color: #ff1493; /* Rosado más oscuro al pasar el cursor */
+}
+
+/* Total de productos y precio */
+#total-precio {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    color: #333;
+    background-color: #ffebf1; /* Fondo claro con un toque rosado */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Contador de productos */
+#contador-productos {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #555;
+}
+
+.productos-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+/* Estilo para el servicio a domicilio (modificado) */
+label[for="servicioDomicilio"] {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+#servicioDomicilio {
+    width: 100%;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilo de los campos del formulario dentro del modal */
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+input[type="text"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="time"]:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+
+
+/* Estilo para el <select> */
+    #pedidoModal select {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Comic Sans con respaldo */
+    font-size: 18px; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    color: #333; /* Color del texto */
+    background-color: #f7f7f7; /* Fondo claro */
+    border: 2px solid #ff69b4; /* Borde rosado */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px;
+    transition: all 0.3s ease; /* Animación suave */
+}
+
+/* Estilo específico para las opciones */
+#pedidoModal option {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 18px; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    color: #444; /* Color del texto */
+    background-color: #fff; /* Fondo claro */
+    padding: 5px; /* Espaciado interno */
+}
+
+/* Opciones al pasar el cursor */
+#pedidoModal option:hover {
+    background-color: #ff69b4; /* Fondo rosado al hacer hover */
+    color: #fff; /* Texto blanco al hacer hover */
+}
+
+
+
+#pedidoModal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 500px;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    /* Fondo oscuro detrás del modal */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    /* Cabecera del modal */
+    #pedidoModal h2 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Contenido del modal */
+    #pedidoModal p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Campos de entrada del formulario */
+    #pedidoModal input[type="text"],
+    #pedidoModal input[type="time"],
+    #pedidoModal select {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+    }
+
+    /* Botones del modal */
+    #pedidoModal .boton {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #pedidoModal .boton:hover {
+        background: linear-gradient(135deg, #2575fc, #6a11cb);
+    }
+
+    /* Mensajes de error */
+    .error-msg {
+        display: none;
+        background: rgba(255, 0, 0, 0.8);
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Botón cerrar */
+    #closeModal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    #closeModal:hover {
+        transform: scale(1.2);
+    }
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilo del mensaje de error */
+.error {
+    color: red;
+    display: none;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Estilo del botón de confirmar pedido */
+#confirmar-pedido {
+    background-color: #ffcc00;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+
+
+
+
+
+
+#confirmar-pedido:hover {
+    background-color: #e0a800;
+}
+
+/* Estilo del texto "Servicio a domicilio" */
+#estadoServicio {
+    font-weight: bold;
+    color: green;
+}
+
+/* Estilo de los botones */
+.boton {
+    background-color: #00162e;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px 0;
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.boton.agregar {
+    background-color: #28a745;
+}
+
+.boton.agregar:hover {
+    background-color: #218838;
+}
+
+.boton.eliminar {
+    background-color: #dc3545;
+}
+
+.boton.eliminar:hover {
+    background-color: #c82333;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .producto {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px;
+    }
+
+    .boton {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
+
+  .producto:hover {
+            transform: scale(1.02);
+        }
+        .producto img {
+            max-width: 80px; /* Imagen más pequeña */
+            height: auto;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        .producto h3, .producto p {
+            font-size: 1rem; 
+        }
+        .producto div {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* Apilar descripción verticalmente */
+        }
+     
 footer {
-  background: linear-gradient(135deg, var(--red-romantic) 0%, #7b0028 100%);
-  color: rgba(255,255,255,.88);
-  text-align: center;
-  padding: 20px 16px;
-  margin-top: 24px;
-}
-.footer-content { max-width: 900px; margin: 0 auto; font-size: .95rem; line-height: 1.7; }
-.footer-content a { color: #ffb3c1; text-decoration: none; }
-.footer-content a:hover { text-decoration: underline; }
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(to bottom, #FF66B2, #000000); /* Degradado de rosado a negro en el fondo */
+            color: #333;
+            margin-top: 20px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            
+            
+        }
+        .footer-content {
+            max-width: 900px; 
+            margin: 0 auto; 
+            font-size: 1rem; 
+            padding: 5px; 
 
-/* ── Logo / imagen header ── */
-.img1 { text-align: right; position: absolute; top: 14px; right: 14px; }
 
-/* ── Responsive pequeño ── */
-@media (max-width: 400px) { .producto h3 { font-size: .82rem; } .btn { padding: .45rem .7rem; font-size: .8rem; } }
-  </style>
+            /* Estilos para el botón deshabilitado */
+
+
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>La Bodeguita Muñoz</h1>
-        <div id="estado-tienda" style="position: absolute; top: 10px; left: 10px; padding: 10px; border-radius: 5px; font-weight: bold;">
-            <!-- Aquí se mostrará si está abierto o cerrado -->
+
+<header>
+    <h1>Carrito de Compras</h1>
+</header>
+
+<div class="container">
+    <section>
+        <h2>Productos en el carrito</h2>
+        <div class="contador" id="contador-productos">Total de Productos: 0</div>
+        <div class="productos-container" id="carrito-items"></div>
+        <div class="total" id="total-precio">Total: $0.00</div>
+        <div class="botones-container">
+            <button class="boton" id="realizar-pedido">Realizar Pedido</button>
+            <button class="boton" id="vaciar-carrito">Vaciar Carrito</button>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="carrito.html">Carrito</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-<!-- Barra de búsqueda -->
-<div class="search-wrapper">
-    <input type="text" id="barra-busqueda" placeholder="🔍 Buscar producto...">
-    <button id="boton-buscar">Buscar</button>
-</div>
-<p id="mensaje-no-encontrado">No se encontraron productos.</p>
-
-
-    </header>
-
-    <div class="floating-bar" id="floatingBar">
-        <a href="#carnes" class="active">Carnes</a>
-        <a href="#chuches">Chuches</a>
-        <a href="#enlatados">Enlatados</a>
-        <a href="#dulces">Desayuno</a>
-        <a href="#granos">Granos y Pastas</a>
-        <a href="#bebidas">Bebidas</a>
-        <a href="#aseo">Aseo</a> <!-- Nuevo enlace -->
-        <a href="#ingredientes">Ingredientes de cocina</a> <!-- Nuevo enlace -->
-    </div>
-    
-    <!-- Bienvenida: máquina de escribir -->
-<div id="typeWelcome" class="type-welcome" aria-live="polite" aria-atomic="true">
-  <div class="type-card">
-    <span id="typewriter"></span><span class="caret" aria-hidden="true"></span>
-  </div>
+    </section>
 </div>
 
-
-<div class="carousel-container">
-    <div class="carousel-track">
-      <div class="carousel-slide">
-        <img src="pechuga.jpg" alt="Producto 1">
-        <div class="product-info">
-          <h2>Pechuga de Pollo</h2>
-          <p>12 USD x KG</p>
-        </div>
-      </div>
-      <div class="carousel-slide">
-        <img src="obejo.webp" alt="Producto 2">
-        <div class="product-info">
-          <h2>Pernil de ovejo </h2>
-          <p>2.50 USD x LB .</p>
-        </div>
-      </div>
-      <div class="carousel-slide">
-        <img src="caja de pollo.avif" alt="Producto 3">
-        <div class="product-info">
-          <h2>Caja de Pollo 40 LB</h2>
-          <p>48 USD </p>
-        </div>
-      </div>
-      <!-- Añade más productos según sea necesario -->
-    </div>
-    <button class="carousel-button prev">&#8249;</button>
-    <button class="carousel-button next">&#8250;</button>
-    <div class="carousel-indicators"></div>
-  </div>
-
-
-  <h2>Productos</h2>
-
-  <!-- Sección Carnes -->
-  <div class="section" id="carnes">
-      <h2>Carnes</h2>
-      <section id="productos" class="productos">
-        <div class="producto" data-id="1" data-disponible="true" data-precio="2.50">
-            <img src="obejo.webp" alt="Pernil de ovejo">
-            <h3>Pernil de ovejo</h3>
-            <p>Precio por libra: $2.50 USD</p>
-            
-            <!-- Selector de peso -->
-            <label for="peso-1">Selecionar Peso:</label>
-            <select id="peso-1" class="selector-peso" data-id="1">
-            
-             
-            
-          
-          
-           
-                 
-                
-               
-               
-               
-  
- 
-
-
-
-
-
-<option value="3.99">3.99 libras</option>
-
-
-<option value="5.25">5.25 libras</option>
-<option value="5.39">5.39 libras</option>
-
-
-
-
-
-             
-                
-             
-            </select>
-            
-            <button class="btn agregar-al-carrito" data-id="1" data-nombre="Pernil de ovejo" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
+<!-- Modal para introducir datos -->
+<div id="pedidoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Detalles del Pedido</h2>
+        <div class="error" id="error-msg">Por favor completa todos los campos.</div>
+        <div class="error" id="error-hora-msg">La hora seleccionada debe ser al menos 1 hora después de la hora actual.</div>
         
-
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
         
-        <div class="producto" data-id="2" data-disponible="true" data-precio="3.00" style="position: relative;">
-            <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-            <img src="pernil1.jpg" alt="Pernil de cerdo">
-            <h3>Pernil de cerdo</h3>
-            <p>
-                <span class="precio-anterior">$3.50 USD</span>
-                <span class="precio-oferta">$3.00 USD</span> por libra
-            </p>
-        
-            <!-- Selector de peso -->
-            <label for="peso-2">Seleccionar Peso:</label>
-            <select id="peso-2" class="selector-peso" data-id="2">
-        
+        <label for="nombre-receptor">Nombre y apellido de la persona que recibe:</label>
+        <input type="text" id="nombre-receptor" required> <!-- Nuevo campo -->
+
+        <label for="telefono-receptor">Teléfono de la persona que recibe:</label>
+<input type="text" id="telefono-receptor" required>
 
 
-
-
-
-
-
-<option value="14.00">14.00 libras</option>
-
-
-            </select>
-        
-            <!-- Botón de agregar -->
-            <button class="btn agregar-al-carrito" data-id="2" data-nombre="Pernil de cerdo" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" required>
         
       
-        <div class="producto" data-id="3" data-disponible="true" data-precio="3.50">
-            <img src="importado.jpg" alt="Lomo de Cerdo">
-            <h3>Lomo de Cerdo </h3>
-            <p>Precio por libra: $3.50 USD</p>
-            
-            <!-- Selector de peso -->
-            <label for="peso-3">Seleccionar Peso:</label>
-            <select id="peso-3" class="selector-peso" data-id="3">
- 
 
-
-
-
-
-
-<option value="5.83">5.83 libras</option>
-<option value="6.58">6.58 libras</option>
-<option value="6.10">6.10 libras</option>
-<option value="6.20">6.20 libras</option>
-<option value="4.85">4.85 libras</option>
-<option value="6.20">6.20 libras</option>
-<option value="7.0">7.0 libras</option>
-<option value="7.0">7.0 libras</option>
-
-
-            </select>
-            
-            <!-- Botón de agregar -->
-            <button class="btn agregar-al-carrito" data-id="3" data-nombre="Lomo de Cerdo" data-precio="4.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-    <div class="producto" data-id="4" data-disponible="true">
-        <img src="picadillo.jpg" alt="Picadillo">
-        <h3>Picadillo de Pollo</h3>
-        <p>Precio: 400g x 2 USD</p>
-        <button class="btn agregar-al-carrito" data-id="4" data-nombre="Picadillo de Pollo" data-precio="2.00">Agregar al carrito</button>
-        <span class="etiqueta-disponibilidad disponible">Disponible</span>
-    </div>
-    
-     <div class="producto" data-id="82" data-disponible="false">
-        <img src="IMG_0785.webp" alt="Picadillo1">
-        <h3>Picadillo de Pollo</h3>
-        <p>Precio: 4(LB) x 5 USD</p>
-        <button class="btn agregar-al-carrito" data-id="82" data-nombre="Picadillo de Pollo (LB)" data-precio="5.00">Agregar al carrito</button>
-        <span class="etiqueta-disponibilidad disponible">Disponible</span>
-    </div>
-
-    <div class="producto" data-id="5" data-disponible="true">
-        <img src="pescado2.jpg" alt="Filetepescado">
-        <h3>Filete de Pescado</h3>
-        <p>Precio: 5LB x 14USD</p>
-        <button class="btn agregar-al-carrito" data-id="5" data-nombre="Filete de Pescado" data-precio="14.00">Agregar al carrito</button>
-        <span class="etiqueta-disponibilidad disponible">Disponible</span>
-    </div>
-
-    <div class="producto" data-id="6" data-disponible="false">
-    <img src="camarones.jpg" alt="Camarones">
-    <h3>Camarones Pelados</h3>
-    <p>Precio: 4LB x 20USD</p>
-    <button class="btn agregar-al-carrito" data-id="6" data-nombre="Camarones Pelados" data-precio="20.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-
-<div class="producto" data-id="7" data-disponible="false">
-    <img src="lomo.jpg" alt="Jamonlomo">
-    <h3>Jamón Lomo</h3>
-    <p>Precio: $5.00 USD x LB</p>
-    <button class="btn agregar-al-carrito" data-id="7" data-nombre="Jamón Lomo" data-precio="5.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-<div class="producto" data-id="8" data-disponible="true">
-    <img src="vicky.jpg" alt="Jamonviky">
-    <h3>Jamón Vicky</h3>
-    <p>Precio: 1 LB x $3.50 USD</p>
-    <button class="btn agregar-al-carrito" data-id="8" data-nombre="Jamón Vicky" data-precio="3.50">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div> 
-<!--
-<div class="producto" data-id="9" data-disponible="true">
-    <img src="pechuga.jpg" alt="Pechuga">
-    <h3>Pechuga de Pollo(1KG)</h3>
-    <p>Precio: $12.00 USD x KG</p>
-    <button class="btn agregar-al-carrito" data-id="9" data-nombre="Pechuga de Pollo" data-precio="12.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div> -->
-
-<div class="producto" data-id="9" data-disponible="false" style="position: relative;">
-    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-    <img src="pechuga.jpg" alt="Pechuga">
-    <h3>Pechuga de Pollo(1KG)</h3>
-    <p>
-        <span class="precio-anterior">$12.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$10.00 USD</span> <!-- Precio en oferta -->
-    </p>
-    <button class="btn agregar-al-carrito" data-id="9" data-nombre="Pechuga 1Kg" data-precio="10.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-
-
-
-
-
-<div class="producto" data-id="10" data-disponible="true">
-    <img src="huevos.jpg" alt="huevoo">
-    <h3>Cartón de Huevo</h3>
-    <p>Precio: $12.00 USD </p>
-    <button class="btn agregar-al-carrito" data-id="10" data-nombre="Cartón de Huevo" data-precio="12.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-
-
-<div class="producto" data-id="11" data-disponible="false">
-    <img src="caja de pollo.avif" alt="Cajapollo">
-    <h3>Caja de Pollo (40LB)  </h3>
-    <p>Precio: $45.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="11" data-nombre="Caja de Pollo (40 LB)" data-precio="45.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-<div class="producto" data-id="12" data-disponible="true">
-    <img src="pollo.jpg" alt="pollo">
-    <h3>Paquete de Pollo (10LB) </h3>
-    <p>Precio: $14.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="12" data-nombre="Paquete de Pollo " data-precio="14.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-<!--<div class="producto" data-id="67" data-disponible="false">
-    <img src="pollo33.jpeg" alt="Cajapollo33">
-    <h3>Caja de Pollo (33LB)  </h3>
-    <p>Precio: $40.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="67" data-nombre="Caja de Pollo (33 LB)" data-precio="40.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div> 
-
-<div class="producto" data-id="68" data-disponible="false">
-    <img src="pollo11.jpeg" alt="pollo11">
-    <h3>Paquete de Pollo (11LB) </h3>
-    <p>Precio: $15.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="68" data-nombre="Paquete de Pollo " data-precio="15.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
--->
-<div class="producto" data-id="168" data-disponible="false">
-    <img src="IMG_1144.jpeg" alt="pollo114">
-    <h3>Paquete de Pollo (muslos) (4.4LB) </h3>
-    <p>Precio: $7.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="168" data-nombre="Paquete de Pollo 4.4 lb " data-precio="7.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div> 
-
-
-<div class="producto" data-id="13" data-disponible="false">
-    <img src="salchicha.jpg" alt="salchicha">
-    <h3>Paquete de Salchichas (60uds) </h3>
-    <p>Precio: $12.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="13" data-nombre="Paquete de Salchichas (60uds)  " data-precio="12.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-<!--
-<div class="producto" data-id="62" data-disponible="false">
-    <img src="hamburguesa.jpg" alt="hamburguesa">
-    <h3>Hamburguesa (4uds) </h3>
-    <p>Precio: $3.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="62" data-nombre=" Hamburguesa" data-precio="3.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
--->
-<div class="producto" data-id="70" data-disponible="true">
-    <img src="IMG_0709.png" alt="chorizo">
-    <h3>Chorizo (8uds) </h3>
-    <p>Precio: $4.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="70" data-nombre="Chorizo" data-precio="4.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible#">Disponible</span>
-</div>
-<div class="producto" data-id="79" data-disponible="true">
-    <img src="IMG_2068.jpeg" alt="salchicha12">
-    <h3>Paquete de salchichas (7uds) </h3>
-    <p>Precio: $2.50 USD</p>
-    <button class="btn agregar-al-carrito" data-id="79" data-nombre="Paquete de salchichas" data-precio="2.50">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-<!--
-<div class="producto" data-id="96" data-disponible="false">
-        <img src="salchichon.webp" alt="Salchichon">
-        <h3>Salchichón</h3>
-        <p>Precio: 500g 3.50 USD</p>
-        <button class="btn agregar-al-carrito" data-id="96" data-nombre="Salchichón" data-precio="3.50">Agregar al carrito</button>
-        <span class="etiqueta-disponibilidad disponible">Disponible</span>
-    </div>
-    -->
-    
-<div class="producto" data-id="462" data-disponible="true">
-    <img src="IMG_1381.webp" alt="hamburguesapollo">
-    <h3>Hamburguesa de pollo (10uds) </h3>
-    <p>Precio: $6.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="462" data-nombre=" Hamburguesa de Pollo" data-precio="6.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-
-<div class="producto" data-id="4623" data-disponible="true">
-    <img src="IMG_2524.jpeg" alt="Spam">
-    <h3>Spam de cerdo y pollo </h3>
-    <p>Precio: $5.00 USD</p>
-    <button class="btn agregar-al-carrito" data-id="4623" data-nombre=" Spam de cerdo y pollo" data-precio="5.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-      </section>
-  </div>
-  
-  <!-- Sección Chuches -->
-  <div class="section" id="chuches">
-      <h2>Chuches</h2>
-      <section id="productos" class="productos">
-       <!--   <div class="producto" data-id="14" data-disponible="false">
-              <img src="surtido.jpeg" alt="Surtido Mixto">
-              <h3>Surtido Mixto 3LB</h3>
-              <p>Precio: $10.00 USD</p>
-              <button class="btn agregar-al-carrito" data-id="14" data-nombre="Surtido Mixto" data-precio="10.00">Agregar al carrito</button>
-              <span class="etiqueta-disponibilidad disponible">Disponible</span>
-          </div> -->
-
-          
-        
-        <div class="producto" data-id="17" data-disponible="false">
-            <img src="IMG_2208.jpeg" alt="bombones">
-            <h3>Bombones </h3>
-            <p>Precio: $7.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="17" data-nombre="Bombones" data-precio="7.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-       <!-- <div class="producto" data-id="83" data-disponible="false">
-            <img src="IMG_0786.png" alt="piero">
-            <h3>Caja de Bombones (100uds) </h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="83" data-nombre="Caja de Bombones" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-
- <div class="producto" data-id="18" data-disponible="true">
-            <img src="nutela.webp" alt="nutela">
-            <h3>Nutela </h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="18" data-nombre="Nutela" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <div class="producto" data-id="19" data-disponible="true">
-            <img src="gelatina.webp" alt="gelatina">
-            <h3>Gelatina (5 cajitas) </h3>
-            <p>Precio: $6.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="19" data-nombre="Gelatina" data-precio="6.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-     <!--   <div class="producto" data-id="20" data-disponible="false">
-            <img src="up.png" alt="cajasup">
-            <h3>Caja de UP(24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="20" data-nombre="Caja de UP" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-        <!--
-        <div class="producto" data-id="21" data-disponible="false">
-            <img src="dona1.jpg" alt="cajadona">
-            <h3>Caja de Donas(24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="21" data-nombre="Caja de Donas" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
--->
-       <!-- <div class="producto" data-id="22" data-disponible="false">
-            <img src="efruz-fotor-bg-remover-2025011801928.png" alt="cajaefruz">
-            <h3>Caja de Efruz (24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="22" data-nombre="Caja de Efruz" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> 
-
-        <div class="producto" data-id="23" data-disponible="false">
-            <img src="soda.webp" alt="soda">
-            <h3>Galleta de Soda (7 paq) </h3>
-            <p>Precio: $7.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="23" data-nombre="Galleta de Soda" data-precio="7.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-
-        <div class="producto" data-id="54" data-disponible="true">
-            <img src="kake.webp" alt="kake">
-            <h3>Kake </h3>
-            <p>Precio: $25.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="54" data-nombre="Kake" data-precio="25.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <!--
-         <div class="producto" data-id="354" data-disponible="false">
-            <img src="IMG_1710.jpeg" alt="kake3">
-            <h3>Kake 3 Leches </h3>
-            <p>Precio: $30.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="354" data-nombre="Kake 3 Leches" data-precio="30.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
--->
-        <div class="producto" data-id="55" data-disponible="true">
-            <img src="ensalada.webp" alt="ensalda">
-            <h3>Ensalada Fría (Tina) </h3>
-            <p>Precio: $25.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="55" data-nombre="Ensalada Fría" data-precio="25.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-       <!-- <div class="producto" data-id="72" data-disponible="false">
-            <img src="cakebreak.webp" alt="cakebreak">
-            <h3>Cake Break (24 uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="72" data-nombre="Cake Break" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-        
-        <!--
-        <div class="producto" data-id="73" data-disponible="false">
-            <img src="bisqui.jpg" alt="Bisqui">
-            <h3>Galletas Bisqui (3 uds) </h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="73" data-nombre="Galletas Bisqui" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <!--
-        <div class="producto" data-id="75" data-disponible="false">
-            <img src="IMG_0734.jpeg" alt="conos">
-            <h3>Caja de conos rellenos (24 uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="75" data-nombre="Caja de conos rellenos" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        -->
-                <div class="producto" data-id="85" data-disponible="true">
-            <img src="gallesoda.jpeg" alt="gallesoda">
-            <h3>Galletas de Soda (3 Tacos) </h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="85" data-nombre="Galletas de Soda" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> 
-        
-        <!--
-          <div class="producto" data-id="90" data-disponible="false">
-            <img src="IMG_0514.webp" alt="efsane">
-            <h3>Caja de Efsane (24 uds )</h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="90" data-nombre="Caja de Efsane" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-     <!--   <div class="producto" data-id="91" data-disponible="false">
-            <img src="IMG_0622.jpeg" alt="gallesoda4">
-            <h3>Galletas de Soda (4 Tacos) </h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="91" data-nombre="Galletas de Soda 4 Tacos" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-        
-        
-      <div class="producto" data-id="94" data-disponible="true">
-            <img src="IMG_0773.png" alt="happy">
-            <h3>Piñatero (600g) </h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="94" data-nombre="Piñatero" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-        <!--
-          <div class="producto" data-id="100" data-disponible="false">
-            <img src="IMG_0972.jpeg" alt="finger">
-            <h3>Caja de Finger Cake (24uds) </h3>
-            <p>Precio: $10.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="100" data-nombre="Caja de Finger Cake" data-precio="10.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <!--
-          <div class="producto" data-id="103" data-disponible="false">
-            <img src="IMG_1031.jpeg" alt="surtibom">
-            <h3>Surtidfo de Bombones (100uds) </h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="103" data-nombre="Surtido de bombones" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        -->
-        
-         <div class="producto" data-id="108" data-disponible="false">
-            <img src="IMG_1068.jpeg" alt="croisant">
-            <h3>Croissant (20uds) </h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="108" data-nombre="Croissant" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-         <div class="producto" data-id="110" data-disponible="true">
-            <img src="IMG_1075.jpeg" alt="keks">
-            <h3>Keks (24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="110" data-nombre="Keks" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-        <div class="producto" data-id="1102" data-disponible="false">
-            <img src="IMG_1295.webp" alt="kekros">
-            <h3>Keks Roll (24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1102" data-nombre="Keks Roll" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-        <div class="producto" data-id="1103" data-disponible="false">
-            <img src="IMG_1296.jpeg" alt="balls">
-            <h3>Today Snowball (24uds) </h3>
-            <p>Precio: $14.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1103" data-nombre="Today Snowball" data-precio="14.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-        <div class="producto" data-id="1104" data-disponible="false">
-            <img src="IMG_1297.webp" alt="full">
-            <h3>Fulltop </h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1104" data-nombre="Fulltop" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <!--
-        <div class="producto" data-id="1105" data-disponible="false">
-            <img src="IMG_1298.jpeg" alt="dady">
-            <h3>Dadey  </h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1105" data-nombre="Dadey" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        -->
-        <div class="producto" data-id="1106" data-disponible="false">
-            <img src="IMG_1300.jpeg" alt="blue">
-            <h3>Caja de Bombones Blue (130uds) </h3>
-            <p>Precio: $18.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1106" data-nombre="Bombones Blue" data-precio="18.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-      </section>
-  </div>
-  
-  <!-- Sección Enlatados -->
-  <div class="section" id="enlatados">
-      <h2>Enlatados</h2>
-      <section id="productos" class="productos">
-          <div class="producto" data-id="24" data-disponible="true">
-              <img src="tomate.webp" alt="Tomate">
-              <h3>Pasta de Tomate (3KG)</h3>
-              <p>Precio: $12.00 USD</p>
-              <button class="btn agregar-al-carrito" data-id="24" data-nombre="Pasta de Tomate" data-precio="12.00">Agregar al carrito</button>
-              <span class="etiqueta-disponibilidad disponible">Disponible</span>
-          </div>
-<!--
-          <div class="producto" data-id="25" data-disponible="false">
-            <img src="frijolnegro.png" alt="frijolnegro">
-            <h3>Frijoles Negros (2 uds)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="25" data-nombre="Frijoles Negros" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-
-       <!-- <div class="producto" data-id="26" data-disponible="true">
-            <img src="coctel.jpg" alt="coctel">
-            <h3>Coctel de Frutas (420g)</h3>
-            <p>Precio: $4.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="26" data-nombre="Coctel de Frutas" data-precio="4.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div> -->
-
-        <div class="producto" data-id="27" data-disponible="true">
-            <img src="condensada.webp" alt="condensada">
-            <h3>Lata de leche condensada</h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="27" data-nombre="Lata de leche condensada" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-      </section>
-  </div>
-  
-  <!-- Sección Dulces -->
-  <div class="section" id="dulces">
-      <h2>Desayuno</h2>
-      <section id="productos" class="productos">
-          <div class="producto" data-id="28" data-disponible="true">
-              <img src="pan.jpg" alt="Pan">
-              <h3>Bolsa de Pan    (15 uds)</h3>
-              <p>Precio: $4.00 USD</p>
-              <button class="btn agregar-al-carrito" data-id="28" data-nombre="Bolsa de Pan" data-precio=" 4.00">Agregar al carrito</button>
-              <span class="etiqueta-disponibilidad agotado">Agotado</span>
-          </div>
-
-          <div class="producto" data-id="29" data-disponible="true">
-            <img src="IMG_1976.webp" alt="mayonesa">
-            <h3>Mayonesa (500g)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="29" data-nombre="Mayonesa" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-        <div class="producto" data-id="421" data-disponible="true">
-            <img src="IMG_1835.png" alt="pastabo">
-            <h3>Pasta de bocaditos (465g)</h3>
-            <p>Precio: $6.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="421" data-nombre="Pasta de bocaditos" data-precio="6.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-        
-
-        <div class="producto" data-id="30" data-disponible="true">
-            <img src="IMG_2101.webp" alt="mantequilla">
-            <h3>Mantequilla (250g)</h3>
-            <p>Precio: $2.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="30" data-nombre="Mantequilla" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-
-    <div class="producto" data-id="31" data-disponible="true" style="position: relative;">
-    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-    <img src="polvo.webp" alt="lechepolvo">
-    <h3>Leche en Polvo (2 bolsas)</h3>
-    <p>
-        <span class="precio-anterior">$15.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$12.00 USD</span> <!-- Precio en oferta -->
-    </p>
-    <button class="btn agregar-al-carrito" data-id="31" data-nombre="Leche en Polvo (2 bolsas)" data-precio="12.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-        <div class="producto" data-id="32" data-disponible="true">
-            <img src="cafe.webp" alt="cafe">
-            <h3>Café la LLave</h3>
-            <p>Precio: $8.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="32" data-nombre="Café la LLave" data-precio="8.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-        <div class="producto" data-id="33" data-disponible="false">
-            <img src="fundido.jpg" alt="fundido">
-            <h3>Queso fundido (2LB)</h3>
-            <p>Precio: $7.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="33" data-nombre="Queso fundido" data-precio="7.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-        <div class="producto" data-id="34" data-disponible="false">
-            <img src="blanco.jpg" alt="blanco">
-            <h3>Queso Blanco (2LB)</h3>
-            <p>Precio: $6.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="34" data-nombre="Queso Blanco" data-precio="6.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-        
-         <div class="producto" data-id="934" data-disponible="false">
-            <img src="IMG_2523.png" alt="blancovrema">
-            <h3>Queso crema </h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="934" data-nombre="Queso crema" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-  
-<div class="producto" data-id="81" data-disponible="true" style="position: relative;">
-    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-    <img src="IMG_0775.webp" alt="gouda">
-    <h3>Queso Gouda (2LB)</h3>
-    <p>
-        <span class="precio-anterior">$15.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$14.00 USD</span> <!-- Precio en oferta -->
-    </p>
-    <button class="btn agregar-al-carrito" data-id="81" data-nombre="Queso Gouda (2LB)" data-precio="14.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
- <div class="producto" data-id="134" data-disponible="true">
-            <img src="IMG_1358.jpeg" alt="blancolacteada">
-            <h3>Harina Lacteada</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="134" data-nombre="Harina Lacteada" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-        </div>
-
-
-      </section>
-  </div>
-  
-  <!-- Sección Granos -->
-  <div class="section" id="granos">
-      <h2>Granos y Pastas</h2>
-      <section id="productos" class="productos">
-        <div class="producto" data-id="42" data-disponible="true">
-            <img src="fideos.webp" alt="Fideos">
-            <h3>Paquete de Fideos (500g)</h3>
-            <p>Precio: $2.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="42" data-nombre="Paquete de Fideos" data-precio="2.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        <div class="producto" data-id="43" data-disponible="true">
-            <img src="macarrones.webp" alt="macarrones">
-            <h3>Macarrones (500g)</h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="43" data-nombre="Macarrones" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-         <div class="producto" data-id="123" data-disponible="true">
-            <img src="IMG_1989.jpeg" alt="sopacarne">
-            <h3>Sopa instantanea sabor Carne</h3>
-            <p>Precio: $1.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="123" data-nombre="Sopa instantánea de Carne " data-precio="1.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-         <div class="producto" data-id="124" data-disponible="true">
-            <img src="IMG_1990.jpeg" alt="sopacarne">
-            <h3>Sopa instantanea sabor Pollo </h3>
-            <p>Precio: $1.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="124" data-nombre="Sopa instantánea de Pollo  " data-precio="1.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-      <!--  <div class="producto" data-id="44" data-disponible="fslse">
-            <img src="IMG_0755.jpeg" alt="chicharo">
-            <h3>Chicharo (1Kg)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="44" data-nombre="Chicharo" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        -->
-        
-        <div class="producto" data-id="144" data-disponible="true">
-            <img src="IMG_0755.jpeg" alt="chicharog">
-            <h3>Chicharo (500g)</h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="144" data-nombre="Chicharo" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        
-           <div class="producto" data-id="1442" data-disponible="true">
-            <img src="IMG_2816.png" alt="Papa">
-            <h3>Papa (5 LB)</h3>
-            <p>Precio: $6.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="1442" data-nombre="Papa" data-precio="6.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        
-        
-        
-
-        <div class="producto" data-id="45" data-disponible="true">
-            <img src="arroz.webp" alt="arroz">
-            <h3>Arroz (10LB)</h3>
-            <p>Precio: $10.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="45" data-nombre="Arroz" data-precio="10.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        <div class="producto" data-id="46" data-disponible="true">
-            <img src="spagueti.webp" alt="spagueti">
-            <h3>Spaguettis (2uds)</h3>
-            <p>Precio: $4.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="46" data-nombre="Spaguettis" data-precio="4.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-     <!--   <div class="producto" data-id="47" data-disponible="false">
-            <img src="garbanzos.webp" alt="garbanzos">
-            <h3>Garbanzos (1 kg)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="47" data-nombre="Garbanzos" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        -->
-        
-        <div class="producto" data-id="147" data-disponible="true">
-            <img src="garbanzos.webp" alt="garbanzosg">
-            <h3>Garbanzos (500g)</h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="147" data-nombre="Garbanzos" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        
-        <div class="producto" data-id="77" data-disponible="true">
-            <img src="IMG_0751.png" alt="frijolcolorado">
-            <h3>Frijol Colorado (5g)</h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="77" data-nombre="Frijol Colorado" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        <div class="producto" data-id="78" data-disponible="true">
-            <img src="IMG_0752.webp" alt="frijolblanco">
-            <h3>Frijol Blanco (500g)</h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="78" data-nombre="Frijol Blanco" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-<div class="producto" data-id="95" data-disponible="true">
-            <img src="IMG_0793.webp" alt="frijolnegroo">
-            <h3>Frijol Negro (1kg)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="95" data-nombre="Frijol Negro" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        <div class="producto" data-id="106" data-disponible="false">
-            <img src="IMG_1066.jpeg" alt="frijolbayo">
-            <h3>Frijol Bayo (500g)</h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="106" data-nombre="Frijol Bayo" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-      </section>
-  </div>
-  
-  <!-- Sección Bebidas -->
-  <div class="section" id="bebidas">
-      <h2>Bebidas</h2>
-      <section id="productos" class="productos">
-        <div class="producto" data-id="48" data-disponible="true">
-            <img src="malta.webp" alt="malta">
-            <h3>Caja de Malta (24uds)</h3>
-            <p>Precio: $25.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="48" data-nombre="Caja de Malta Bucanero" data-precio="25.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-
-               
- 
-
-
-
-  
-
- <div class="producto" data-id="8164" data-disponible="true" style="position: relative;">
-    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-    <img src="IMG_1919.jpeg" alt="malta1">
-    <h3>Caja de Malta (24uds)</h3>
-    <p>
-        <span class="precio-anterior">$24.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$20.00 USD</span> <!-- Nuevo precio en oferta -->
-    </p>
-    <button class="btn agregar-al-carrito" data-id="8164" data-nombre="Caja de Malta Van Pur" data-precio="20.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
- <!--<div class="producto" data-id="49" data-disponible="true">
-    <img src="shasta.jpg" alt="refrescosabores">
-    <h3>Caja de Refrescos (24uds)</h3>
-    <p>Precio: $20.00 USD</p>
-
-    <!-- Selector de sabor 
-    <label for="sabor-49">Seleccionar sabor:</label>
-    <select id="sabor-49" class="selector-sabor" data-id="49">
-   <     <option value="Cola">Cola</option> 
-        <option value="Naranja">Naranja</option>
-        <option value="Limón">Limón</option>
-    </select>
-
-    <button class="btn agregar-al-carrito" data-id="49" data-nombre="Caja de Refrescos" data-precio="20.00">
-        Agregar al carrito
-    </button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-        
-        
-         <div class="producto" data-id="65" data-disponible="false">
-            <img src="IMG_0697.webp" alt="refrescosaborespiña">
-            <h3>Caja de Refresco de Piña (24uds)</h3>
-            <p>Precio: $20.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="65" data-nombre="Caja de Refresco de Piña" data-precio="20.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-         <div class="producto" data-id="66" data-disponible="true">
-            <img src="IMG_0696.jpeg" alt="refrescosaborescola">
-            <h3>Caja de Refresco de Cola (24uds)</h3>
-            <p>Precio: $20.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="66" data-nombre="Caja de Refresco de Cola" data-precio="20.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div> -->
-
-
-        
-        
-         <div class="producto" data-id="834" data-disponible="true">
-            <img src="IMG_1937.jpeg" alt="refrescospomo">
-            <h3>Caja de Refresco (24 latas)</h3>
-            <p>Precio: $20.00 USD</p>
-        
-            <!-- Selector de sabor -->
-            <label for="sabor-834">Seleccionar sabor:</label>
-<select id="sabor-834" class="selector-sabor" data-id="834">
- 
-       <option value="Naranja">Naranja</option> 
-         <option value="Piña">Piña</option> 
-           <option value="Limón">Limón</option> 
-  
-  
+        <!-- Lista desplegable para el servicio a domicilio -->
+<label for="servicioDomicilio">Servicio a Domicilio:</label>
+<select id="servicioDomicilio">
+    <option value="ninguno">Selecciona un lugar</option>
+    <option value="Manzanillo">Manzanillo (Gratis)</option>
+    <option value="San Francisco">San Francisco (+$5)</option>
+    <option value="Yara">Yara (+$10)</option>
+    <option value="Masó">Masó (+$10)</option>
+    <option value="Bayamo">Bayamo (+$15)</option>
+    <option value="Veguita">Veguita (+$10)</option>
+    <option value="Campechuela">Campechuela (+$10)</option>
+    <option value="Niquero">Niquero (+$15)</option>
+    <option value="Media Luna">Media Luna (+$15)</option>
+    <option value="Las Novillas">Las Novillas (+$5)</option>
+    <option value="Las Caobas">Las Caobas (+$10)</option> <!-- Nueva opción -->
 </select>
-        
-            <button class="btn agregar-al-carrito" data-id="834" data-nombre="Caja de Refresco de Lata" data-precio="20.00">
-                Agregar al carrito
-            </button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
+        <div id="estadoServicio" class="status-text">No seleccionado</div> <!-- Estado del servicio -->
 
-
-        <div class="producto" data-id="50" data-disponible="true">
-            <img src="agua.jpg" alt="agua">
-            <h3>Six Pack de agua (1.5LT)</h3>
-            <p>Precio: $8.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="50" data-nombre="Six Pack" data-precio="8.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-         <div class="producto" data-id="250" data-disponible="true">
-            <img src="IMG_1902.jpeg" alt="hidra">
-            <h3>Bebida Hidratante (6 pomos)</h3>
-            <p>Precio: $2.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="250" data-nombre="Bebida Hidratante" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        <div class="producto" data-id="51" data-disponible="true">
-            <img src="paqueticos.png" alt="paqueticos">
-            <h3>Caja de Refresquitos (24 paqueticos)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="51" data-nombre="Caja de Refresquitos" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        <div class="producto" data-id="52" data-disponible="false" style="position: relative;">
-    <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-    <img src="caja de jugos.webp" alt="jugos">
-    <h3>Caja de Jugos (24 uds)</h3>
-    <p>
-        <span class="precio-anterior">$20.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$18.00 USD</span> <!-- Nuevo precio en oferta -->
-    </p>
-    <button class="btn agregar-al-carrito" data-id="52" data-nombre="Caja de Jugos Mixto" data-precio="18.00">Agregar al carrito</button>
-    <span class="etiqueta-disponibilidad disponible">Disponible</span>
-</div>
-
-                 <div class="producto" data-id="69" data-disponible="true">
-            <img src="IMG_1813.jpeg" alt="jugosmango">
-            <h3>Caja de Jugos de mixto (27 uds)</h3>
-            <p>Precio: $18.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="69" data-nombre="Caja de Jugos de Mixto" data-precio="18.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-       
-        <!--
-        
-        <div class="producto" data-id="193" data-disponible="false">
-            <img src="IMG_1119.jpeg" alt="persman">
-            <h3>Caja de jugos de Pera y Manzana(12uds)</h3>
-            <p>Precio: $12.00 USD</p>
-        
-            <!-- Selector de sabor --><!--
-            <label for="sabor-84">Seleccionar sabor:</label>
-<select id="sabor-84" class="selector-sabor" data-id="193">
-   
-  
-    <option value="Manzana">Manzana</option>
-</select>
-      <button class="btn agregar-al-carrito" data-id="193" data-nombre="Caja de Jugo Pera y Manzana" data-precio="12.00">
-                Agregar al carrito
-            </button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        -->
-         <div class="producto" data-id="93" data-disponible="true">
-            <img src="IMG_0680.jpeg" alt="refrescoscajaww">
-            <h3>Caja de jugos (27 cajitas)</h3>
-            <p>Precio: $18.00 USD</p>
-        
-            <!-- Selector de sabor -->
-            <label for="sabor-84">Seleccionar sabor:</label>
-<select id="sabor-84" class="selector-sabor" data-id="93">
-  <!--  <option value="Melocoton">Melocoton</option> -->
-   
-    <option value="Manzana">Manzana</option>
-     <option value="Cóctel">Cóctel</option>
-     <option value="Melocotón">Melocotón</option>
-     <option value="Mango">Mango</option>
-</select>
-
-        
-            <button class="btn agregar-al-carrito" data-id="93" data-nombre="Caja de Jugo 27 cajitas" data-precio="18.00">
-                Agregar al carrito
-            </button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        
-        
-        
-        
-
-        <div class="producto" data-id="53" data-disponible="true"style="position: relative;">
-            <div class="etiqueta-oferta">¡En Oferta!</div> <!-- Etiqueta de oferta -->
-            <img src="cerveza.webp" alt="cerveza">
-            <h3>Caja de Cerveza (24 uds)</h3>
-                <p>
-        <span class="precio-anterior">$21.00 USD</span> <!-- Precio anterior tachado -->
-        <span class="precio-oferta">$18.00 USD</span> <!-- Precio en oferta -->
-    </p>
-            
-            <button class="btn agregar-al-carrito" data-id="53" data-nombre="Caja de Cerveza" data-precio="18.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-       
-        
-        
-<div class="producto" data-id="71" data-disponible="false">
-            <img src="IMG_0710.webp" alt="cervezacristal">
-            <h3>Caja de Cerveza Cristal (24 uds)</h3>
-            <p>Precio: $21.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="71" data-nombre="Caja de Cerveza Cristal" data-precio="21.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        <div class="producto" data-id="61" data-disponible="false">
-            <img src="combo bebidas.jpeg" alt="Combo de Bebidas">
-            <h3>Combo de bebidas</h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="61" data-nombre="Combo de bebidas" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-<div class="producto" data-id="161" data-disponible="true">
-            <img src="IMG_1359.png" alt="cremalicor">
-            <h3>Crema Licor Arisbel</h3>
-            <p>Precio: $10.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="161" data-nombre="Crema Licor Arisbel" data-precio="10.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-        
-<div class="producto" data-id="4161" data-disponible="true">
-            <img src="IMG_1360.jpeg" alt="cremalicor">
-            <h3>Malt Cream</h3>
-            <p>Precio: $12.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="4161" data-nombre="Malt Cream" data-precio="12.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-      </section>
-  </div>
-
-
-  <!-- Nueva Sección: Snacks -->
-<div class="section" id="aseo">
-    <h2>Aseo</h2>
-    <section class="productos">
-       
-
-        <div class="producto" data-id="36" data-disponible="true">
-            <img src="c72bc8cd-9a7f-4e8b-bcbf-078518c4d124.jpeg" alt="Shampoo">
-            <h3>Shampoo y Acondicionador</h3>
-            <p>Precio: $10.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="36" data-nombre="Shampoo y Acondicionador" data-precio="10.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-
-       
-        
-        <div class="producto" data-id="76" data-disponible="true">
-            <img src="IMG_0735.jpeg" alt="sanitario2">
-            <h3>Papel Sanitario (4 uds) </h3>
-            <p>Precio: $2.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="76" data-nombre="Papel Sanitario" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-
-
-        <div class="producto" data-id="38" data-disponible="true">
-            <img src="colcha.webp" alt="colcha">
-            <h3>Frasada de piso</h3>
-            <p>Precio: $2.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="38" data-nombre="Frasada de piso" data-precio="2.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        
-        <div class="producto" data-id="39" data-disponible="true">
-            <img src="jabon.jpg" alt="jabon">
-            <h3>Jabón (8uds)</h3>
-            <p>Precio: $6.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="39" data-nombre="Jabón" data-precio="6.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-        <div class="producto" data-id="40" data-disponible="true">
-            <img src="pasta.jpg" alt="pasta">
-            <h3>Pasta dental(2 tubos)</h3>
-            <p>Precio: $8.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="40" data-nombre="Pasta dental" data-precio="8.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-       
-        
-        
-        
-          <div class="producto" data-id="109" data-disponible="true">
-            <img src="IMG_1073.jpeg" alt="desodoranteq">
-            <h3>Desodorante</h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="109" data-nombre="Desodorante" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-
-
-<div class="producto" data-id="92" data-disponible="true">
-            <img src="IMG_1197.jpeg" alt="Bolsa de Detergente Vico">
-            <h3>Bolsa de Detergente (500g)</h3>
-            <p>Precio: $2.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="92" data-nombre="Bolsa de Detergente Vico" data-precio="2.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-        
-       <div class="producto" data-id="492" data-disponible="false">
-            <img src="3kg.jpeg" alt="Bolsa de Detergente 2kg">
-            <h3>Bolsa de Detergente (3kg)</h3>
-            <p>Precio: $8.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="492" data-nombre="Bolsa de Detergente 3KG" data-precio="8.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-         <div class="producto" data-id="496" data-disponible="true">
-            <img src="IMG_1689.jpeg" alt="Lavavajillas Omo 450ml">
-            <h3>Lavavajillas Omo 450ml</h3>
-            <p>Precio: $2.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="496" data-nombre="Lavavajillas Omo 450ml" data-precio="2.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad agotado">Agotado</span>
-
-        </div>
-    </section>
-</div>
-
-<div class="section" id="ingredientes">
-    <h2>Ingredientes de cocina</h2>
-    <section class="productos">
-        
-        
-        <div class="producto" data-id="156" data-disponible="false">
-            <img src="cajaaceite.jpg" alt="aceitett">
-            <h3> Caja de Aceite 1Lt (12 uds)</h3>
-            <p>Precio: $45.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="156" data-nombre="Caja de Aceite 1 Lt" data-precio="45.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-
-        <div class="producto" data-id="57" data-disponible="false">
-            <img src="aceite-fotor-bg-remover-2025011911253.png" alt="aceitep">
-            <h3> Pomo de Aceite (1Lt)</h3>
-            <p>Precio: $4.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="57" data-nombre="Pomo de Aceite 1 Lt" data-precio="4.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-           <div class="producto" data-id="057" data-disponible="true">
-            <img src="IMG_2788.jpeg" alt="aceitepp">
-            <h3> Pomo de Aceite (900ml)</h3>
-            <p>Precio: $5.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="057" data-nombre="Pomo de Aceite 1 Lt" data-precio="5.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        <div class="producto" data-id="0057" data-disponible="false">
-            <img src="IMG_1935.png" alt="aceitfp">
-            <h3> Pomo de Aceite (1.89Lt)</h3>
-            <p>Precio: $7.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="0057" data-nombre="Pomo de Aceite 1.89 Lt" data-precio="7.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-
-        <div class="producto" data-id="59" data-disponible="false">
-            <img src="IMG_0953.jpeg" alt="azucar">
-            <h3> Azúcar Blanca (1KG)</h3>
-            <p>Precio: $3.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="59" data-nombre="Azúcar Blanca" data-precio="3.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-           <div class="producto" data-id="659" data-disponible="true">
-            <img src="IMG_1805.jpeg" alt="azucar">
-            <h3> Azúcar Blanca (2Lb)</h3>
-            <p>Precio: $3.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="659" data-nombre="Azúcar Blanca 2Lb" data-precio="3.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-
-        <div class="producto" data-id="60" data-disponible="true">
-            <img src="iberia.webp" alt="iveria">
-            <h3> Sazón Iberia (36uds)</h3>
-            <p>Precio: $7.00 USD</p>
-            <button class="btn agregar-al-carrito" data-id="60" data-nombre="Sazón Iberia" data-precio="7.00">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-        <div class="producto" data-id="80" data-disponible="false">
-            <img src="IMG_0756.png" alt="sal">
-            <h3>Sal de Mesa (1LB)</h3>
-            <p>Precio: $1.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="80" data-nombre="Sal de Mesa" data-precio="1.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        
-         <div class="producto" data-id="800" data-disponible="true">
-            <img src="IMG_2522.jpeg" alt="sall">
-            <h3>Sal de Mesa (1Kg)</h3>
-            <p>Precio: $2.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="800" data-nombre="Sal de Mesa 1 kg" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-        <div class="producto" data-id="87" data-disponible="true">
-            <img src="vinagre.webp" alt="vinag">
-            <h3>Vinagre (1LT)</h3>
-            <p>Precio: $2.50 USD</p>
-            <button class="btn agregar-al-carrito" data-id="87" data-nombre="Vinagre (1LT)" data-precio="2.50">Agregar al carrito</button>
-            <span class="etiqueta-disponibilidad disponible">Disponible</span>
-        </div>
-    </section>
-</div>
-
-
-
-
-    <div class="notificacion-agotado" id="notificacion-agotado">
-        Producto agotado
+        <button id="confirmar-pedido" class="boton">Confirmar Pedido</button>
     </div>
+</div>
 
-    <footer>
-        <p>&copy; 2025 La Bodeguita Online. Todos los derechos reservados.</p>
-    </footer>
-
-    <div id="boton-flotante">
-        <a href="carrito.html">
-            <img src="icono-carrito.png" alt="Carrito">
-            <span id="contador-carrito">0</span>
-        </a>
+<footer>
+    <div class="footer-content">
+       <p>&copy; 2025 La Bodeguita Online. Todos los derechos reservados.</p>
     </div>
+</footer>
 
-
-    
-    
-
-    
-
-
-
-
-
-
-
-    
 <script>
-/* =====================================================
-   LA BODEGUITA MUÃ‘OZ â€” JavaScript consolidado
-   Un Ãºnico bloque, sin duplicados, sin errores.
-   ===================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-
-  /* â”€â”€ 1. BIENVENIDA: mÃ¡quina de escribir â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initTypewriter() {
-    const elWrap = document.getElementById('typeWelcome');
-    const el     = document.getElementById('typewriter');
-    if (!elWrap || !el) return;
-
-    const text   = 'Â¡Bienvenido a La Bodeguita MuÃ±oz!';
-    const typeMs = 2000;
-    const pauseMs = 300;
-    const delMs  = 1800;
-
-    let i = 0;
-    const typeStep = Math.max(10, Math.floor(typeMs / text.length));
-
-    const typeTimer = setInterval(() => {
-      el.textContent = text.slice(0, ++i);
-      if (i >= text.length) {
-        clearInterval(typeTimer);
-        setTimeout(() => {
-          let j = text.length;
-          const delStep = Math.max(10, Math.floor(delMs / text.length));
-          const delTimer = setInterval(() => {
-            el.textContent = text.slice(0, --j);
-            if (j <= 0) {
-              clearInterval(delTimer);
-              elWrap.classList.add('hide');
-              setTimeout(() => elWrap.remove(), 400);
-            }
-          }, delStep);
-        }, pauseMs);
-      }
-    }, typeStep);
-  })();
-
-  /* â”€â”€ 2. CARRUSEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initCarousel() {
-    const track       = document.querySelector('.carousel-track');
-    const nextBtn     = document.querySelector('.carousel-button.next');
-    const prevBtn     = document.querySelector('.carousel-button.prev');
-    const indicCont   = document.querySelector('.carousel-indicators');
-    if (!track || !nextBtn || !prevBtn || !indicCont) return;
-
-    const slides = Array.from(track.children);
-    let current  = 0;
-
-    slides.forEach((_, idx) => {
-      const dot = document.createElement('button');
-      dot.setAttribute('aria-label', `Diapositiva ${idx + 1}`);
-      if (idx === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => { current = idx; go(); });
-      indicCont.appendChild(dot);
-    });
-
-    const dots = Array.from(indicCont.children);
-
-    function go() {
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    nextBtn.addEventListener('click', () => { current = (current + 1) % slides.length; go(); });
-    prevBtn.addEventListener('click', () => { current = (current - 1 + slides.length) % slides.length; go(); });
-
-    // Auto-avance cada 5 s
-    setInterval(() => { current = (current + 1) % slides.length; go(); }, 5000);
-  })();
-
-  /* â”€â”€ 3. BARRA FLOTANTE: mostrar/ocultar + arrastre â”€â”€â”€â”€â”€ */
-  (function initFloatingBar() {
-    const bar      = document.querySelector('.floating-bar');
-    const sections = document.querySelectorAll('.section');
-    if (!bar) return;
-
-    let lastY = 0, isDragging = false, startX = 0, scrollL = 0;
-
-    // Mostrar/ocultar segÃºn scroll
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      bar.classList.toggle('visible', y > 100);
-      lastY = y;
-    }, { passive: true });
-
-    // Arrastre horizontal con ratÃ³n
-    bar.addEventListener('mousedown', e => {
-      isDragging = true;
-      startX  = e.pageX - bar.offsetLeft;
-      scrollL = bar.scrollLeft;
-      bar.classList.add('grabbing');
-    });
-    bar.addEventListener('mouseleave', () => { isDragging = false; bar.classList.remove('grabbing'); });
-    bar.addEventListener('mouseup',    () => { isDragging = false; bar.classList.remove('grabbing'); });
-    bar.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      e.preventDefault();
-      bar.scrollLeft = scrollL - (e.pageX - bar.offsetLeft - startX) * 2;
-    });
-
-    // Click en enlace: scroll suave
-    bar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.getElementById(link.getAttribute('href').slice(1));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-  })();
-
-  /* â”€â”€ 4. SECCIÃ“N ACTIVA en el scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initSectionNav() {
-    const sections = document.querySelectorAll('.section');
-    const links    = document.querySelectorAll('.floating-bar a');
-    const bar      = document.getElementById('floatingBar');
-    if (!sections.length || !links.length) return;
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(sec => {
-        if (window.scrollY >= sec.offsetTop - sec.clientHeight / 3)
-          current = sec.id;
-      });
-      links.forEach(link => {
-        const matches = link.getAttribute('href').includes(current);
-        link.classList.toggle('active', matches);
-        if (matches && bar) {
-          const lr = link.getBoundingClientRect();
-          const br = bar.getBoundingClientRect();
-          if (lr.left < br.left || lr.right > br.right)
-            link.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-        }
-      });
-    }, { passive: true });
-  })();
-
-  /* â”€â”€ 5. ETIQUETAS DE DISPONIBILIDAD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initDisponibilidad() {
-    document.querySelectorAll('.producto').forEach(prod => {
-      const tag   = prod.querySelector('.etiqueta-disponibilidad');
-      const avail = prod.dataset.disponible === 'true';
-      if (!tag) return;
-      tag.textContent = avail ? 'Disponible' : 'Agotado';
-      tag.classList.toggle('disponible', avail);
-      tag.classList.toggle('agotado',    !avail);
-    });
-  })();
-
-  /* â”€â”€ 6. CARRITO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initCarrito() {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    function guardar()  { localStorage.setItem('carrito', JSON.stringify(carrito)); }
+    function mostrarCarrito() {
+    const carritoItems = document.getElementById('carrito-items');
+    const totalPrecio = document.getElementById('total-precio');
+    const contadorProductos = document.getElementById('contador-productos');
+    carritoItems.innerHTML = '';
+    let total = 0;
+    let cantidadTotal = 0;
 
-    function actualizarContador() {
-      const contador = document.getElementById('contador-carrito');
-      if (!contador) return;
-      const total = carrito.reduce((s, p) => s + p.cantidad, 0);
-      contador.textContent = total;
-    }
+    carrito.forEach((item, index) => {
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('producto');
 
-    function mostrarNotificacion(msg) {
-      const el = document.getElementById('notificacion-agotado');
-      if (!el) return;
-      el.textContent = msg || 'âš ï¸ Producto agotado';
-      el.style.display = 'block';
-      setTimeout(() => { el.style.display = 'none'; }, 2200);
-    }
+       productoDiv.innerHTML = `
+    <img src="${item.imagen}" alt="${item.nombre}">
+    <div>
+        <h3>${item.nombre}</h3>
+        ${item.sabor ? `<p>Sabor: ${item.sabor}</p>` : ''} <!-- Mostrar solo si tiene sabor -->
+        ${item.peso ? `<p>Peso: ${item.peso} libras</p>` : ''} 
+        <p>Precio: $${item.precio.toFixed(2)}</p>
+        <p>Cantidad: ${item.cantidad}</p>
+        <div>
+            <button class="boton agregar" onclick="agregarProducto(${index})">Agregar</button>
+            <button class="boton eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+        </div>
+    </div>
+`;
+        carritoItems.appendChild(productoDiv);
 
-    function agregarAlCarrito(e) {
-      const btn  = e.currentTarget;
-      const prod = btn.closest('.producto');
-      if (!prod || prod.dataset.disponible !== 'true') {
-        mostrarNotificacion('âš ï¸ Este producto estÃ¡ agotado');
-        return;
-      }
-
-      const id    = btn.dataset.id;
-      const nombre = btn.dataset.nombre;
-      const precioUnit = parseFloat(btn.dataset.precio);
-
-      // Peso opcional
-      const selPeso = prod.querySelector('.selector-peso');
-      let peso = null;
-      if (selPeso) {
-        peso = parseFloat(selPeso.value);
-        if (isNaN(peso) || peso <= 0) {
-          alert('Por favor, selecciona un peso vÃ¡lido.');
-          return;
-        }
-      }
-
-      // Sabor opcional
-      const selSabor = prod.querySelector('.selector-sabor');
-      const sabor = selSabor ? selSabor.value : null;
-
-      const precio = peso ? peso * precioUnit : precioUnit;
-      const imagen = prod.querySelector('img')?.src || '';
-
-      const existente = carrito.find(p =>
-        p.id === id &&
-        p.peso === peso &&
-        p.sabor === sabor
-      );
-
-      if (existente) {
-        existente.cantidad++;
-      } else {
-        carrito.push({ id, nombre, precio, peso, sabor, cantidad: 1, imagen });
-      }
-
-      guardar();
-      actualizarContador();
-
-      // Feedback visual en el botÃ³n
-      const textoOrig = btn.textContent;
-      btn.textContent = 'âœ“ Agregado';
-      btn.disabled = true;
-      setTimeout(() => { btn.textContent = textoOrig; btn.disabled = false; }, 1000);
-    }
-
-    document.querySelectorAll('.agregar-al-carrito')
-      .forEach(btn => btn.addEventListener('click', agregarAlCarrito));
-
-    actualizarContador();
-    // Sincronizar contador si la pestaÃ±a estÃ¡ abierta en otro lado
-    window.addEventListener('storage', actualizarContador);
-  })();
-
-  /* â”€â”€ 7. BÃšSQUEDA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initBusqueda() {
-    const input   = document.getElementById('barra-busqueda');
-    const btnBusc = document.getElementById('boton-buscar');
-    const aviso   = document.getElementById('mensaje-no-encontrado');
-    if (!input) return;
-
-    function normalizar(t) {
-      return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-    }
-
-    function buscar() {
-      const q = normalizar(input.value);
-      let hits = 0;
-      document.querySelectorAll('.producto').forEach(prod => {
-        const nombre = normalizar(prod.querySelector('h3')?.textContent || '');
-        const visible = !q || nombre.includes(q);
-        prod.style.display = visible ? '' : 'none';
-        if (visible) hits++;
-      });
-      if (aviso) aviso.style.display = (!q || hits > 0) ? 'none' : 'block';
-    }
-
-    input.addEventListener('input', buscar);
-    btnBusc?.addEventListener('click', buscar);
-  })();
-
-  /* â”€â”€ 8. SELECTOR SABOR: colores dinÃ¡micos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initSelectorSabor() {
-    const colores = {
-      'Cola':   { bg: '#8B0000', fg: '#fff' },
-      'Naranja':{ bg: '#f97316', fg: '#fff' },
-      'LimÃ³n':  { bg: '#65a30d', fg: '#fff' },
-      'PiÃ±a':   { bg: '#eab308', fg: '#fff' },
-    };
-
-    document.querySelectorAll('.selector-sabor').forEach(sel => {
-      function aplicar() {
-        const c = colores[sel.value];
-        sel.style.backgroundColor = c ? c.bg : '';
-        sel.style.color           = c ? c.fg : '';
-      }
-      aplicar();
-      sel.addEventListener('change', aplicar);
+        total += item.precio * item.cantidad; 
+        cantidadTotal += item.cantidad;
     });
-  })();
 
-  /* â”€â”€ 9. ESTADO TIENDA: horario â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  (function initEstadoTienda() {
-    const badge  = document.getElementById('estado-tienda');
-    const botones = document.querySelectorAll('.agregar-al-carrito');
-    if (!badge) return;
+    totalPrecio.innerText = `Total: $${total.toFixed(2)}`;
+    contadorProductos.innerText = `Total de Productos: ${cantidadTotal}`;
+}
 
-    function verificar() {
-      const ahora = new Date();
-      const dia   = ahora.getDay();   // 0=Dom â€¦ 6=SÃ¡b
-      const hora  = ahora.getHours();
-      // Abierto lunes-sÃ¡bado 8:00-18:00
-      const abierto = dia >= 1 && dia <= 6 && hora >= 8 && hora < 18;
 
-      badge.textContent        = abierto ? 'â— Abierto' : 'â— Cerrado';
-      badge.style.background   = abierto ? '#16a34a' : '#dc2626';
-      badge.style.color        = '#fff';
-
-      botones.forEach(btn => {
-        if (!abierto) {
-          btn.disabled = true;
-          btn.title    = 'Tienda cerrada (abre lunes-sÃ¡bado 8:00-18:00)';
-        }
-      });
-
-      if (!abierto && !document.getElementById('aviso-cerrado')) {
-        const aviso = document.createElement('div');
-        aviso.id = 'aviso-cerrado';
-        Object.assign(aviso.style, {
-          position:'fixed', top:'50%', left:'50%',
-          transform:'translate(-50%,-50%)',
-          background:'rgba(27,67,50,.92)', color:'#fff',
-          padding:'20px 28px', borderRadius:'12px',
-          textAlign:'center', zIndex:'1001',
-          fontFamily:"'Poppins',sans-serif", fontWeight:'600',
-          maxWidth:'90vw', boxShadow:'0 8px 30px rgba(0,0,0,.3)'
-        });
-        aviso.innerHTML = 'ðŸ• La tienda estÃ¡ cerrada.<br><small>Lunes a SÃ¡bado Â· 8:00 AM â€“ 6:00 PM</small>';
-        document.body.appendChild(aviso);
-        setTimeout(() => aviso.remove(), 5000);
-      }
+    function agregarProducto(index) {
+        carrito[index].cantidad++;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarrito();
     }
 
-    verificar();
-    setInterval(verificar, 60_000);
-  })();
+    function eliminarProducto(index) {
+        if (carrito[index].cantidad > 1) {
+            carrito[index].cantidad--;
+        } else {
+            carrito.splice(index, 1);
+        }
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarrito();
+    }
 
-}); // fin DOMContentLoaded
+    function realizarPedido() {
+        if (carrito.length === 0) {
+            alert('Tu carrito está vacío');
+            return;
+        }
+        abrirModal();
+    }
+
+    function abrirModal() {
+        document.getElementById('pedidoModal').style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById('pedidoModal').style.display = "none"; 
+        document.getElementById('error-msg').style.display = "none"; 
+        document.getElementById('error-hora-msg').style.display = "none"; 
+        document.getElementById('nombre').value = '';
+        document.getElementById('direccion').value = '';
+       
+    }
+
+    const servicioDomicilioSelect = document.getElementById('servicioDomicilio');
+    const estadoServicioText = document.getElementById('estadoServicio');
+
+    servicioDomicilioSelect.addEventListener('change', () => {
+        const selectedOption = servicioDomicilioSelect.value;
+        if (selectedOption === "ninguno") {
+            estadoServicioText.textContent = "No seleccionado";
+        } else {
+            estadoServicioText.textContent = selectedOption;
+        }
+    });
+    
+function confirmarPedido() {
+    const nombre = document.getElementById('nombre').value;
+    const nombreReceptor = document.getElementById('nombre-receptor').value;
+    const direccion = document.getElementById('direccion').value;
+    const telefonoReceptor = document.getElementById('telefono-receptor').value;
+    const servicioDomicilio = document.getElementById('servicioDomicilio').value;
+
+    // Validación de campos
+    if (!nombre || !nombreReceptor || !direccion || !telefonoReceptor || servicioDomicilio === "ninguno") {
+        document.getElementById('error-msg').style.display = "block";
+        return;
+    }
+
+    let total = carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
+
+    // Determinar el costo de envío
+    let precioServicio = 0;
+    if (servicioDomicilio === "San Francisco" || servicioDomicilio === "Las Novillas") {
+        precioServicio = 5;
+    } else if (["Yara", "Masó", "Veguita", "Campechuela", "Las Caobas"].includes(servicioDomicilio)) {
+        precioServicio = 10;
+    } else if (["Niquero", "Bayamo", "Media Luna"].includes(servicioDomicilio)) {
+        precioServicio = 15;
+    }
+    total += precioServicio;
+
+    // Construir el mensaje de WhatsApp
+    const mensaje = `🏪 *La Bodeguita Muñoz* 🏪\n\n` +
+        `👤 *Orden realizada por:* ${nombre}\n\n` +
+        `📦 *Productos:*\n` +
+        carrito.map(item => {
+            const pesoInfo = item.peso ? ` (${item.peso} lbs)` : '';
+            const saborInfo = item.sabor ? ` - Sabor: ${item.sabor}` : '';
+            return `➡️ *${item.cantidad}x* ${item.nombre}${pesoInfo}${saborInfo} - *$${item.precio.toFixed(2)}*`;
+        }).join('\n') +
+        `\n\n🚚 *Entrega:* ${precioServicio === 0 ? 'Gratis' : precioServicio + ' USD'}\n` +
+        `────────────────────────\n` +
+        `💰 *TOTAL:* $${total.toFixed(2)}\n\n` +
+        `📝 *Detalles de entrega:*\n` +
+        `👤 *Cliente:* ${nombreReceptor}\n` +
+        `📞 *Teléfono:* ${telefonoReceptor}\n` +
+        `📍 *Dirección:* ${direccion}\n` +
+        `🌍 *Zona:* ${servicioDomicilio}\n\n` +
+        `🎉 ¡Gracias por tu pedido! 🎉\n` +
+        `📩 Tu satisfacción es nuestra prioridad. 😊`;
+
+    // Número de teléfono en formato internacional (Cuba: +53)
+    const telefono = '+5354255271'; // Asegúrate de que este número sea correcto
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+    // Intentar abrir WhatsApp en una nueva pestaña
+    const nuevaVentana = window.open(url, '_blank');
+    
+    // Si el navegador bloqueó la ventana emergente, mostrar instrucciones
+    if (!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed == 'undefined') {
+        // Crear un elemento para mostrar el mensaje
+        const mensajeDiv = document.createElement('div');
+        mensajeDiv.innerHTML = `
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                        background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 9999;">
+                <h3>No se pudo abrir WhatsApp automáticamente</h3>
+                <p>Por favor, haz clic en este enlace:</p>
+                <a href="${url}" target="_blank" style="color: blue; text-decoration: underline;">Abrir WhatsApp</a>
+                <button onclick="this.parentNode.remove()" style="margin-top: 10px; padding: 5px 10px;">Cerrar</button>
+            </div>
+        `;
+        document.body.appendChild(mensajeDiv);
+    }
+
+    // Vaciar el carrito y cerrar el modal
+    vaciarCarrito();
+    cerrarModal();
+}
+
+
+    function vaciarCarrito() {
+        carrito = [];
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarrito();
+    }
+
+    document.getElementById('realizar-pedido').addEventListener('click', realizarPedido);
+    document.getElementById('vaciar-carrito').addEventListener('click', vaciarCarrito);
+    document.getElementById('confirmar-pedido').addEventListener('click', confirmarPedido);
+    document.getElementById('closeModal').addEventListener('click', cerrarModal);
+
+    window.addEventListener('load', mostrarCarrito);
+    setInterval(mostrarCarrito, 3000);
+
+
+    // Función para verificar si la tienda está abierta
+function estaTiendaAbierta() {
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+    return horaActual >= 1 && horaActual < 24; // 8 AM a 6 PM
+}
+
+// Función para habilitar o deshabilitar el botón de realizar pedido
+function actualizarEstadoBoton() {
+    const botonRealizarPedido = document.getElementById('realizar-pedido');
+    if (estaTiendaAbierta()) {
+        botonRealizarPedido.disabled = false; // Habilitar el botón
+    } else {
+        botonRealizarPedido.disabled = true; // Deshabilitar el botón
+    }
+}
+
+// Llamar a la función para actualizar el estado del botón cuando la página carga
+window.addEventListener('load', () => {
+    actualizarEstadoBoton(); // Actualizar el estado del botón al cargar la página
+});
+
+// Llamar a la función cada minuto para comprobar si el horario ha cambiado
+setInterval(actualizarEstadoBoton, 60000); // Actualiza el estado del botón cada minuto
+
 </script>
 </body>
 </html>
-
-
-
-
-
 
