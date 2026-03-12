@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sabor Azteca - Auténtica Cocina Mexicana. Sabores que despiertan el alma desde 1985.">
+    <title>Sabor Azteca | Auténtica Cocina Mexicana</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ================================================================
+         NAVEGACIÓN STICKY
+    ================================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+
+            <!-- Logo -->
+            <a href="#inicio" class="nav-logo">
+                <span class="logo-emoji">🌮</span>
+                <span class="logo-text">Sabor <em>Azteca</em></span>
+            </a>
+
+            <!-- Links desktop -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio"       class="nav-link">Inicio</a></li>
+                <li><a href="#menu"         class="nav-link">Menú</a></li>
+                <li><a href="#nosotros"     class="nav-link">Nosotros</a></li>
+                <li><a href="#reservaciones" class="nav-link">Reservar</a></li>
+                <li><a href="#testimonios"  class="nav-link">Reseñas</a></li>
+                <li><a href="#ubicacion"    class="nav-link">Ubicación</a></li>
+            </ul>
+
+            <!-- CTA + Hamburger -->
+            <div class="nav-actions">
+                <a href="#reservaciones" class="btn btn-nav-cta">
+                    <i class="fas fa-calendar-check"></i> Reservar Mesa
+                </a>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay para menú móvil -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+
+    <!-- ================================================================
+         HERO SECTION
+    ================================================================ -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <!-- Badge animado -->
+            <div class="hero-badge animate-fade-down">
+                <i class="fas fa-star"></i> Desde 1985 · Ciudad de México
+            </div>
+
+            <!-- Título principal -->
+            <h1 class="hero-title animate-fade-up">
+                Auténtica<br>
+                <span class="hero-title-script">Cocina Mexicana</span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="hero-subtitle animate-fade-up delay-1">
+                Sabores que despiertan el alma.<br>Tradición que se siente en cada bocado.
+            </p>
+
+            <!-- Botones -->
+            <div class="hero-buttons animate-fade-up delay-2">
+                <a href="#menu" class="btn btn-primary btn-lg">
+                    <i class="fas fa-utensils"></i> Ver Menú
+                </a>
+                <a href="#reservaciones" class="btn btn-ghost btn-lg">
+                    <i class="fas fa-calendar-check"></i> Reservar Mesa
+                </a>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="hero-stats animate-fade-up delay-3">
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="38">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Años de tradición</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="50">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Platillos auténticos</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-num" data-target="10">0</span><span class="stat-suffix">K+</span>
+                    <span class="stat-label">Clientes felices</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <a href="#menu" class="hero-scroll-indicator" aria-label="Bajar">
+            <span>Descubre más</span>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </a>
+    </section>
+
+
+    <!-- ================================================================
+         SECCIÓN MENÚ INTERACTIVO
+    ================================================================ -->
+    <section class="section menu-section" id="menu">
+        <div class="container">
+
+            <!-- Encabezado -->
+            <div class="section-header reveal">
+                <span class="section-tag">Nuestro Menú</span>
+                <h2 class="section-title">Platillos que <span class="text-accent">Enamoran</span></h2>
+                <p class="section-desc">Ingredientes frescos del mercado, recetas de generaciones y el sabor inigualable de México</p>
+            </div>
+
+            <!-- Filtros de categoría -->
+            <div class="menu-filters reveal">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-fire-flame-curved"></i> Todos
+                </button>
+                <button class="filter-btn" data-filter="tacos">
+                    <i class="fas fa-leaf"></i> Tacos
+                </button>
+                <button class="filter-btn" data-filter="burritos">
+                    <i class="fas fa-pepper-hot"></i> Burritos
+                </button>
+                <button class="filter-btn" data-filter="quesadillas">
+                    <i class="fas fa-cheese"></i> Quesadillas
+                </button>
+                <button class="filter-btn" data-filter="bebidas">
+                    <i class="fas fa-glass-water-droplet"></i> Bebidas
+                </button>
+            </div>
+
+            <!-- Grid de tarjetas -->
+            <div class="menu-grid" id="menuGrid">
+
+                <!-- ── TACOS ── -->
+                <article class="menu-card reveal" data-category="tacos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80"
+                             alt="Taco al Pastor" loading="lazy">
+                        <span class="card-tag tag-fav"><i class="fas fa-star"></i> Favorito</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Tacos</span>
+                        <h3 class="card-title">Taco al Pastor</h3>
+                        <p class="card-desc">Carne de cerdo marinada en adobo rojo con piña, cilantro y cebolla finamente picada</p>
+                        <div class="card-footer">
+                            <span class="card-price">$85 <small>MXN</small></span>
+                            <button class="btn-order" aria-label="Ordenar Taco al Pastor">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="tacos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=600&q=80"
+                             alt="Taco de Birria" loading="lazy">
+                        <span class="card-tag tag-hot"><i class="fas fa-fire"></i> Popular</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Tacos</span>
+                        <h3 class="card-title">Taco de Birria</h3>
+                        <p class="card-desc">Res estofada en salsa de chiles secos, servida con consomé caliente para remojar</p>
+                        <div class="card-footer">
+                            <span class="card-price">$95 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="tacos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1611250188496-e966043a0629?auto=format&fit=crop&w=600&q=80"
+                             alt="Taco de Carnitas" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Tacos</span>
+                        <h3 class="card-title">Taco de Carnitas</h3>
+                        <p class="card-desc">Cerdo confitado en su propia grasa, crujiente por fuera y tierno por dentro</p>
+                        <div class="card-footer">
+                            <span class="card-price">$90 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ── BURRITOS ── -->
+                <article class="menu-card reveal" data-category="burritos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80"
+                             alt="Burrito Supremo" loading="lazy">
+                        <span class="card-tag tag-fav"><i class="fas fa-star"></i> Favorito</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Burritos</span>
+                        <h3 class="card-title">Burrito Supremo</h3>
+                        <p class="card-desc">Tortilla gigante con carne, arroz, frijoles, guacamole, pico de gallo y crema ácida</p>
+                        <div class="card-footer">
+                            <span class="card-price">$145 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="burritos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1534352956036-cd81e27dd615?auto=format&fit=crop&w=600&q=80"
+                             alt="Burrito de Pollo" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Burritos</span>
+                        <h3 class="card-title">Burrito de Pollo</h3>
+                        <p class="card-desc">Pollo asado con especias, pimiento asado, queso Oaxaca fundido y salsa verde</p>
+                        <div class="card-footer">
+                            <span class="card-price">$130 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="burritos">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80"
+                             alt="Burrito Vegano" loading="lazy">
+                        <span class="card-tag tag-eco"><i class="fas fa-seedling"></i> Vegano</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Burritos</span>
+                        <h3 class="card-title">Burrito Vegano</h3>
+                        <p class="card-desc">Hongos portobello, elote asado, frijoles negros, aguacate y pico de gallo fresco</p>
+                        <div class="card-footer">
+                            <span class="card-price">$120 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ── QUESADILLAS ── -->
+                <article class="menu-card reveal" data-category="quesadillas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=600&q=80"
+                             alt="Quesadilla de Queso" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Quesadillas</span>
+                        <h3 class="card-title">Quesadilla de Queso</h3>
+                        <p class="card-desc">Tortilla de maíz azul con queso Oaxaca fundido y epazote fresco de temporada</p>
+                        <div class="card-footer">
+                            <span class="card-price">$95 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="quesadillas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=600&q=80"
+                             alt="Quesadilla de Pollo" loading="lazy">
+                        <span class="card-tag tag-hot"><i class="fas fa-fire"></i> Popular</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Quesadillas</span>
+                        <h3 class="card-title">Quesadilla al Chipotle</h3>
+                        <p class="card-desc">Pollo deshebrado en salsa chipotle con queso manchego y rajas de chile poblano</p>
+                        <div class="card-footer">
+                            <span class="card-price">$110 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="quesadillas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=600&q=80"
+                             alt="Quesadilla de Camarón" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Quesadillas</span>
+                        <h3 class="card-title">Quesadilla de Camarón</h3>
+                        <p class="card-desc">Camarón al mojo de ajo con queso asadero fundido y salsa de aguacate casera</p>
+                        <div class="card-footer">
+                            <span class="card-price">$135 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ── BEBIDAS ── -->
+                <article class="menu-card reveal" data-category="bebidas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=600&q=80"
+                             alt="Margarita Clásica" loading="lazy">
+                        <span class="card-tag tag-fav"><i class="fas fa-star"></i> Favorito</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Bebidas</span>
+                        <h3 class="card-title">Margarita Clásica</h3>
+                        <p class="card-desc">Tequila reposado, triple sec, jugo de limón fresco y sal de chamoy en el borde</p>
+                        <div class="card-footer">
+                            <span class="card-price">$85 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="bebidas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=600&q=80"
+                             alt="Horchata Artesanal" loading="lazy">
+                        <span class="card-tag tag-eco"><i class="fas fa-seedling"></i> Natural</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Bebidas</span>
+                        <h3 class="card-title">Horchata Artesanal</h3>
+                        <p class="card-desc">Arroz con canela, vainilla y leche condensada. Receta familiar de la abuela Carmen</p>
+                        <div class="card-footer">
+                            <span class="card-price">$55 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card reveal" data-category="bebidas">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80"
+                             alt="Agua de Jamaica" loading="lazy">
+                        <span class="card-tag tag-eco"><i class="fas fa-seedling"></i> Natural</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">Bebidas</span>
+                        <h3 class="card-title">Agua de Jamaica</h3>
+                        <p class="card-desc">Flor de Jamaica orgánica con azúcar de caña y limón. Refrescante y antioxidante</p>
+                        <div class="card-footer">
+                            <span class="card-price">$45 <small>MXN</small></span>
+                            <button class="btn-order">
+                                <i class="fas fa-plus"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div><!-- /menu-grid -->
+
+            <!-- Mensaje sin resultados -->
+            <p class="no-results hidden" id="noResults">
+                <i class="fas fa-search"></i> No hay platillos en esta categoría.
+            </p>
+
+        </div><!-- /container -->
+    </section>
+
+
+    <!-- ================================================================
+         SECCIÓN SOBRE NOSOTROS
+    ================================================================ -->
+    <section class="section about-section" id="nosotros">
+        <div class="container">
+            <div class="about-grid">
+
+                <!-- Imágenes -->
+                <div class="about-imgs reveal-left">
+                    <div class="about-img-main">
+                        <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=700&q=80"
+                             alt="Interior Sabor Azteca" loading="lazy">
+                    </div>
+                    <div class="about-img-float">
+                        <img src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&w=350&q=80"
+                             alt="Chef Alejandro" loading="lazy">
+                        <div class="about-award">
+                            <i class="fas fa-award"></i>
+                            <span>Premio Excelencia<br>Gastronómica 2023</span>
+                        </div>
+                    </div>
+                    <div class="about-year-badge">
+                        <span class="year-num">1985</span>
+                        <span class="year-label">Fundación</span>
+                    </div>
+                </div>
+
+                <!-- Texto -->
+                <div class="about-content reveal-right">
+                    <span class="section-tag">Nuestra Historia</span>
+                    <h2 class="section-title">Tradición con <span class="text-accent">Sabor</span></h2>
+
+                    <p class="about-text">
+                        Sabor Azteca nació en 1985 de las manos de la abuela <strong>Carmen Ramírez</strong>,
+                        quien llegó de Oaxaca con sus recetas familiares guardadas en un viejo cuaderno
+                        lleno de sabiduría culinaria y el aroma de generaciones.
+                    </p>
+                    <p class="about-text">
+                        Hoy, su nieto el <strong>Chef Alejandro Ramírez</strong> continúa esa tradición con
+                        el mismo amor y respeto por los ingredientes originarios: chiles, maíz, frijoles
+                        y especias que dan vida a la auténtica cocina mexicana.
+                    </p>
+
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Ingredientes de Temporada</h4>
+                                <p>Trabajamos con productores locales para garantizar máxima frescura</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Recetas Centenarias</h4>
+                                <p>Preservamos técnicas culinarias con siglos de historia mexicana</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Cocinado con Amor</h4>
+                                <p>Cada platillo es preparado con la misma pasión que el primero</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#menu" class="btn btn-primary">
+                        <i class="fas fa-utensils"></i> Explorar el Menú
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+         SECCIÓN RESERVACIONES
+    ================================================================ -->
+    <section class="section reservation-section" id="reservaciones">
+        <div class="reservation-bg"></div>
+        <div class="reservation-overlay"></div>
+
+        <div class="container reservation-container">
+            <div class="section-header reveal">
+                <span class="section-tag light">Reserva tu Mesa</span>
+                <h2 class="section-title light">¿Listo para <span class="text-accent-light">Saborear?</span></h2>
+                <p class="section-desc light">Reserva tu lugar y prepárate para una experiencia gastronómica inolvidable</p>
+            </div>
+
+            <div class="reservation-wrapper">
+
+                <!-- Info lateral -->
+                <div class="res-info reveal-left">
+                    <h3><i class="fas fa-info-circle"></i> Información</h3>
+
+                    <div class="res-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Horarios</strong>
+                            <p>Lun – Vie: 12:00 PM – 11:00 PM</p>
+                            <p>Sáb – Dom: 11:00 AM – 12:00 AM</p>
+                        </div>
+                    </div>
+
+                    <div class="res-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Reservas por teléfono</strong>
+                            <p>+52 55 1234 5678</p>
+                        </div>
+                    </div>
+
+                    <div class="res-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Dirección</strong>
+                            <p>Av. Insurgentes Sur 1234<br>Col. Del Valle, CDMX</p>
+                        </div>
+                    </div>
+
+                    <div class="res-info-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <strong>Grupos grandes (+15)</strong>
+                            <p>Contáctanos directamente para eventos especiales</p>
+                        </div>
+                    </div>
+
+                    <div class="res-info-item">
+                        <i class="fas fa-parking"></i>
+                        <div>
+                            <strong>Estacionamiento</strong>
+                            <p>Gratuito para clientes en sótano</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario -->
+                <form class="res-form reveal-right" id="reservationForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">
+                                <i class="fas fa-user"></i> Nombre completo *
+                            </label>
+                            <input type="text" id="nombre" name="nombre"
+                                   placeholder="Tu nombre completo" autocomplete="name">
+                            <span class="field-error" id="errNombre"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">
+                                <i class="fas fa-phone"></i> Teléfono *
+                            </label>
+                            <input type="tel" id="telefono" name="telefono"
+                                   placeholder="+52 55 0000 0000" autocomplete="tel">
+                            <span class="field-error" id="errTelefono"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="personas">
+                                <i class="fas fa-users"></i> Número de personas *
+                            </label>
+                            <select id="personas" name="personas">
+                                <option value="">Selecciona</option>
+                                <option value="1">1 persona</option>
+                                <option value="2">2 personas</option>
+                                <option value="3">3 personas</option>
+                                <option value="4">4 personas</option>
+                                <option value="5">5 personas</option>
+                                <option value="6">6 personas</option>
+                                <option value="8">7 – 10 personas</option>
+                                <option value="15">11 – 15 personas</option>
+                            </select>
+                            <span class="field-error" id="errPersonas"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">
+                                <i class="fas fa-calendar"></i> Fecha *
+                            </label>
+                            <input type="date" id="fecha" name="fecha">
+                            <span class="field-error" id="errFecha"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hora">
+                                <i class="fas fa-clock"></i> Hora *
+                            </label>
+                            <select id="hora" name="hora">
+                                <option value="">Selecciona la hora</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="21:00">9:00 PM</option>
+                                <option value="22:00">10:00 PM</option>
+                            </select>
+                            <span class="field-error" id="errHora"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i> Email (opcional)
+                            </label>
+                            <input type="email" id="email" name="email"
+                                   placeholder="tu@email.com" autocomplete="email">
+                            <span class="field-error" id="errEmail"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="notas">
+                            <i class="fas fa-comment-dots"></i> Notas especiales
+                        </label>
+                        <textarea id="notas" name="notas" rows="3"
+                                  placeholder="Alergias, ocasión especial, solicitudes de decoración..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Confirmar Reservación</span>
+                        <div class="btn-loader hidden" id="btnLoader">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+
+                    <!-- Mensaje de éxito -->
+                    <div class="form-success hidden" id="formSuccess">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>¡Reservación enviada con éxito!</strong>
+                            <p>Te contactaremos en las próximas horas para confirmar tu mesa. ¡Nos vemos pronto!</p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+         SECCIÓN TESTIMONIOS
+    ================================================================ -->
+    <section class="section testimonials-section" id="testimonios">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Testimonios</span>
+                <h2 class="section-title">Lo que dicen <span class="text-accent">nuestros clientes</span></h2>
+                <p class="section-desc">La satisfacción de cada cliente es nuestra mayor recompensa</p>
+            </div>
+
+            <div class="carousel-wrapper reveal">
+                <!-- Track del carrusel -->
+                <div class="carousel-viewport" id="carouselViewport">
+                    <div class="carousel-track" id="carouselTrack">
+
+                        <div class="testimonial-card">
+                            <div class="t-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Los tacos al pastor son una obra de arte. La carne perfectamente marinada,
+                                la piña fresca... nunca en mi vida había probado algo así. Sabor Azteca
+                                es simplemente el mejor restaurante de la ciudad."
+                            </blockquote>
+                            <div class="t-author">
+                                <img src="https://i.pravatar.cc/60?img=1" alt="María López">
+                                <div>
+                                    <strong>María López</strong>
+                                    <span>Ciudad de México <i class="fas fa-check-circle t-verified"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="t-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Vine de visita desde España y mi amigo mexicano me trajo aquí. Fue una
+                                revelación gastronómica absoluta. La birria y el consomé me dejaron sin
+                                palabras. ¡Volveré cada vez que visite México!"
+                            </blockquote>
+                            <div class="t-author">
+                                <img src="https://i.pravatar.cc/60?img=5" alt="Carlos Fernández">
+                                <div>
+                                    <strong>Carlos Fernández</strong>
+                                    <span>Barcelona, España <i class="fas fa-check-circle t-verified"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="t-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Festejé mi cumpleaños aquí con toda la familia. El Chef Alejandro fue
+                                increíblemente amable y nos explicó cada platillo con pasión. El ambiente
+                                es precioso y la comida... ¡de otro mundo completamente!"
+                            </blockquote>
+                            <div class="t-author">
+                                <img src="https://i.pravatar.cc/60?img=9" alt="Ana García">
+                                <div>
+                                    <strong>Ana García</strong>
+                                    <span>Guadalajara, México <i class="fas fa-check-circle t-verified"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="t-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-stroke"></i>
+                            </div>
+                            <blockquote>
+                                "Las margaritas son las mejores que he probado en mi vida. El trato es
+                                excelente, el lugar es muy bonito y la ubicación perfecta. Ideal para
+                                una cena romántica o salida con amigos. ¡Definitivamente regreso!"
+                            </blockquote>
+                            <div class="t-author">
+                                <img src="https://i.pravatar.cc/60?img=15" alt="Roberto Martínez">
+                                <div>
+                                    <strong>Roberto Martínez</strong>
+                                    <span>Monterrey, México <i class="fas fa-check-circle t-verified"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="t-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Soy vegetariana y quedé encantada con las opciones veganas. El burrito
+                                vegano es una explosión de sabores únicos. No se siente que falta nada.
+                                ¡El mejor restaurante mexicano de la ciudad sin duda!"
+                            </blockquote>
+                            <div class="t-author">
+                                <img src="https://i.pravatar.cc/60?img=20" alt="Sofía Mendoza">
+                                <div>
+                                    <strong>Sofía Mendoza</strong>
+                                    <span>Ciudad de México <i class="fas fa-check-circle t-verified"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /carousel-track -->
+                </div><!-- /carousel-viewport -->
+
+                <!-- Controles del carrusel -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn" aria-label="Testimonio anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <button class="carousel-btn" id="nextBtn" aria-label="Siguiente testimonio">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+         SECCIÓN UBICACIÓN
+    ================================================================ -->
+    <section class="section location-section" id="ubicacion">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Visítanos</span>
+                <h2 class="section-title">Nuestra <span class="text-accent">Ubicación</span></h2>
+            </div>
+
+            <div class="location-grid">
+
+                <!-- Mapa -->
+                <div class="location-map reveal-left">
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-99.2032%2C19.3926%2C-99.1032%2C19.4726&layer=mapnik&marker=19.4326%2C-99.1332"
+                        loading="lazy"
+                        title="Ubicación Sabor Azteca - Ciudad de México"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <!-- Info -->
+                <div class="location-info reveal-right">
+                    <h3>Cómo llegar</h3>
+
+                    <div class="loc-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Dirección</strong>
+                            <p>Av. Insurgentes Sur 1234<br>Col. Del Valle, CDMX, C.P. 03100</p>
+                        </div>
+                    </div>
+
+                    <div class="loc-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Horarios de Atención</strong>
+                            <p>Lunes a Viernes: 12:00 PM – 11:00 PM</p>
+                            <p>Sábado y Domingo: 11:00 AM – 12:00 AM</p>
+                        </div>
+                    </div>
+
+                    <div class="loc-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Teléfono / WhatsApp</strong>
+                            <p>+52 55 1234 5678</p>
+                        </div>
+                    </div>
+
+                    <div class="loc-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Correo Electrónico</strong>
+                            <p>info@saborazteca.mx</p>
+                        </div>
+                    </div>
+
+                    <div class="loc-item">
+                        <i class="fas fa-train-subway"></i>
+                        <div>
+                            <strong>Transporte público</strong>
+                            <p>Metro Insurgentes (Línea 1), a 5 min caminando</p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.openstreetmap.org/?mlat=19.4326&mlon=-99.1332#map=15/19.4326/-99.1332"
+                       target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <i class="fas fa-directions"></i> Cómo llegar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+         FOOTER
+    ================================================================ -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container footer-grid">
+
+                <!-- Marca -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-emoji">🌮</span>
+                        <span class="logo-text">Sabor <em>Azteca</em></span>
+                    </div>
+                    <p class="footer-tagline">
+                        Auténtica Cocina Mexicana desde 1985.
+                        Tradición, sabor y amor en cada platillo.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navegación -->
+                <div class="footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="#menu"><i class="fas fa-utensils"></i> Menú</a></li>
+                        <li><a href="#nosotros"><i class="fas fa-users"></i> Nosotros</a></li>
+                        <li><a href="#reservaciones"><i class="fas fa-calendar"></i> Reservar</a></li>
+                        <li><a href="#testimonios"><i class="fas fa-star"></i> Reseñas</a></li>
+                        <li><a href="#ubicacion"><i class="fas fa-map-marker-alt"></i> Ubicación</a></li>
+                    </ul>
+                </div>
+
+                <!-- Horarios -->
+                <div class="footer-col">
+                    <h4>Horarios</h4>
+                    <ul class="hours-list">
+                        <li>
+                            <span>Lunes – Viernes</span>
+                            <span>12:00 – 23:00</span>
+                        </li>
+                        <li>
+                            <span>Sábado</span>
+                            <span>11:00 – 00:00</span>
+                        </li>
+                        <li>
+                            <span>Domingo</span>
+                            <span>11:00 – 00:00</span>
+                        </li>
+                        <li class="closed">
+                            <span>Martes</span>
+                            <span>Cerrado</span>
+                        </li>
+                    </ul>
+                    <div class="footer-open-badge">
+                        <span class="dot-live"></span> Abierto ahora
+                    </div>
+                </div>
+
+                <!-- Contacto + newsletter -->
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Insurgentes Sur 1234, CDMX</li>
+                        <li><i class="fas fa-phone"></i> +52 55 1234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@saborazteca.mx</li>
+                    </ul>
+                    <div class="newsletter">
+                        <p>Ofertas exclusivas para suscriptores:</p>
+                        <div class="newsletter-form">
+                            <input type="email" placeholder="Tu email" id="newsletterEmail">
+                            <button type="button" id="newsletterBtn" aria-label="Suscribirse">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p>&copy; 2024 Sabor Azteca. Todos los derechos reservados.</p>
+                <p>Hecho con <span class="heart">❤️</span> en México 🇲🇽</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================================================================
+         TOAST NOTIFICATION
+    ================================================================ -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Botón volver arriba -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver al inicio">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
